@@ -1,0 +1,8 @@
+#Stop telling me about Mac Finder files
+.DS_Store
+
+#Compiled Python files
+*.pyc
+
+#Java class
+*.class
