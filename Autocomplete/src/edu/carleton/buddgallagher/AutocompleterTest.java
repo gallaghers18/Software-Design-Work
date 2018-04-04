@@ -53,7 +53,7 @@ class AutocompleterTest {
     void containsString() {
         List<String> completions = completer.getCompletions("te");
         for (int i = 0; i < completions.size(); i++) {
-            assertEquals(true, completions.get(i).contains("te"), "One of the matches doesn't contain the search string.";
+            assertEquals(true, completions.get(i).toLowerCase().contains("te"), "One of the matches doesn't contain the search string.");
         }
     }
 
@@ -63,7 +63,7 @@ class AutocompleterTest {
         List<String> completions2 = completer.getCompletions("T      r  I");
         String[] completionsArray1 = completions1.toArray(new String[0]);
         String[] completionsArray2 = completions2.toArray(new String[0]);
-        assertEquals(true, completionsArray1.equals(completionsArray2), "Input was not properly trimmed and made lowercase");
+        assertArrayEquals(completionsArray1, completionsArray2, "Input was not properly trimmed and made lowercase");
 
     }
 
@@ -88,17 +88,17 @@ class AutocompleterTest {
 
     @org.junit.jupiter.api.Test
     void midLastNameBeforeMidFirstName() {
-        List<String> completions = completer.getCompletions("tin");
+        List<String> completions = completer.getCompletions("rry");
         int x = completions.indexOf("Perry, Tyler");
-        int y = completions.indexOf("Pepper. Barry");
+        int y = completions.indexOf("Pepper, Barry");
         assertEquals(true, x < y, "A middle of first name match came before a middle of last name match");
     }
 
     @org.junit.jupiter.api.Test
     void orderByCloserToFrontOfString() {
         List<String> completions = completer.getCompletions("lly");
-        int x = completions.indexOf("Kelly");
-        int y = completions.indexOf("Connelly");
+        int x = completions.indexOf("Kelly, Grace");
+        int y = completions.indexOf("Connelly, Jennifer");
         assertEquals(true, x < y, "Not ordered by proximity to front (both not at beginning of last names");
     }
 
@@ -140,7 +140,7 @@ class AutocompleterTest {
     void findsMatchesAcrossComma() {
         List<String> completions = completer.getCompletions("n, s");
         for (int i = 0; i < completions.size(); i++) {
-            assertEquals(true, completions.get(i).contains("n, s"), "Did not match across the comma");
+            assertEquals(true, completions.get(i).toLowerCase().contains("n, s"), "Did not match across the comma");
         }
     }
 
