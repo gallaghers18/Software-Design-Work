@@ -1,0 +1,48 @@
+Autocompleter Test Results, 6 April 2018
+
+Our team: Sean Gallagher, Tanvi Mehta, Elizabeth Budd
+Other team: Syd Botz, Sam Bacon
+
+Did the other team's code pass their own tests?
+Yes.
+
+Compilation and running process: 
+Other team specified the file in unicode which made it incompatible with our text file. After removing the unicode specification from the creation of the scanner it ran much better.
+
+Passed 13 of 16 tests.
+
+testEmptyString: passed.
+
+testNullInput: failed.
+Found a null pointer exception. They didn't have a try-catch for null input.
+
+testNonMatchingInput: passed
+
+testNumber: passed
+
+containsString: failed
+This failed because of different interpretations of the specifications. If the search string is "te", their test looks across the comma, so "Blunt, Emily" matches in their function, which our test was not prepared for. (it seems that we dealt with commas differently, which caused issues when both teams ran tests involving commas)
+
+testFormattingOfInput: passed
+
+beginLastNameBeforeBeginFirstName: passed
+
+beginFirstNameBeforeMidLastName: passed
+
+midLastNameBeforeMidFirstName: passed
+
+orderByCloserToFrontOfString: passed
+
+alphabeticalOrdering: passed
+
+mononymousNamesAsLastNames: passed
+
+hypenFirstNameOrdering: passed
+
+hypenLastNameOrdering: passed
+
+findsMatchesAcrossComma: failed
+Found a null pointer exception. Again, problems are coming up when involving the comma.
+
+noRepeatedNames: passed
+
