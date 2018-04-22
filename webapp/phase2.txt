@@ -6,10 +6,8 @@ for data on all skaters. Can also search by team to get team stats
 and for getting players stats organized by team.
 
 User Stories: 
-Person searches player name and finds summary stats about them (Games played, Goals, Assists, Points, +/-, etc for skater;  Sv%, GAA, etc for goalie)
-
-Person searches or presses a button (various options) indicating a certain stat to get top 25 players ordered by that stat.
-
-Person searches team to pull up list of players with a few stats (Goals, points, assists) 
-Person searches team to pull up team stats summary (Wins, losses, goal diff,  etc)
+--Person searches player name and finds summary stats about them (Games played, Goals, Assists, Points, +/-, etc for skater;  Sv%, GAA, etc for goalie)
+--Person searches or presses a button (various options) indicating a certain stat to get top 25 players ordered by that stat.
+--Person searches team to pull up list of players with a few stats (Goals, points, assists) 
+--Person searches team to pull up team stats summary (Wins, losses, goal diff,  etc)
 	(These two will either be on the same page at once, or the search will give you a button to choose the output options).
