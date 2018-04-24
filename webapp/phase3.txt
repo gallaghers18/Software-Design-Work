@@ -1,0 +1,67 @@
+PARTNERS: Sean Gallagher & David White
+
+---------------[1]
+Endpoint: /team/<team_id>
+
+Summary: Returns information about the team’s season statistics and a full list of players on the team.
+
+Response Format: a JSON dictionary with two entries:
+1) A dictionary of the team’s season statistics (Keys are “id”, “team_name”, “wins”, “losses”, “overtime_losses”, “points”, “goals_for”, “goals_against”) 
+2) A list of player dictionaries with player stats (Keys are “id”, “player_number”, “first_name”, “last_name”, “age”, “position”, “height”, “weight”, “stats_summary”<-(Just goals, assists, points))
+
+A typical response will look like:
+
+{ “team_stats”: 
+	{“id”: 2, “team_name”: “Boston Bruins”, “wins”: 50, “losses”: 20, “overtime_losses”: 12, “points”: 112, “goals_for”: 267, “goals_against”: 211}
+
+ “player_stats”:
+	[ {“id”: 225, “player_number”: 37, “first_name”: “Patrice”, “last_name”: Bergeron, “age”: 32, “position”: “C”,  “height”:6-1, “weight”: 195, “stats_summary”: “30 G, 33 A, 63 P”}
+	  {“id”: 410, etc . . . }
+		…
+	  {“id”: 109, etc. . .}
+	]
+}
+
+---------------[2]
+Endpoint: /player/<player_id>
+
+Summary: Returns the personal statistics of that player from the past season.
+
+Response Format: a JSON dictionary of their stats (Keys are “id”, “first_name”, “last_name”, “position”, “team”, “games_played”, “goals”, “assists”, “points”, “plus_minus”)
+
+A typical response will look like:
+
+{“id”: 25, “first_name”: “Johnny”, “last_name”: “Boychuck”, “position”: “D”, “team”: “NYI”, “games_played”: 58, “goals”: 6, “assists”: 12, “points”: 18, “plus_minus”: -8}
+
+---------------[3]
+Endpoint: /stat/<stat_name>
+
+Summary: Returns the top 25 players in a given statistic
+
+Response Format: a JSON dictionary with “stat_name” and “players”, a list of 25 JSON dictionaries, one per player returned, sorted by the value of statname. (Dictionary matches format of /player/<player_id> endpoint).
+
+A typical response will look like:
+{ “stat_name”: points,
+“Players”:
+[{“id”: 25, “first_name”: “Johnny”, “last_name”: “Boychuck”, “position”: “D”, “team”: “NYI”, “games_played”: 58, “goals”: 6, “assists”: 12, “points”: 18, “plus_minus”: -8},
+
+{“id”: 42, “first_name”: “Douglas”, “last_name”: “Adams”, “position”: “D”, “team”: “NYI”, “games_played”: 42, “goals”: 42, “assists”: 42, “points”: 84, “plus_minus”: 6},
+
+{“id”: 23, …},
+
+...
+]
+}
+
+
+---------------
+Recall our User Stories:
+A) Person searches player name and finds summary stats about them (Games played, Goals, Assists, Points, +/-, etc for skater;  Sv%, GAA, etc for goalie)
+B) Person searches presses a button (various options) indicating a certain stat to get top 25 players ordered by that stat.
+C) Person searches team to pull up list of players with a few stats (Goals, points, assists) 
+D) Person searches team to pull up team stats summary (Wins, losses, goal diff,  etc)
+
+Story A will utilize endpoint [2] to get all the information given a certain player name/id.
+Story B will utilize endpoint [3] to get the list of players for a given stat.
+Stories C and D will utilize endpoint [1] to get both team stats and the players on the team.
+
