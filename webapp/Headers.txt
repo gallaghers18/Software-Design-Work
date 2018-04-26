@@ -1,0 +1,13 @@
+PLAYER
+PlayerId,Player,Age,Pos,Tm,GP,G,A,PTS,PlusMinus
+
+
+
+TEAM
+TeamId,TeamName,W,L,OL,PTS,Percent,GF,GA
+
+
+
+
+PLAYER_TEAM
+PlayerId,TeamId
