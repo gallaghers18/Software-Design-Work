@@ -1,13 +1,39 @@
 PLAYER
-PlayerId,Player,Age,Pos,Tm,GP,G,A,PTS,PlusMinus
+id,player_name,age,position,team_code,played,goals,assists,points,plus_minus
 
-
+CREATE TABLE players (
+    id integer,
+    player_name text,
+    age integer,
+    position text,
+    team_code text,
+    played integer,
+    goals integer,
+    assists integer,
+    points integer,
+    plus_minus integer);
 
 TEAM
-TeamId,TeamName,W,L,OL,PTS,Percent,GF,GA
+id,team_name,wins,losses,ot_losses,points,percent,goals_for, goals_against
 
+CREATE TABLE teams (
+    id integer,
+    team_name text,
+    wins integer,
+    losses integer,
+    ot_losses integer,
+    points integer,
+    percent float,
+    goals_for integer,
+    goals_against integer);
 
 
 
 PLAYER_TEAM
-PlayerId,TeamId
+player_id,team_id,team_code
+
+CREATE TABLE player_team (
+    player_id integer,
+    team_id integer,
+    team_code text);
+
