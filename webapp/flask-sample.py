@@ -55,31 +55,33 @@ def get_team(team_id):
 
 @app.route('/player/<player_id>')
 def get_player(player_id):
-    ''' Returns the list of movies that match thes (optional) GET parameters:
-          start_year, int: reject any movie released earlier than this year
-          end_year, int: reject any movie released later than this year
-          genre: reject any movie whose genre does not match this genre exactly
-        If a GET parameter is absent, then any movie is treated as though
-        it meets the corresponding constraint. For example:
-            /movies?start_year=1970
-        returns all movies made in 1970 or later, regardless of genre.
-    '''
-    movie_list = []
-    genre = flask.request.args.get('genre')
-    start_year = flask.request.args.get('start_year', default=0, type=int)
-    end_year = flask.request.args.get('end_year', default=10000, type=int)
-    print('genre: {0}, start_year: {1}, end_year: {2}'.format(genre, start_year, end_year))
+    try:
+        connection = psycopg2.connect(database=database, user=user, password=password)
+    except Exception as e:
+        print(e)
+        exit()
+    
+    try:
+        cursor = connection.cursor()
+        query = 'SELECT * FROM players WHERE id = {0} ORDER BY played DESC LIMIT 1'.format(player_id)
+        cursor.execute(query)
+    except Exception as e:
+        print(e)
+        exit()
 
-    for movie in movies:
-        if genre is not None and genre != movie['genre']:
-            continue
-        if movie['year'] < start_year:
-            continue
-        if movie['year'] > end_year:
-            continue
-        movie_list.append(movie)
-
-    return json.dumps(movie_list)
+    # We have a cursor now. Iterate over its rows to print the results.
+    player_list=[]
+    for row in cursor:
+        player = {}
+        col_num=0
+        for col_name in cursor.description:
+            player[col_name[0]]=row[col_num]
+            col_num+=1
+        player_list.append(team)
+        
+    connection.close()
+    
+    return json.dumps(player_list)
 
 @app.route('/stat/<stat_name>')
 def get_top_25(stat_name):
