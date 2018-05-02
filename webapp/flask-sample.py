@@ -8,49 +8,44 @@
 import sys
 import flask
 import json
+import psycopg2
+from config import password
+from config import database
+from config import user
+
+#log into database
+try:
+    connection = psycopg2.connect(database=database, user=user, password=password)
+except Exception as e:
+    print(e)
+    exit()
 
 app = flask.Flask(__name__)
 
-# Who needs a database when you can just hard-code some actors and movies?
-actors = [
-    {'last_name': 'Pickford', 'first_name': 'Mary'},
-    {'last_name': 'Rains', 'first_name': 'Claude'},
-    {'last_name': 'Lorre', 'first_name': 'Peter'},
-    {'last_name': 'Greenstreet', 'first_name': 'Sydney'},
-    {'last_name': 'Bergman', 'first_name': 'Ingrid'},
-    {'last_name': 'Welles', 'first_name': 'Orson'},
-    {'last_name': 'Colbert', 'first_name': 'Claudette'},
-    {'last_name': 'Adams', 'first_name': 'Amy'},
-]
-
-movies = [
-    {'title': 'Casablanca', 'year': 1942, 'genre': 'drama'},
-    {'title': 'North By Northwest', 'year': 1959, 'genre': 'thriller'},
-    {'title': 'Alien', 'year': 1979, 'genre': 'scifi'},
-    {'title': 'Bridesmaids', 'year': 2011, 'genre': 'comedy'},
-    {'title': 'Arrival', 'year': 2016, 'genre': 'scifi'},
-    {'title': 'It Happened One Night', 'year': 1934, 'genre': 'comedy'},
-    {'title': 'Fargo', 'year': 1996, 'genre': 'thriller'},
-    {'title': 'Clueless', 'year': 1995, 'genre': 'comedy'}
-]
-
 @app.route('/')
 def hello():
-    return 'Hello, Citizen of CS257.'
+    return 'Go to a more interesting page! (You know the endpoints...)'
 
-@app.route('/actor/<last_name>')
-def get_actor(last_name):
+@app.route('/team/<team_id>')
+def get_team(team_id):
     ''' Returns the first matching actor, or an empty dictionary if there's no match. '''
-    actor_dictionary = {}
-    lower_last_name = last_name.lower()
-    for actor in actors:
-        if actor['last_name'].lower().startswith(lower_last_name):
-            actor_dictionary = actor
-            break
-    return json.dumps(actor_dictionary)
+    try:
+        cursor = connection.cursor()
+        query = 'SELECT * FROM teams WHERE id = {0}'.format(team_id)
+        cursor.execute(query)
+    except Exception as e:
+        print(e)
+        exit()
 
-@app.route('/movies')
-def get_movies():
+    # We have a cursor now. Iterate over its rows to print the results.
+    for row in cursor:
+        print(row)
+
+    
+    return None
+
+@app.route('/player/<player_id>')
+def get_player(player_id):
     ''' Returns the list of movies that match thes (optional) GET parameters:
           start_year, int: reject any movie released earlier than this year
           end_year, int: reject any movie released later than this year
@@ -76,6 +71,14 @@ def get_movies():
         movie_list.append(movie)
 
     return json.dumps(movie_list)
+
+@app.route('/stat/<stat_name>')
+def get_top_25(stat_name):
+    
+    
+    return None
+
+
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
