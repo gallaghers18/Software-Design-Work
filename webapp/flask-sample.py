@@ -45,7 +45,7 @@ def get_team(team_id):
         
     connection.close()
     
-    return None
+    return "Hello"
 
 @app.route('/player/<player_id>')
 def get_player(player_id):
