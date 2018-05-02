@@ -14,11 +14,7 @@ from config import database
 from config import user
 
 #log into database
-try:
-    connection = psycopg2.connect(database=database, user=user, password=password)
-except Exception as e:
-    print(e)
-    exit()
+
 
 app = flask.Flask(__name__)
 
@@ -30,6 +26,12 @@ def hello():
 def get_team(team_id):
     ''' Returns the first matching actor, or an empty dictionary if there's no match. '''
     try:
+        connection = psycopg2.connect(database=database, user=user, password=password)
+    except Exception as e:
+        print(e)
+        exit()
+    
+    try:
         cursor = connection.cursor()
         query = 'SELECT * FROM teams WHERE id = {0}'.format(team_id)
         cursor.execute(query)
@@ -40,7 +42,8 @@ def get_team(team_id):
     # We have a cursor now. Iterate over its rows to print the results.
     for row in cursor:
         print(row)
-
+        
+    connection.close()
     
     return None
 
