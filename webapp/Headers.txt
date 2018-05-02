@@ -13,6 +13,9 @@ CREATE TABLE players (
     points integer,
     plus_minus integer);
 
+\copy players from webapp/all_players.csv  DELIMITER ',' CSV NULL AS 'NULL'
+
+
 TEAM
 id,team_name,wins,losses,ot_losses,points,percent,goals_for, goals_against
 
@@ -27,6 +30,7 @@ CREATE TABLE teams (
     goals_for integer,
     goals_against integer);
 
+\copy teams from webapp/all_teams.csv  DELIMITER ',' CSV NULL AS 'NULL'
 
 
 PLAYER_TEAM
@@ -37,3 +41,4 @@ CREATE TABLE player_team (
     team_id integer,
     team_code text);
 
+\copy player_team from webapp/player_team.csv  DELIMITER ',' CSV NULL AS 'NULL'
