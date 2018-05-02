@@ -77,7 +77,7 @@ def get_player(player_id):
         for col_name in cursor.description:
             player[col_name[0]]=row[col_num]
             col_num+=1
-        player_list.append(team)
+        player_list.append(player)
         
     connection.close()
     
