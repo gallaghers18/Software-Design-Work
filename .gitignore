@@ -6,3 +6,7 @@
 
 #Java class
 *.class
+
+*.DS_Store
+
+._*
