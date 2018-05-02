@@ -86,7 +86,7 @@ def get_player(player_id):
 
 @app.route('/stat/<stat_name>')
 def get_top_25(stat_name):
-     try:
+    try:
         connection = psycopg2.connect(database=database, user=user, password=password)
     except Exception as e:
         print(e)
