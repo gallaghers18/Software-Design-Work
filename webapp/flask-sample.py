@@ -40,12 +40,18 @@ def get_team(team_id):
         exit()
 
     # We have a cursor now. Iterate over its rows to print the results.
+    team_list=[]
     for row in cursor:
-        print(row)
+        team = {}
+        col_num=0
+        for col_name in cursor.description:
+            team[col_name[0]]=row[col_num]
+            col_num+=1
+        team_list.append(team)
         
     connection.close()
     
-    return json.dumps(cursor)
+    return json.dumps(team_list)
 
 @app.route('/player/<player_id>')
 def get_player(player_id):
