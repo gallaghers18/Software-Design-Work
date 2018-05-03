@@ -45,7 +45,7 @@ def get_team(team_id):
     col_num=0
     team_info_row = cursor.fetchone()
     for col_name in cursor.description:
-        team[col_name[0]]=team_info_row[col_num]
+        team_stats[col_name[0]]=team_info_row[col_num]
         col_num+=1
     team_dict['team_stats'] = team_stats
     
