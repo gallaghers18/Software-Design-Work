@@ -14,7 +14,7 @@ A typical response will look like:
 { “team_stats”: 
 	{“id”: 2, “team_name”: “Boston Bruins”, “wins”: 50, “losses”: 20, “overtime_losses”: 12, “points”: 112, “goals_for”: 267, “goals_against”: 211}
 
- “player_stats”:
+ “player_list”:
 	[ {“id”: 225, “player_number”: 37, “first_name”: “Patrice”, “last_name”: Bergeron, “age”: 32, “position”: “C”,  “height”:6-1, “weight”: 195, “stats_summary”: “30 G, 33 A, 63 P”}
 	  {“id”: 410, etc . . . }
 		…
