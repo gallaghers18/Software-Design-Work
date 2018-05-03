@@ -44,7 +44,7 @@ def get_team(team_id):
     team_stats = {}
     col_num=0
     for col_name in cursor.description:
-        team[col_name[0]]=row[col_num]
+        team[col_name[0]]=cursor[col_num]
         col_num+=1
     team_dict['team_stats'] = team_stats
     
