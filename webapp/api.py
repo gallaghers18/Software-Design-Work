@@ -12,18 +12,18 @@ from config import password
 from config import database
 from config import user
 
-
-
 app = flask.Flask(__name__)
+
 
 @app.route('/')
 def hello():
     return 'Go to a more interesting page! (You know the endpoints...)'
 
+
 @app.route('/team/<team_id>')
 def get_team(team_id):
     ''' Returns a list containing each matching team. Each team is a dictionary with  
-        (I)team stats and (II)a list of each player with their stats'''
+        (I)team stats dictionary and (II)list of each player dictionary containing their stats'''
 
     try:
         connection = psycopg2.connect(database=database, user=user, password=password)
@@ -33,6 +33,7 @@ def get_team(team_id):
     
     team_dict = {}
     
+    #Team stats query and dictionary construction
     try:
         cursor = connection.cursor()
         query = 'SELECT * FROM teams WHERE id={0}'.format(team_id)
@@ -49,6 +50,7 @@ def get_team(team_id):
         col_num+=1
     team_dict['team_stats'] = team_stats
     
+    #Players query and list construction
     try:
         cursor = connection.cursor()
         query = 'SELECT players.* FROM players, teams, player_team WHERE teams.id = {0} AND teams.id = player_team.team_id AND players.id = player_team.player_id AND players.team_code = player_team.team_code;'.format(team_id)
@@ -65,7 +67,6 @@ def get_team(team_id):
             player[col_name[0]]=row[col_num]
             col_num+=1
         player_list.append(player)
-        
     team_dict['player_list'] = player_list
     
         
@@ -74,7 +75,8 @@ def get_team(team_id):
     return json.dumps(team_dict)
 
 
-@app.route('/team')
+
+@app.route('/teams')
 def get_all_teams():
     ''' Returns a list of all the teams, each team conisting off some season statistics '''
     try:
@@ -108,6 +110,7 @@ def get_all_teams():
 
 @app.route('/player/<player_id>')
 def get_player(player_id):
+    ''' Return a dictionary containing the stats for a given player '''
     try:
         connection = psycopg2.connect(database=database, user=user, password=password)
     except Exception as e:
@@ -136,8 +139,10 @@ def get_player(player_id):
     return json.dumps(player_list)
 
 
+
 @app.route('/stat/<stat_name>')
 def get_top_25(stat_name):
+    ''' Return a list of the player profiles (dictionary with all stats) of the top 25 in a given stat'''
     try:
         connection = psycopg2.connect(database=database, user=user, password=password)
     except Exception as e:
