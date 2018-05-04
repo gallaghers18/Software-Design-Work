@@ -103,7 +103,7 @@ def get_top_25(stat_name):
     ''' Return a list of the player profiles (dictionary with all stats) of the top 25 in a given stat'''
     connection=connect()
 
-    cursor=query(connection,'SELECT * FROM players ORDER BY {0} DESC LIMIT 25'.format(stat_name))
+    cursor=query(connection,"SELECT a.* FROM players a INNER JOIN (SELECT id, MAX(played) played FROM players GROUP BY id) b ON a.id = b.id AND a.played=b.played ORDER BY {0} DESC LIMIT 25".format(stat_name))
     player_list=pack_json(cursor)
 
     connection.close()
