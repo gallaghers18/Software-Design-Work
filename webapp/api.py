@@ -33,6 +33,20 @@ def query(connection,query):
         exit()
     return cursor
 
+def pack_json(cursor):
+    '''Packs all rows of the query result into a json format.'''
+    output = []
+    for row in cursor:
+        row_json={}
+        col_num = 0
+        for col_name in cursor.description:
+            row_json[col_name[0]]=row[col_num]
+            col_num+=1
+        output.append(row_json)
+    if(len(output)==1):
+        return output[0]
+    return output
+
 @app.route('/')
 def hello():
     return 'Go to a more interesting page! (You know the endpoints...)'
@@ -43,33 +57,17 @@ def get_team(team_id):
     ''' Returns a list containing each matching team. Each team is a dictionary with  
         (I)team stats dictionary and (II)list of each player dictionary containing their stats'''
     connection=connect()
+    team_dict = {}
+
     #Team stats query and dictionary construction
     cursor = query(connection,'SELECT * FROM teams WHERE id={0} LIMIT 1'.format(team_id))
-    team_dict = {}
-    team_stats = {}
-    col_num=0
-    team_info_row = cursor.fetchone()
-    for col_name in cursor.description:
-        team_stats[col_name[0]]=team_info_row[col_num]
-        col_num+=1
-    team_dict['team_stats'] = team_stats
+    team_dict['team_stats'] = pack_json(cursor)
     
     #Players query and list construction
     cursor = query(connection, 'SELECT players.* FROM players, teams, player_team WHERE teams.id = {0} AND teams.id = player_team.team_id AND players.id = player_team.player_id AND players.team_code = player_team.team_code;'.format(team_id))
+    team_dict['player_list'] = pack_json(cursor)
 
-    player_list =[]
-    for row in cursor:
-        player = {}
-        col_num=0
-        for col_name in cursor.description:
-            player[col_name[0]]=row[col_num]
-            col_num+=1
-        player_list.append(player)
-    team_dict['player_list'] = player_list
-    
-        
     connection.close()
-    
     return json.dumps(team_dict)
 
 
@@ -78,19 +76,11 @@ def get_team(team_id):
 def get_all_teams():
     ''' Returns a list of all the teams, each team conisting off some season statistics '''
     connection=connect()
-    cursor=query(connection,'SELECT * FROM teams')
 
-    team_list=[]
-    for row in cursor:
-        team = {}
-        col_num=0
-        for col_name in cursor.description:
-            team[col_name[0]]=row[col_num]
-            col_num+=1
-        team_list.append(team)
-        
+    cursor=query(connection,'SELECT * FROM teams')
+    team_list=pack_json(cursor)
+
     connection.close()
-    
     return json.dumps(team_list)
 
 
@@ -99,19 +89,11 @@ def get_all_teams():
 def get_player(player_id):
     ''' Return a dictionary containing the stats for a given player '''
     connection=connect()
-    cursor = query(connection,'SELECT * FROM players WHERE id = {0} ORDER BY played DESC LIMIT 1'.format(player_id))
 
-    player_list=[]
-    for row in cursor:
-        player = {}
-        col_num=0
-        for col_name in cursor.description:
-            player[col_name[0]]=row[col_num]
-            col_num+=1
-        player_list.append(player)
-        
+    cursor = query(connection,'SELECT * FROM players WHERE id = {0} ORDER BY played DESC LIMIT 1'.format(player_id))
+    player_list=pack_json(cursor)
+
     connection.close()
-    
     return json.dumps(player_list)
 
 
@@ -120,17 +102,10 @@ def get_player(player_id):
 def get_top_25(stat_name):
     ''' Return a list of the player profiles (dictionary with all stats) of the top 25 in a given stat'''
     connection=connect()
-    cursor=query(connection,'SELECT * FROM players ORDER BY {0} DESC LIMIT 25'.format(stat_name))
 
-    player_list=[]
-    for row in cursor:
-        player = {}
-        col_num=0
-        for col_name in cursor.description:
-            player[col_name[0]]=row[col_num]
-            col_num+=1
-        player_list.append(player)
-        
+    cursor=query(connection,'SELECT * FROM players ORDER BY {0} DESC LIMIT 25'.format(stat_name))
+    player_list=pack_json(cursor)
+
     connection.close()
     
     return json.dumps(player_list)
