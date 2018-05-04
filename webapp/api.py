@@ -14,6 +14,24 @@ from config import user
 
 app = flask.Flask(__name__)
 
+def connect():
+    '''Connects to the database'''
+    try:
+        connection = psycopg2.connect(database=database, user=user, password=password)
+    except Exception as e:
+        print(e)
+        exit()
+    return connection
+
+def query(connection,query):
+    '''Returns a cursor over the results for a given query.'''
+    try:
+        cursor = connection.cursor()
+        cursor.execute(query)
+    except Exception as e:
+        print(e)
+        exit()
+    return cursor
 
 @app.route('/')
 def hello():
@@ -24,23 +42,9 @@ def hello():
 def get_team(team_id):
     ''' Returns a list containing each matching team. Each team is a dictionary with  
         (I)team stats dictionary and (II)list of each player dictionary containing their stats'''
-
-    try:
-        connection = psycopg2.connect(database=database, user=user, password=password)
-    except Exception as e:
-        print(e)
-        exit()
-    
-    team_dict = {}
-    
+    connection=connect()
     #Team stats query and dictionary construction
-    try:
-        cursor = connection.cursor()
-        query = 'SELECT * FROM teams WHERE id={0}'.format(team_id)
-        cursor.execute(query)
-    except Exception as e:
-        print(e)
-        exit()
+    cursor = query(connection,'SELECT * FROM teams WHERE id={0} LIMIT 1'.format(team_id))
         
     team_stats = {}
     col_num=0
@@ -51,13 +55,7 @@ def get_team(team_id):
     team_dict['team_stats'] = team_stats
     
     #Players query and list construction
-    try:
-        cursor = connection.cursor()
-        query = 'SELECT players.* FROM players, teams, player_team WHERE teams.id = {0} AND teams.id = player_team.team_id AND players.id = player_team.player_id AND players.team_code = player_team.team_code;'.format(team_id)
-        cursor.execute(query)
-    except Exception as e:
-        print(e)
-        exit()
+    cursor = query(connection, 'SELECT players.* FROM players, teams, player_team WHERE teams.id = {0} AND teams.id = player_team.team_id AND players.id = player_team.player_id AND players.team_code = player_team.team_code;'.format(team_id))
 
     player_list =[]
     for row in cursor:
@@ -79,19 +77,8 @@ def get_team(team_id):
 @app.route('/teams')
 def get_all_teams():
     ''' Returns a list of all the teams, each team conisting off some season statistics '''
-    try:
-        connection = psycopg2.connect(database=database, user=user, password=password)
-    except Exception as e:
-        print(e)
-        exit()
-    
-    try:
-        cursor = connection.cursor()
-        query = 'SELECT * FROM teams'
-        cursor.execute(query)
-    except Exception as e:
-        print(e)
-        exit()
+    connection=connect()
+    cursor=query(connection,'SELECT * FROM teams')
 
     team_list=[]
     for row in cursor:
@@ -111,19 +98,8 @@ def get_all_teams():
 @app.route('/player/<player_id>')
 def get_player(player_id):
     ''' Return a dictionary containing the stats for a given player '''
-    try:
-        connection = psycopg2.connect(database=database, user=user, password=password)
-    except Exception as e:
-        print(e)
-        exit()
-    
-    try:
-        cursor = connection.cursor()
-        query = 'SELECT * FROM players WHERE id = {0} ORDER BY played DESC LIMIT 1'.format(player_id)
-        cursor.execute(query)
-    except Exception as e:
-        print(e)
-        exit()
+    connection=connect()
+    cursor = query(connection,'SELECT * FROM players WHERE id = {0} ORDER BY played DESC LIMIT 1'.format(player_id))
 
     player_list=[]
     for row in cursor:
@@ -143,19 +119,8 @@ def get_player(player_id):
 @app.route('/stat/<stat_name>')
 def get_top_25(stat_name):
     ''' Return a list of the player profiles (dictionary with all stats) of the top 25 in a given stat'''
-    try:
-        connection = psycopg2.connect(database=database, user=user, password=password)
-    except Exception as e:
-        print(e)
-        exit()
-    
-    try:
-        cursor = connection.cursor()
-        query = 'SELECT * FROM players ORDER BY {0} DESC LIMIT 25'.format(stat_name)
-        cursor.execute(query)
-    except Exception as e:
-        print(e)
-        exit()
+    connection=connect()
+    cursor=query(connection,'SELECT * FROM players ORDER BY {0} DESC LIMIT 25'.format(stat_name))
 
     player_list=[]
     for row in cursor:
