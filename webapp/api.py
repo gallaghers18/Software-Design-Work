@@ -45,7 +45,7 @@ def get_team(team_id):
     connection=connect()
     #Team stats query and dictionary construction
     cursor = query(connection,'SELECT * FROM teams WHERE id={0} LIMIT 1'.format(team_id))
-        
+    team_dict = {}
     team_stats = {}
     col_num=0
     team_info_row = cursor.fetchone()
