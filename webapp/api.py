@@ -86,7 +86,7 @@ def get_all_teams():
 @app.after_request
 def set_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
-return response
+    return response
 
 @app.route('/player/<player_id>')
 def get_player(player_id):
