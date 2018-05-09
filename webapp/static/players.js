@@ -60,7 +60,7 @@ function onPlayersButtonClicked() {
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
 
-            tableBody += '<td><a onclick="getPlayer(' + playersList[k]['id'] + ",'"
+            tableBody += '<td><a onclick="getPlayer(' + playersList[k]['id'] + "','"
                             + playersList[k]['player_name']+"')\">"
                             + playersList[k]['player_name'] + '</a></td>';
 
@@ -92,7 +92,7 @@ function getPlayer(playerID,playerName) {
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
-
+    .then(console.log(response))
     .then(function(playerList) {
         var tableBody = '<tr><th>' + playerName + '</th></tr>';
             tableBody += '<tr>';
@@ -100,7 +100,7 @@ function getPlayer(playerID,playerName) {
             tableBody += playerList['assists']+ '-'+playerList['played'];
             tableBody += '</td>';
             tableBody += '</tr>';
-        }
+
         var resultsTableElement = document.getElementById('results_table');
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
