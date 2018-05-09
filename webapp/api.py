@@ -83,7 +83,10 @@ def get_all_teams():
     connection.close()
     return json.dumps(team_list)
 
-
+@app.after_request
+def set_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+return response
 
 @app.route('/player/<player_id>')
 def get_player(player_id):
