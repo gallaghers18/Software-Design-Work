@@ -31,9 +31,18 @@
 initialize();
 
 function initialize() {
-    var element = document.getElementById('players_button');
-    if (element) {
-        element.onclick = onPlayersButtonClicked;
+    var players_button_elt = document.getElementById('players_button');
+    if (players_button_elt) {
+        players_button_elt.onclick = function() {
+            createOrderedPlayerTable('id','ascend');
+        }
+    }
+    
+    var teams_button_elt = document.getElementById('teams_button');
+    if (teams_button_elt) {
+        teams_button_elt.onclick = function() {
+            createOrderedTeamTable();
+        }
     }
 }
 
@@ -42,8 +51,8 @@ function getBaseURL() {
     return baseURL;
 }
 
-function onPlayersButtonClicked() {
-    var url = getBaseURL() + '/stat/id?limit=50&order=ascend';
+function createOrderedPlayerTable(order_stat,order_direction='descend') {
+    var url = getBaseURL() + '/stat/'+order_stat+'?order='+order_direction;
 
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -58,14 +67,14 @@ function onPlayersButtonClicked() {
         // Build the table body.
         var tableBody = '';
         tableBody += '<tr>';
-        tableBody += '<th> Player </th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable(\'id\',\'ascend\')">Player</a></th>';
         tableBody += '<th> Position  </th>';
         tableBody += '<th> Team </th>';
-        tableBody += '<th> Games Played </th>';
-        tableBody += '<th> Goals </th>';
-        tableBody += '<th> Assists  </th>';
-        tableBody += '<th> Points  </th>';
-        tableBody += '<th> +/-  </th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable(\'played\')">Games Played</a></th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable(\'goals\')">Goals</a></th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable(\'assists\')">Assists</a></th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable(\'points\')">Points</a></th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable(\'plus_minus\')">+/-</a></th>';
         tableBody += '</tr>';
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
@@ -94,6 +103,10 @@ function onPlayersButtonClicked() {
     .catch(function(error) {
         console.log(error);
     });
+}
+
+function createOrderedTeamTable() {
+    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 }
 
 function getPlayer(playerID,playerName) {
