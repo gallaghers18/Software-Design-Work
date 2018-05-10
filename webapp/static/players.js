@@ -43,7 +43,7 @@ function getBaseURL() {
 }
 
 function onPlayersButtonClicked() {
-    var url = getBaseURL() + '/stat/id';
+    var url = getBaseURL() + '/stat/id?limit=50&order=ascend';
 
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -57,16 +57,29 @@ function onPlayersButtonClicked() {
     .then(function(playersList) {
         // Build the table body.
         var tableBody = '';
+        tableBody += '<tr>';
+        tableBody += '<th> Player </th>';
+        tableBody += '<th> Position  </th>';
+        tableBody += '<th> Team </th>';
+        tableBody += '<th> Games Played </th>';
+        tableBody += '<th> Goals </th>';
+        tableBody += '<th> Assists  </th>';
+        tableBody += '<th> Points  </th>';
+        tableBody += '<th> +/-  </th>';
+        tableBody += '</tr>';
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
 
             tableBody += '<td><a onclick="getPlayer(' + playersList[k]['id'] + ",'"
                             + playersList[k]['player_name']+"')\">"
                             + playersList[k]['player_name'] + '</a></td>';
-
-            tableBody += '<td>' + playersList[k]['points'] + '-';
-            tableBody += playersList[k]['assists']+ '-'+playersList[k]['played'];
-            tableBody += '</td>';
+            tableBody += '<td>' + playersList[k]['position'] + '</td>';
+            tableBody += '<td>' + playersList[k]['team_code'] + '</td>';
+            tableBody += '<td>' + playersList[k]['played'] + '</td>';
+            tableBody += '<td>' + playersList[k]['goals'] + '</td>';
+            tableBody += '<td>' + playersList[k]['assists'] + '</td>';
+            tableBody += '<td>' + playersList[k]['points'] + '</td>';
+            tableBody += '<td>' + playersList[k]['plus_minus'] + '</td>';
             tableBody += '</tr>';
         }
 

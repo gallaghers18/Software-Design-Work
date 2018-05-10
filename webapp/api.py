@@ -102,13 +102,25 @@ def get_player(player_id):
 
 
 @app.route('/stat/<stat_name>')
-def get_top_25(stat_name):
+def get_top_players(stat_name):
     ''' Return a list of the player profiles (dictionary with all stats) of the top 25 in a given stat'''
+    limit_arg = flask.request.args.get('limit')
+    limit = None
+    try:
+        limit = int(limit_arg)
+    except:
+        limit = 91897
+    
+    order_arg = flask.request.args.get('order')
+    order = 'DESC'
+    if order_arg == 'ascend':
+        order = ''
+
     connection=connect()
 
-    cursor=query(connection,"SELECT a.* FROM players a INNER JOIN (SELECT id, MAX(played) played FROM players GROUP BY id) b ON a.id = b.id AND a.played=b.played ORDER BY {0} DESC LIMIT 25".format(stat_name))
+    cursor=query(connection,"SELECT a.* FROM players a INNER JOIN (SELECT id, MAX(played) played FROM players GROUP BY id) b ON a.id = b.id AND a.played=b.played ORDER BY {0} {1} LIMIT {2}".format(stat_name, order, limit))
     player_list=pack_json(cursor)
-
+    
     connection.close()
     
     return json.dumps(player_list)
