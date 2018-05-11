@@ -106,7 +106,84 @@ function createOrderedPlayerTable(order_stat,order_direction='descend') {
 }
 
 function createOrderedTeamTable() {
-    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+    var url = getBaseURL() + '/teams/';
+
+    // Send the request to the Books API /authors/ endpoint
+    fetch(url, {method: 'get'})
+
+    // When the results come back, transform them from JSON string into
+    // a Javascript object (in this case, a list of author dictionaries).
+    .then((response) => response.json())
+
+    // Once you have your list of author dictionaries, use it to build
+    // an HTML table displaying the author names and lifespan.
+    .then(function(teamsList) {
+        // Build the table body.
+        var tableBody = '';
+        tableBody += '<tr>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable()">Name</a></th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable()">Points</a></th>';
+        tableBody += '<th>Wins</th>';
+        tableBody += '<th>Losses</th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable()">OT Losses</a></th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable()">Percent</a></th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable()">Goals for</a></th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable()">Goals against</a></th>';
+        tableBody += '</tr>';
+        for (var k = 0; k < teamsList.length; k++) {
+            tableBody += '<tr>';
+
+            tableBody += '<td><a onclick="getTeam(' + teamsList[k]['id'] + ",'"
+                            + teamsList[k]['team_name']+"')\">"
+                            + teamsList[k]['team_name'] + '</a></td>';
+            tableBody += '<td>' + teamsList[k]['points'] + '</td>';
+            tableBody += '<td>' + teamsList[k]['wins'] + '</td>';
+            tableBody += '<td>' + teamsList[k]['losses'] + '</td>';
+            tableBody += '<td>' + teamsList[k]['ot_losses'] + '</td>';
+            tableBody += '<td>' + teamsList[k]['percent'] + '</td>';
+            tableBody += '<td>' + teamsList[k]['goals_for'] + '</td>';
+            tableBody += '<td>' + teamsList[k]['goals_against'] + '</td>';
+            tableBody += '</tr>';
+        }
+
+        // Put the table body we just built inside the table that's already on the page.
+        var resultsTableElement = document.getElementById('results_table');
+        if (resultsTableElement) {
+            resultsTableElement.innerHTML = tableBody;
+        }
+    })
+
+    // Log the error if anything went wrong during the fetch.
+    .catch(function(error) {
+        console.log(error);
+    });
+}
+function getTeam(playerID,playerName) {
+    // Very similar pattern to onAuthorsButtonClicked, so I'm not
+    // repeating those comments here. Read through this code
+    // and see if it makes sense to you.
+    var url = getBaseURL() + '/player/' + playerID;
+
+    fetch(url, {method: 'get'})
+
+    .then((response) => response.json())
+    .then(function(playerList) {
+        var tableBody = '<tr><th>' + playerName + '</th></tr>';
+            tableBody += '<tr>';
+            tableBody += '<td>' + playerList['points'] + '-';
+            tableBody += playerList['assists']+ '-'+playerList['played'];
+            tableBody += '</td>';
+            tableBody += '</tr>';
+
+        var resultsTableElement = document.getElementById('results_table');
+        if (resultsTableElement) {
+            resultsTableElement.innerHTML = tableBody;
+        }
+    })
+
+    .catch(function(error) {
+        console.log(error);
+    });
 }
 
 function getPlayer(playerID,playerName) {
