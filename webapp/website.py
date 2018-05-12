@@ -15,9 +15,17 @@ app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/') 
 def get_main_page():
-    ''' This is the only route intended for human users '''
     global api_port
-    return flask.render_template('index.html', api_port=api_port)
+    global port
+    return flask.render_template('index.html', api_port=api_port, host_port=port)
+
+@app.route('/teams')
+def get_teams_page():
+   return flask.render_template('teams.html', api_port=api_port, host_port=port)
+
+@app.route('/players')
+def get_players_page():
+   return flask.render_template('players.html', api_port=api_port, host_port=port)
 
 if __name__ == '__main__':
    # if len(sys.argv) != 4:
@@ -28,4 +36,4 @@ if __name__ == '__main__':
     port = sys.argv[2]
     api_port = sys.argv[3]
     app.run(host=host, port=port)
-
+    

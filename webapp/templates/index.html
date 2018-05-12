@@ -4,7 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='players.css') }}" />
     <script>var api_port = {{ api_port }};</script>
-    <script type="text/javascript" src="{{ url_for('static', filename='players.js') }}" defer></script>
+    <script>var host_port = {{ host_port }};</script>
+    <script type="text/javascript" src="{{ url_for('static', filename='home.js') }}" defer></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='hockeyicon.png') }}" />
     <title>CS 257: Software Design, Spring 2017</title>
 </head>
@@ -13,9 +14,9 @@
     <h1>CS 257: Sample Web App</h1>
     <h2>Spring 2017</h2>
 
-    <h3>Hockey Players</h3>
+    <h3>Index Page</h3>
 
-    <p><button id="players_button">Get Players</button> <button id="teams_button">Get Teams</button></p>
+    <p><button id="home_button">Home</button><button id="players_button">Get Players</button><button id="teams_button">Get Teams</button></p>
 
     <p><table id="results_table"></table></p>
 

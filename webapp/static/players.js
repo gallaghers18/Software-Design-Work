@@ -31,9 +31,12 @@
 initialize();
 
 function initialize() {
+    createOrderedPlayerTable('id','ascend');
+    
     var players_button_elt = document.getElementById('players_button');
     if (players_button_elt) {
         players_button_elt.onclick = function() {
+            //window.location.href = getHostURL() + '/players'
             createOrderedPlayerTable('id','ascend');
         }
     }
@@ -41,7 +44,15 @@ function initialize() {
     var teams_button_elt = document.getElementById('teams_button');
     if (teams_button_elt) {
         teams_button_elt.onclick = function() {
-            createOrderedTeamTable('id', 'ascend');
+            window.location.href = getHostURL() + '/teams'
+            //createOrderedTeamTable('id', 'ascend');
+        }
+    }
+    
+    var home_button_elt = document.getElementById('home_button');
+    if (home_button_elt) {
+        home_button_elt.onclick = function () {
+            window.location.href = getHostURL()
         }
     }
 }
@@ -49,6 +60,11 @@ function initialize() {
 function getBaseURL() {
     var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + api_port;
     return baseURL;
+}
+
+function getHostURL() {
+    var hostURL = window.location.protocol + '//' + window.location.hostname + ':' + host_port;
+    return hostURL;
 }
 
 function createOrderedPlayerTable(order_stat,order_direction='descend') {
