@@ -41,7 +41,7 @@ function initialize() {
     var teams_button_elt = document.getElementById('teams_button');
     if (teams_button_elt) {
         teams_button_elt.onclick = function() {
-            createOrderedTeamTable();
+            createOrderedTeamTable('id', 'ascend');
         }
     }
 }
@@ -68,8 +68,9 @@ function createOrderedPlayerTable(order_stat,order_direction='descend') {
         var tableBody = '';
         tableBody += '<tr>';
         tableBody += '<th><a onclick="createOrderedPlayerTable(\'id\',\'ascend\')">Player</a></th>';
-        tableBody += '<th> Position  </th>';
-        tableBody += '<th> Team </th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable(\'age\')">Age</a></th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable(\'position\',\'ascend\')">Position</a></th>';
+        tableBody += '<th><a onclick="createOrderedPlayerTable(\'team_code\',\'ascend\')">Team</a></th>';
         tableBody += '<th><a onclick="createOrderedPlayerTable(\'played\')">Games Played</a></th>';
         tableBody += '<th><a onclick="createOrderedPlayerTable(\'goals\')">Goals</a></th>';
         tableBody += '<th><a onclick="createOrderedPlayerTable(\'assists\')">Assists</a></th>';
@@ -82,6 +83,8 @@ function createOrderedPlayerTable(order_stat,order_direction='descend') {
             tableBody += '<td><a onclick="getPlayer(' + playersList[k]['id'] + ",'"
                             + playersList[k]['player_name']+"')\">"
                             + playersList[k]['player_name'] + '</a></td>';
+         
+            tableBody += '<td>' + playersList[k]['age'] + '</td>';
             tableBody += '<td>' + playersList[k]['position'] + '</td>';
             tableBody += '<td>' + playersList[k]['team_code'] + '</td>';
             tableBody += '<td>' + playersList[k]['played'] + '</td>';
@@ -105,8 +108,8 @@ function createOrderedPlayerTable(order_stat,order_direction='descend') {
     });
 }
 
-function createOrderedTeamTable() {
-    var url = getBaseURL() + '/teams/';
+function createOrderedTeamTable(order_stat, order_direction='descend') {
+    var url = getBaseURL() + '/teams?stat=' + order_stat + '&order=' + order_direction;
 
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -121,14 +124,14 @@ function createOrderedTeamTable() {
         // Build the table body.
         var tableBody = '';
         tableBody += '<tr>';
-        tableBody += '<th><a onclick="createOrderedPlayerTable()">Name</a></th>';
-        tableBody += '<th><a onclick="createOrderedPlayerTable()">Points</a></th>';
-        tableBody += '<th>Wins</th>';
-        tableBody += '<th>Losses</th>';
-        tableBody += '<th><a onclick="createOrderedPlayerTable()">OT Losses</a></th>';
-        tableBody += '<th><a onclick="createOrderedPlayerTable()">Percent</a></th>';
-        tableBody += '<th><a onclick="createOrderedPlayerTable()">Goals for</a></th>';
-        tableBody += '<th><a onclick="createOrderedPlayerTable()">Goals against</a></th>';
+        tableBody += '<th><a onclick="createOrderedTeamTable(\'id\',\'ascend\')">Name</a></th>';
+        tableBody += '<th><a onclick="createOrderedTeamTable(\'points\')">Points</a></th>';
+        tableBody += '<th><a onclick="createOrderedTeamTable(\'wins\')">Wins</a></th>';
+        tableBody += '<th><a onclick="createOrderedTeamTable(\'losses\')">Losses</a></th>';
+        tableBody += '<th><a onclick="createOrderedTeamTable(\'ot_losses\')">OT Losses</a></th>';
+        tableBody += '<th><a onclick="createOrderedTeamTable(\'percent\')">Points Percentage</a></th>';
+        tableBody += '<th><a onclick="createOrderedTeamTable(\'goals_for\')">Goals For</a></th>';
+        tableBody += '<th><a onclick="createOrderedTeamTable(\'goals_against\')">Goals Against</a></th>';
         tableBody += '</tr>';
         for (var k = 0; k < teamsList.length; k++) {
             tableBody += '<tr>';

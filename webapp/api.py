@@ -73,11 +73,26 @@ def get_team(team_id):
 
 
 @app.route('/teams')
-def get_all_teams():
+def get_teams():
     ''' Returns a list of all the teams, each team conisting off some season statistics '''
-    connection=connect()
+    stat = flask.request.args.get('stat')
+    if stat == None:
+        stat = 'id'
+    limit_arg = flask.request.args.get('limit')
+    limit = None
+    try:
+        limit = int(limit_arg)
+    except:
+        limit = 91897
+    
+    order_arg = flask.request.args.get('order')
+    order = 'DESC'
+    if order_arg == 'ascend':
+        order = ''
 
-    cursor=query(connection,'SELECT * FROM teams')
+    connection=connect()
+    
+    cursor=query(connection,'SELECT * FROM teams ORDER BY {0} {1} LIMIT {2}'.format(stat, order, limit))
     team_list=pack_json(cursor)
 
     connection.close()
