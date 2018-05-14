@@ -62,7 +62,7 @@ function searchPlayer(name, id) {
         tableBody += '<tr><th>Player</th></tr>';
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
-            tableBody += '<td>' + playersList[k]['player_name'] + '</td>';
+            tableBody += '<td><button onclick="getPlayer(' + playersList[k]['id'] + ', ' + id + ')">' + playersList[k]['player_name'] + '</button></td>';
             tableBody += '</tr>';
         } 
         var resultsTableElement = document.getElementById('results_table'+id);
@@ -74,6 +74,44 @@ function searchPlayer(name, id) {
     .catch(function(error) {
         console.log(error);
     });
+    
+    
+function getPlayer(player_id, table_id) {
+    var url = getBaseURL() + '/player/' + player_id;
+
+    fetch(url, {method: 'get'})
+    
+    .then((response) => response.json())
+
+    // Once you have your list of author dictionaries, use it to build
+    // an HTML table displaying the author names and lifespan.
+    .then(function(player) {
+        // Build the table body.
+        var tableBody = '';
+        tableBody += '<tr><th>Player</th><td>' + player['player_name'] + '</td></tr>';
+        tableBody += '<tr><th>Player</th><td>' + player['position'] + '</td></tr>';
+        tableBody += '<tr><th>Player</th><td>' + player['team_code'] + '</td></tr>';
+        tableBody += '<tr><th>Player</th><td>' + player['age'] + '</td></tr>';
+        tableBody += '<tr><th>Player</th><td>' + player['played'] + '</td></tr>';
+        tableBody += '<tr><th>Player</th><td>' + player['goals'] + '</td></tr>';
+        tableBody += '<tr><th>Player</th><td>' + player['assists'] + '</td></tr>';
+        tableBody += '<tr><th>Player</th><td>' + player['points'] + '</td></tr>';
+        tableBody += '<tr><th>Player</th><td>' + player['plus_minus'] + '</td></tr>';
+        
+        // Put the table body we just built inside the table that's already on the page.
+        var resultsTableElement = document.getElementById('results_table'+table_id);
+        if (resultsTableElement) {
+            resultsTableElement.innerHTML = tableBody;
+        }
+    })
+
+    // Log the error if anything went wrong during the fetch.
+    .catch(function(error) {
+        console.log(error);
+    });
+    
+}
+    
 
 }
 
