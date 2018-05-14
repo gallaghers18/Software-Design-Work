@@ -51,9 +51,9 @@ function addSidebar() {
 }
 function addTopbar() {
     document.body.innerHTML = "<div class=\"topnav\">"
-        +"<button id=\"home_button\">Home</button>"
-        +"<button id=\"players_button\">Get Players</button>"
-        +"<button id=\"teams_button\">Get Teams</button></div>"
+        +"<a href=\""+getHostURL()+"\">Home</a>"
+        +"<a href=\""+getHostURL()+"/players"+"\">Players</a>"
+        +"<a href=\""+getHostURL()+"/teams"+"\">Teams</a>"
         +document.body.innerHTML
 }
 
