@@ -62,7 +62,7 @@ function searchPlayer(name, id) {
         tableBody += '<tr><th>Player</th></tr>';
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
-            tableBody += '<td><button onclick="getPlayer(' + playersList[k]['id'] + ', ' + id + ')">' + playersList[k]['player_name'] + '</button></td>';
+            tableBody += '<td><button onclick="function() {createPlayerCompTable(' + playersList[k]['id'] + ', ' + id + ').then(colorTable())}">' + playersList[k]['player_name'] + '</button></td>';
             tableBody += '</tr>';
         } 
         var resultsTableElement = document.getElementById('results_table'+id);
@@ -77,7 +77,7 @@ function searchPlayer(name, id) {
     
 }
 
-function getPlayer(player_id, table_id) {
+function createPlayerCompTable(player_id, table_id) {
     var url = getBaseURL() + '/player/' + player_id;
 
     fetch(url, {method: 'get'})
@@ -105,13 +105,12 @@ function getPlayer(player_id, table_id) {
             resultsTableElement.innerHTML = tableBody;
         }
     })
-
+    
     // Log the error if anything went wrong during the fetch.
     .catch(function(error) {
         console.log(error);
     });
     
-    colorTable();
     
 }
     
@@ -124,7 +123,7 @@ function colorTable() {
     var i=0;
     while(i<table1.length && i<table2.length) {
         table1[i].style.background = "green";
-        
+        table2[i].style.background = "red";
         i++;
     }
     
