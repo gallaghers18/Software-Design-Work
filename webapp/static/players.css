@@ -6,6 +6,13 @@
     for CS 257, Spring 2016. 
 */
 
+
+/* Style page content */
+.main {
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
 table {
     border-collapse: collapse;
 }
@@ -53,8 +60,3 @@ a:hover {
     color: #D8D8D8;
 }
 
-/* Style page content */
-.main {
-    margin-left: 160px; /* Same as the width of the sidebar */
-    padding: 0px 10px;
-}
