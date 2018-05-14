@@ -32,6 +32,7 @@ initialize();
 
 function initialize() {
     addSidebar();
+    addTopbar();
     createSidebarTeamTable('id', 'ascend');
 }
 
@@ -46,7 +47,14 @@ function getHostURL() {
 }
 
 function addSidebar() {
-    document.body.innerHTML = "<div class=\"topnav\"></div><div class=\"sidenav\" id=\"teams\"></div>"+ document.body.innerHTML 
+    document.body.innerHTML = "<div class=\"sidenav\" id=\"teams\"></div>"+ document.body.innerHTML
+}
+function addTopbar() {
+    document.body.innerHTML = "<div class=\"topnav\">"
+        +"<button id=\"home_button\">Home</button>"
+        +"<button id=\"players_button\">Get Players</button>"
+        +"<button id=\"teams_button\">Get Teams</button></div>"
+        +document.body.innerHTML
 }
 
 function createSidebarTeamTable(order_stat, order_direction='descend') {
