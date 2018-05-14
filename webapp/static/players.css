@@ -47,7 +47,7 @@ a:hover {
 }
 
 /* The navigation menu links */
-.sidenav a {
+.sidenav button {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
