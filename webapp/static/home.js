@@ -75,7 +75,8 @@ function searchPlayer(name, id) {
         console.log(error);
     });
     
-    
+}
+
 function getPlayer(player_id, table_id) {
     var url = getBaseURL() + '/player/' + player_id;
 
@@ -89,14 +90,14 @@ function getPlayer(player_id, table_id) {
         // Build the table body.
         var tableBody = '';
         tableBody += '<tr><th>Player</th><td>' + player['player_name'] + '</td></tr>';
-        tableBody += '<tr><th>Player</th><td>' + player['position'] + '</td></tr>';
-        tableBody += '<tr><th>Player</th><td>' + player['team_code'] + '</td></tr>';
-        tableBody += '<tr><th>Player</th><td>' + player['age'] + '</td></tr>';
-        tableBody += '<tr><th>Player</th><td>' + player['played'] + '</td></tr>';
-        tableBody += '<tr><th>Player</th><td>' + player['goals'] + '</td></tr>';
-        tableBody += '<tr><th>Player</th><td>' + player['assists'] + '</td></tr>';
-        tableBody += '<tr><th>Player</th><td>' + player['points'] + '</td></tr>';
-        tableBody += '<tr><th>Player</th><td>' + player['plus_minus'] + '</td></tr>';
+        tableBody += '<tr><th>Position</th><td>' + player['position'] + '</td></tr>';
+        tableBody += '<tr><th>Team</th><td>' + player['team_code'] + '</td></tr>';
+        tableBody += '<tr><th>Age</th><td>' + player['age'] + '</td></tr>';
+        tableBody += '<tr><th>Games Played</th><td>' + player['played'] + '</td></tr>';
+        tableBody += '<tr><th>Goals</th><td>' + player['goals'] + '</td></tr>';
+        tableBody += '<tr><th>Assists</th><td>' + player['assists'] + '</td></tr>';
+        tableBody += '<tr><th>Points</th><td>' + player['points'] + '</td></tr>';
+        tableBody += '<tr><th>+/-</th><td>' + player['plus_minus'] + '</td></tr>';
         
         // Put the table body we just built inside the table that's already on the page.
         var resultsTableElement = document.getElementById('results_table'+table_id);
@@ -113,7 +114,7 @@ function getPlayer(player_id, table_id) {
 }
     
 
-}
+
 
 
 

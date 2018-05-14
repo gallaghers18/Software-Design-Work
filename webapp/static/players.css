@@ -18,7 +18,9 @@
 }
 
 table {
+    display: inline-block;
     border-collapse: collapse;
+    vertical-align: top;
 }
 
 th, td {
@@ -37,6 +39,18 @@ a:hover {
   cursor: pointer;
 }
 
+.table button {
+    width: 100%;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border: 1px solid black;
+    display: inline-block;
+    color: #0B86B5;
+    display: block;
+}
+
 /* The sidebar menu */
 .topnav {
     height: 5%;
@@ -48,7 +62,7 @@ a:hover {
     background-color: #111; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
 }
-.topnav button {
+.topnav a {
     width: 160px;
     height: 100%;
     padding: 8px 16px;
