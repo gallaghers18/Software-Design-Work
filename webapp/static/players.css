@@ -43,20 +43,27 @@ a:hover {
     left: 0;
     background-color: #111; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
 }
 
 /* The navigation menu links */
 .sidenav button {
-    padding: 6px 8px 6px 16px;
+    width: 100%;
+    padding: 8px 16px;
+    text-align: center;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 16px;
+    border: 1px solid black;
+    display: inline-block;
     color: #0B86B5;
     display: block;
 }
 
+.sidenav .button:not(:last-child) {
+    border-bottom: none;
+}
+
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
+.sidenav button:hover {
     color: #D8D8D8;
 }
 
