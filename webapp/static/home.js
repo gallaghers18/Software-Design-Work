@@ -44,6 +44,10 @@ function getHostURL() {
     return hostURL;
 }
 
+function getSearchResults() {
+    var search_string = document.getElementById("search_text");
+    getPlayer(1, "Justin Abdelkader")
+}
 
 function getPlayer(playerID,playerName) {
     // Very similar pattern to onAuthorsButtonClicked, so I'm not
