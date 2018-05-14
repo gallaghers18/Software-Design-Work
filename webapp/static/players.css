@@ -10,6 +10,8 @@
 /* Style page content */
 .main {
     margin-left: 160px; /* Same as the width of the sidebar */
+    position: relative;
+    top: 5%;
     padding: 0px 10px;
 }
 
@@ -35,8 +37,9 @@ a:hover {
 
 /* The sidebar menu */
 .topnav {
+    height: 5%;
     width: 100%; /* Set the width of the sidebar */
-    position: absolute; /* Fixed Sidebar (stay in place on scroll) */
+    position: relative; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
@@ -45,6 +48,7 @@ a:hover {
 }
 .topnav button {
     width: 160px;
+    height: 100%;
     padding: 8px 16px;
     text-align: center;
     text-decoration: none;
@@ -63,9 +67,9 @@ a:hover {
 .sidenav {
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 160px; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    position: relative; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
+    top: 5%; /* Stay at the top */
     left: 0;
     background-color: #111; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
