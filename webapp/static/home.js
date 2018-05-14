@@ -46,6 +46,7 @@ function getHostURL() {
 
 function getSearchResults() {
     var search_string = document.getElementById("search_text");
+    searchPlayer(search_string);
 }
 
 
@@ -53,14 +54,17 @@ function searchPlayer(name) {
     var url = getBaseURL() + '/name/' + name;
     
     fetch(url, {method: 'get'})
+
     .then((response) => response.json())
-    .then(function(playerList) {
-        var tableBody = '<tr><th>Player<\th><\th>;
+
+    .then(function(playersList) {
+        var tableBody = '';
+        tableBody += '<tr><th>Player</th></tr>';
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
             tableBody += '<td>' + playersList[k]['player_name'] + '</td>';
             tableBody += '</tr>';
-        }        
+        } 
         var resultsTableElement = document.getElementById('results_table');
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
