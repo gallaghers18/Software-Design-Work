@@ -68,7 +68,8 @@ function searchPlayer(name, id) {
         var resultsTableElement = document.getElementById('results_table'+id);
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
-        }    
+        }
+        return;
     })
     
     .catch(function(error) {
@@ -109,6 +110,7 @@ function createPlayerCompTable(player_id, table_id) {
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
+        return;
     })
     
     // Log the error if anything went wrong during the fetch.
@@ -131,6 +133,7 @@ function colorTable() {
         table2[i].style.background = "red";
         i++;
     }
+    return;
     
     
 }
