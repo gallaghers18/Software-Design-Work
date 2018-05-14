@@ -111,8 +111,25 @@ function getPlayer(player_id, table_id) {
         console.log(error);
     });
     
+    colorTable();
+    
 }
     
+
+function colorTable() {
+    var table1 = document.getElementById('results_table1').getElementsByTagName('td');
+    
+    var table2 = document.getElementById('results_table2').getElementsByTagName('td');
+    
+    var i=0;
+    while(i<table1.length && i<table2.length) {
+        table1[i].style.background = "green";
+        
+        i++;
+    }
+    
+    
+}
 
 
 
