@@ -75,9 +75,11 @@ def get_team(team_id):
 @app.route('/teams')
 def get_teams():
     ''' Returns a list of all the teams, each team conisting off some season statistics '''
-    stat = flask.request.args.get('stat')
-    if stat == None:
-        stat = 'id'
+    sstat_arg = flask.request.args.get('stat')
+    stat = 'id'
+    if stat_arg in ['wins','losses','percent','ot_losses','points','goals_for','team_name','id','goals_against']:
+        stat = stat_arg
+        
     limit_arg = flask.request.args.get('limit')
     limit = None
     try:
@@ -116,9 +118,14 @@ def get_player(player_id):
 
 
 
-@app.route('/stat/<stat_name>')
+@app.route('/players')
 def get_top_players(stat_name):
     ''' Return a list of the player profiles (dictionary with all stats) of the top 25 in a given stat'''
+    stat_arg = flask.request.args.get('stat')
+    stat = 'id'
+    if stat_arg in ['player_name','played','age','plus_minus','assists','goals','position','team_code','id','points']:
+        stat = stat_arg
+        
     limit_arg = flask.request.args.get('limit')
     limit = None
     try:

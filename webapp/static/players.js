@@ -45,7 +45,7 @@ function getHostURL() {
 }
 
 function createOrderedPlayerTable(order_stat,order_direction='descend') {
-    var url = getBaseURL() + '/stat/'+order_stat+'?order='+order_direction;
+    var url = getBaseURL() + '/players?stat=' + order_stat + '&order=' + order_direction;
 
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
