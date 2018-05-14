@@ -10,6 +10,7 @@
 /* Style page content */
 .main {
     vertical-align: top;
+    margin-left: 10%;
     display: inline-block;
     position: relative;
     top: 0;
@@ -68,10 +69,10 @@ a:hover {
 .sidenav {
     display: inline-block;
     height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 160px; /* Set the width of the sidebar */
+    width: 200px; /* Set the width of the sidebar */
     position: relative; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
-    top: 5%; /* Stay at the top */
+    top: 10px; /* Stay at the top */
     left: 0;
     background-color: #111; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
@@ -80,7 +81,7 @@ a:hover {
 /* The navigation menu links */
 .sidenav button {
     width: 100%;
-    padding: 8px 16px;
+    padding: 2px 2px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
