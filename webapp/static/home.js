@@ -62,7 +62,7 @@ function searchPlayer(name, id) {
         tableBody += '<tr><th>Player</th></tr>';
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
-            tableBody += '<td><button onclick="function() {createPlayerCompTable(' + playersList[k]['id'] + ', ' + id + ').then(colorTable())}">' + playersList[k]['player_name'] + '</button></td>';
+            tableBody += '<td><button onclick="both('+playersList[k]['id']+','+id+')">' + playersList[k]['player_name'] + '</button></td>';
             tableBody += '</tr>';
         } 
         var resultsTableElement = document.getElementById('results_table'+id);
@@ -75,6 +75,11 @@ function searchPlayer(name, id) {
         console.log(error);
     });
     
+}
+
+function both(id, tableID) {
+    createPlayerCompTable(id, tableID)
+    .then(colorTable());
 }
 
 function createPlayerCompTable(player_id, table_id) {
