@@ -46,7 +46,7 @@ function getHostURL() {
 }
 
 function addSidebar() {
-    document.body.innerHTML = "<div class=\"sidenav\"></div>"+ document.body.innerHTML 
+    document.body.innerHTML = "<div class=\"topnav\"></div><div class=\"sidenav\" id=\"teams\"></div>"+ document.body.innerHTML 
 }
 
 function createSidebarTeamTable(order_stat, order_direction='descend') {

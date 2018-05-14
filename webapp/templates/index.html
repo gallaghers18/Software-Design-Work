@@ -5,23 +5,13 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='players.css') }}" />
     <script>var api_port = {{ api_port }};</script>
     <script>var host_port = {{ host_port }};</script>
-    <script type="text/javascript" src="{{ url_for('static', filename='team_sidebar.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='home.js') }}" defer></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='hockeyicon.png') }}" />
     <title>CS 257: Software Design, Spring 2017</title>
-    <div class = "topnav">
-        <button id="home_button">Home</button>
-        <button id="players_button">Get Players</button>
-        <button id="teams_button">Get Teams</button>
-    </div>
 </head>
 
 <body>
-
-<!-- Side navigation -->
-<div class="sidenav" id = "teams">
-</div>
-
+<script type = "text/javascript" src="{{ url_for('static',filename='team_sidebar.js') }}"></script>
 <div class="main">
     <h1>CS 257: Sample Web App</h1>
     <h2>Spring 2017</h2>
