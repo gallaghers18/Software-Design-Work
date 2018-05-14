@@ -46,7 +46,7 @@ function getHostURL() {
 
 function getSearchResults() {
     var search_string = document.getElementById("search_text");
-    getPlayer(1, "Justin Abdelkader")
+    
 }
 
 function getPlayer(playerID,playerName) {
