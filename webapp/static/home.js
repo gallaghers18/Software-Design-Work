@@ -44,13 +44,13 @@ function getHostURL() {
     return hostURL;
 }
 
-function getSearchResults() {
-    var search_string = document.getElementById("search_text");
-    searchPlayer(search_string);
+function getSearchResults(id) {
+    var search_string = document.getElementById('search_text'+id).value;
+    searchPlayer(search_string, id);
 }
 
 
-function searchPlayer(name) {
+function searchPlayer(name, id) {
     var url = getBaseURL() + '/name/' + name;
     
     fetch(url, {method: 'get'})
@@ -65,7 +65,7 @@ function searchPlayer(name) {
             tableBody += '<td>' + playersList[k]['player_name'] + '</td>';
             tableBody += '</tr>';
         } 
-        var resultsTableElement = document.getElementById('results_table');
+        var resultsTableElement = document.getElementById('results_table'+id);
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }    
@@ -78,31 +78,4 @@ function searchPlayer(name) {
 }
 
 
-function getPlayer(playerID,playerName) {
-    // Very similar pattern to onAuthorsButtonClicked, so I'm not
-    // repeating those comments here. Read through this code
-    // and see if it makes sense to you.
-    var url = getBaseURL() + '/player/' + playerID;
-
-    fetch(url, {method: 'get'})
-
-    .then((response) => response.json())
-    .then(function(playerList) {
-        var tableBody = '<tr><th>' + playerName + '</th></tr>';
-            tableBody += '<tr>';
-            tableBody += '<td>' + playerList['points'] + '-';
-            tableBody += playerList['assists']+ '-'+playerList['played'];
-            tableBody += '</td>';
-            tableBody += '</tr>';
-
-        var resultsTableElement = document.getElementById('results_table');
-        if (resultsTableElement) {
-            resultsTableElement.innerHTML = tableBody;
-        }
-    })
-
-    .catch(function(error) {
-        console.log(error);
-    });
-}
 

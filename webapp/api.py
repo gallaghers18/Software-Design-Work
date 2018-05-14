@@ -154,7 +154,7 @@ def get_players_by_name(name):
     
     connection=connect()
 
-    cursor=query(connection,"SELECT a.player_name FROM players a INNER JOIN (SELECT id, MAX(played) played FROM players WHERE LOWER(player_name) LIKE '%{0}%' GROUP BY id) b ON a.id = b.id AND a.played=b.played ".format(name))
+    cursor=query(connection,"SELECT a.player_name, a.id FROM players a INNER JOIN (SELECT id, MAX(played) played FROM players WHERE LOWER(player_name) LIKE '%{0}%' GROUP BY id) b ON a.id = b.id AND a.played=b.played ".format(name))
     
     player_list=pack_json(cursor)
     
