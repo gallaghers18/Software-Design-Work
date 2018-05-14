@@ -31,6 +31,7 @@
 initialize();
 
 function initialize() {
+    addSidebar();
     createSidebarTeamTable('id', 'ascend');
 }
 
@@ -42,6 +43,10 @@ function getBaseURL() {
 function getHostURL() {
     var hostURL = window.location.protocol + '//' + window.location.hostname + ':' + host_port;
     return hostURL;
+}
+
+function addSidebar() {
+    document.body.innerHTML = "<div class=\"sidenav\"></div>"+ document.body.innerHTML 
 }
 
 function createSidebarTeamTable(order_stat, order_direction='descend') {
