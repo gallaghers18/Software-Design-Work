@@ -3,7 +3,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>var api_port = {{ api_port }};</script>
     <script>var host_port = {{ host_port }};</script>
     <script>var team_id = {{ team_id }};</script>
@@ -16,8 +15,10 @@
 <script type = "text/javascript" src="{{ url_for('static',filename='team_sidebar.js') }}"></script>
 <div class="main">
 
-    <h3 id="team_name"></h3>
-    <p><table id="team_stats"></table><table id="team_players"></table></p>
+    <h2 id="team_name"></h2>
+    <h3>Team Stats</h3>
+    <p><table id="team_stats"><h3>Player Stats</h3>
+    </table><table id="team_players"></table></p>
 </div>
 
 

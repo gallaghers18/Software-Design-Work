@@ -29,7 +29,11 @@ def get_players_page():
 
 @app.route('/team/<team_id>')
 def get_team_page(team_id):
-  return flask.render_template('team.html', team_id=team_id ,api_port=api_port, host_port=port)
+  return flask.render_template('team.html', team_id=team_id, api_port=api_port, host_port=port)
+
+@app.route('/player/<player_id>')
+def get_player_page(player_id):
+    return flask.render_template('player.html', player_id=player_id, api_port=api_port, host_port=port)
 
 if __name__ == '__main__':
    # if len(sys.argv) != 4:

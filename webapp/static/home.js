@@ -93,8 +93,6 @@ function createPlayerCompTable(player_id, table_id) {
     
     .then((response) => response.json())
 
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
     .then(function(player) {
         // Build the table body.
         var tableBody = '';
