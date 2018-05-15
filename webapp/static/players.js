@@ -72,7 +72,7 @@ function createOrderedPlayerTable(order_stat,order_direction='descend') {
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
 
-            tableBody += '<td><a href=\"' + getHostUrl() + '/player/' + playersList[k]['id'] + '\">'
+            tableBody += '<td><a href=\"' + getHostURL() + '/player/' + playersList[k]['id'] + '\">'
                             + playersList[k]['player_name'] + '</a></td>';            
             tableBody += '<td>' + playersList[k]['age'] + '</td>';
             tableBody += '<td>' + playersList[k]['position'] + '</td>';

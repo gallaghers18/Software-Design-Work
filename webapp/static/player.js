@@ -2,10 +2,10 @@
 
 
 
-initialize();
+initialize(player_id);
 
 function initialize() {
-    createOrderedTeamTable('id', 'ascend');
+    createPlayerTable(player_id);
 }
 
 function getBaseURL() {
@@ -18,7 +18,7 @@ function getHostURL() {
     return hostURL;
 }
 
-function createPlayerTable(player_id, table_id) {
+function createPlayerTable(player_id) {
     var url = getBaseURL() + '/player/' + player_id;
 
     fetch(url, {method: 'get'})
