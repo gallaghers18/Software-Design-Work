@@ -79,8 +79,7 @@ function searchPlayer(name, id) {
 }
 
 function both(id, tableID) {
-    createPlayerCompTable(id, tableID)
-    .then(colorTable());
+    createPlayerCompTable(id, tableID);
 }
 
 function createPlayerCompTable(player_id, table_id) {
@@ -110,6 +109,10 @@ function createPlayerCompTable(player_id, table_id) {
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
+        var runScriptElement = document.getElementById('runcode');
+        if(runScriptElement) {
+            runScriptElement.innerHTML = "<script type=\"text/javascript\">colorTable();</script>"+runScriptElement.innerHTML
+        }
         return;
     })
     
@@ -132,8 +135,7 @@ function colorTable() {
         table1[i].style.background = "green";
         table2[i].style.background = "red";
         i++;
-    }
-    return;
+    }return;
     
     
 }
