@@ -55,6 +55,44 @@ function createOrderedPlayerTable(team_id,stat='id',order='descend') {
     // Once you have your list of author dictionaries, use it to build
     // an HTML table displaying the author names and lifespan.
     .then(function(teamDictionary) {
+        var teamName=teamDictionary['team_stats']['team_name'];
+        var TeamNameElement = document.getElementById('team_name');
+        if (TeamNameElement) {
+            TeamNameElement.innerHTML = teamName;
+        }
+        
+        var teamsList = teamDictionary['team_stats'];
+        var teamStatsBody = '';
+        teamStatsBody += '<tr>';
+        teamStatsBody += '<th>Points</th>';
+        teamStatsBody += '<th>Wins</th>';
+        teamStatsBody += '<th>Losses</th>';
+        teamStatsBody += '<th>OT Losses</th>';
+        teamStatsBody += '<th>Points Percentage</th>';
+        teamStatsBody += '<th>Goals For</th>';
+        teamStatsBody += '<th>Goals Against</th>';
+        teamStatsBody += '</tr>';
+        for (var k = 0; k < teamsList.length; k++) {
+            teamStatsBody += '<tr>';
+            teamStatsBody += '<td>' + teamsList[k]['points'] + '</td>';
+            teamStatsBody += '<td>' + teamsList[k]['wins'] + '</td>';
+            teamStatsBody += '<td>' + teamsList[k]['losses'] + '</td>';
+            teamStatsBody += '<td>' + teamsList[k]['ot_losses'] + '</td>';
+            teamStatsBody += '<td>' + teamsList[k]['percent'] + '</td>';
+            teamStatsBody += '<td>' + teamsList[k]['goals_for'] + '</td>';
+            teamStatsBody += '<td>' + teamsList[k]['goals_against'] + '</td>';
+            teamStatsBody += '</tr>';
+        }
+
+        // Put the table body we just built inside the table that's already on the page.
+        var teamsTableElement = document.getElementById('team_stats');
+        if (teamsTableElement) {
+            teamsTableElement.innerHTML = teamStatsBody;
+        }
+        
+        
+        
+        
         // Build the table body.
         var tableBody = '';
         tableBody += '<tr>';
