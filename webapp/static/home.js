@@ -44,13 +44,13 @@ function getHostURL() {
     return hostURL;
 }
 
-function getSearchResults(id) {
-    var search_string = document.getElementById('search_text'+id).value;
+function getSearchResults(text_id) {
+    var search_string = document.getElementById('search_text'+text_id).value;
     searchPlayer(search_string, id);
 }
 
 
-function searchPlayer(name, id) {
+function searchPlayer(name, table_id) {
     var url = getBaseURL() + '/name/' + name;
     
     fetch(url, {method: 'get'})
@@ -59,13 +59,14 @@ function searchPlayer(name, id) {
 
     .then(function(playersList) {
         var tableBody = '';
+        tableBody += name;
         tableBody += '<tr><th>Player</th></tr>';
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
-            tableBody += '<td><button onclick="both('+playersList[k]['id']+','+id+')">' + playersList[k]['player_name'] + '</button></td>';
+            tableBody += '<td><button onclick="createPlayerCompTable('+playersList[k]['id']+','+table_id+')">' + playersList[k]['player_name'] + '</button></td>';
             tableBody += '</tr>';
         } 
-        var resultsTableElement = document.getElementById('results_table'+id);
+        var resultsTableElement = document.getElementById('results_table'+table_id);
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
