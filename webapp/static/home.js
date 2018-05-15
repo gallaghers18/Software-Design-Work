@@ -58,6 +58,12 @@ function searchPlayer(name, id) {
     .then((response) => response.json())
 
     .then(function(playersList) {
+        if (!Array.isArray(playersList)) {
+        var tempArray = [];
+        tempArray.push(playersList);
+        playersList = tempArray;
+        }
+
         var tableBody = '';
         tableBody += '<tr><th>Player</th></tr>';
         for (var k = 0; k < playersList.length; k++) {
