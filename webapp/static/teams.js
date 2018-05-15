@@ -72,9 +72,7 @@ function createOrderedTeamTable(order_stat, order_direction='descend') {
         for (var k = 0; k < teamsList.length; k++) {
             tableBody += '<tr>';
 
-            tableBody += '<td><a onclick="getTeam(' + teamsList[k]['id'] + ",'"
-                            + teamsList[k]['team_name']+"')\">"
-                            + teamsList[k]['team_name'] + '</a></td>';
+            tableBody += '<td><a href="'+ getHostURL() +'/team/'+ teamsList[k]['id'] + '">' + teamsList[k]['team_name'] + '</a></td>';
             tableBody += '<td>' + teamsList[k]['points'] + '</td>';
             tableBody += '<td>' + teamsList[k]['wins'] + '</td>';
             tableBody += '<td>' + teamsList[k]['losses'] + '</td>';

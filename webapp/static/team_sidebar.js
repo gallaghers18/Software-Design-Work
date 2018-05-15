@@ -73,7 +73,7 @@ function createSidebarTeamTable(order_stat, order_direction='descend') {
         // Build the table body.
         var tableBody = '';
         for (var k = 0; k < teamsList.length; k++) {
-            tableBody += '<button>'// onclick="getTeam(' + teamsList[k]['id'] + ",'"
+            tableBody += '<button onclick="window.location=\''+getHostURL()+'/team/'+teamsList[k]['id']+'\';">'// onclick="getTeam(' + teamsList[k]['id'] + ",'"
                             //+ teamsList[k]['team_name']+"')\">"
                             + teamsList[k]['team_name'] + '</button>';
         }

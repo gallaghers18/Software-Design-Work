@@ -72,17 +72,17 @@ function createOrderedPlayerTable(team_id,stat='id',order='descend') {
         teamStatsBody += '<th>Goals For</th>';
         teamStatsBody += '<th>Goals Against</th>';
         teamStatsBody += '</tr>';
-        for (var k = 0; k < teamsList.length; k++) {
+        
             teamStatsBody += '<tr>';
-            teamStatsBody += '<td>' + teamsList[k]['points'] + '</td>';
-            teamStatsBody += '<td>' + teamsList[k]['wins'] + '</td>';
-            teamStatsBody += '<td>' + teamsList[k]['losses'] + '</td>';
-            teamStatsBody += '<td>' + teamsList[k]['ot_losses'] + '</td>';
-            teamStatsBody += '<td>' + teamsList[k]['percent'] + '</td>';
-            teamStatsBody += '<td>' + teamsList[k]['goals_for'] + '</td>';
-            teamStatsBody += '<td>' + teamsList[k]['goals_against'] + '</td>';
+            teamStatsBody += '<td>' + teamsList['points'] + '</td>';
+            teamStatsBody += '<td>' + teamsList['wins'] + '</td>';
+            teamStatsBody += '<td>' + teamsList['losses'] + '</td>';
+            teamStatsBody += '<td>' + teamsList['ot_losses'] + '</td>';
+            teamStatsBody += '<td>' + teamsList['percent'] + '</td>';
+            teamStatsBody += '<td>' + teamsList['goals_for'] + '</td>';
+            teamStatsBody += '<td>' + teamsList['goals_against'] + '</td>';
             teamStatsBody += '</tr>';
-        }
+        
 
         // Put the table body we just built inside the table that's already on the page.
         var teamsTableElement = document.getElementById('team_stats');
