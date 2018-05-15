@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='players.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}" />
     <script>var api_port = {{ api_port }};</script>
     <script>var host_port = {{ host_port }};</script>
     <script type="text/javascript" src="{{ url_for('static', filename='home.js') }}" defer></script>
@@ -18,11 +18,11 @@
 
     <h3>Index Page</h3>
 
-    <input type="text" id="search_text1" placeholder="Search...">
-    <button type="submit" onclick="getSearchResults('1');"></button>
+    <input type="text" id="search_text1" placeholder="Search..."/>
+    <button type="submit" onclick="getSearchResults('1');"><i class="fa fa-search"></i></button>
     
-    <input type="text" id="search_text2" placeholder="Search...">
-    <button type="submit" onclick="getSearchResults('2');"></button>
+    <input type="text" id="search_text2" placeholder="Search..."/>
+    <button type="submit" onclick="getSearchResults('2');"><i class="fa fa-search"></i></button>
     
     <p id="runcode"><table class="table" id="results_table1"></table><table class="table" id="results_table2"></table></p>
 </div>

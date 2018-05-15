@@ -85,9 +85,6 @@ function searchPlayer(name, table_id) {
     
 }
 
-function both(id, tableID) {
-    createPlayerCompTable(id, tableID);
-}
 
 function createPlayerCompTable(player_id, table_id) {
     var url = getBaseURL() + '/player/' + player_id;
