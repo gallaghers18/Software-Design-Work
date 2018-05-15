@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}" />
+    <script>var api_port = {{ api_port }};</script>
+    <script>var host_port = {{ host_port }};</script>
+    <script>var player_id = {{ player_id }};</script>
+    <script type="text/javascript" src="{{ url_for('static', filename='team.js') }}" defer></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='hockeyicon.png') }}" />
+    <title>CS 257: Software Design, Spring 2017</title>
+</head>
+
+<body>
+<script type = "text/javascript" src="{{ url_for('static',filename='team_sidebar.js') }}"></script>
+<div class="main">
+
+    <h3 id="player_name"></h3>
+    <p></table><table id="player_table"></table></p>
+</div>
+
+
+  </body>
+</html>
