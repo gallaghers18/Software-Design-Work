@@ -1,0 +1,122 @@
+/*
+    players.css
+    Jeff Ondich, 27 April 2016
+    Updated 6 May 2018
+    Styles for the "books and authors" webapp sample
+    for CS 257, Spring 2016. 
+*/
+
+
+/* Style page content */
+.main {
+    vertical-align: top;
+    margin-left: 10%;
+    display: inline-block;
+    position: relative;
+    top: 0;
+    padding: 0px 10px;
+}
+
+table#results_table1 {
+    display: inline-block;
+    border-collapse: collapse;
+    vertical-align: top;
+}
+
+table#results_table2 {
+    display: inline-block;
+    border-collapse: collapse;
+    vertical-align: top;
+    float: left;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+}
+
+a {
+  color: #0B86B5;
+  text-decoration: underline;
+}
+
+a:hover {
+  background-color: #D8D8D8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.table button {
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+}
+
+.table button:hover {
+    background-color: #e7e7e7;
+}
+
+
+/* The sidebar menu */
+.topnav {
+    height: 5%;
+    width: 100%; /* Set the width of the sidebar */
+    position: relative; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+}
+.topnav a {
+    width: 160px;
+    height: 100%;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border: 1px solid black;
+    float: left;
+    color: #0B86B5;
+    display: block;
+}
+
+.sidenav .button:not(:last-child) {
+    border-right: none;
+}
+
+
+.sidenav {
+    display: inline-block;
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 200px; /* Set the width of the sidebar */
+    position: relative; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 10px; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+/* The navigation menu links */
+.sidenav button {
+    width: 100%;
+    padding: 2px 2px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border: 1px solid black;
+    display: inline-block;
+    color: #0B86B5;
+    display: block;
+}
+
+.sidenav .button:not(:last-child) {
+    border-bottom: none;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav button:hover {
+    color: #D8D8D8;
+}
+

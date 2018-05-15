@@ -46,7 +46,7 @@ function getHostURL() {
 
 function getSearchResults(text_id) {
     var search_string = document.getElementById('search_text'+text_id).value;
-    searchPlayer(search_string, id);
+    searchPlayer(search_string, text_id);
 }
 
 
