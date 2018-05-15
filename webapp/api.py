@@ -56,6 +56,16 @@ def hello():
 def get_team(team_id):
     ''' Returns a list containing each matching team. Each team is a dictionary with  
         (I)team stats dictionary and (II)list of each player dictionary containing their stats'''
+    stat_arg = flask.request.args.get('stat')
+    stat = 'id'
+    if stat_arg in ['wins','losses','percent','ot_losses','points','goals_for','team_name','id','goals_against']:
+        stat = stat_arg
+
+    order_arg = flask.request.args.get('order')
+    order = 'DESC'
+    if order_arg == 'ascend':
+        order = ''
+
     connection=connect()
     team_dict = {}
 
@@ -64,7 +74,7 @@ def get_team(team_id):
     team_dict['team_stats'] = pack_json(cursor)
     
     #Players query and list construction
-    cursor = query(connection, 'SELECT players.* FROM players, teams, player_team WHERE teams.id = {0} AND teams.id = player_team.team_id AND players.id = player_team.player_id AND players.team_code = player_team.team_code;'.format(team_id))
+    cursor = query(connection, 'SELECT players.* FROM players, teams, player_team WHERE teams.id = {0} AND teams.id = player_team.team_id AND players.id = player_team.player_id AND players.team_code = player_team.team_code ORDER BY {1} {2};'.format(team_id,stat,order))
     team_dict['player_list'] = pack_json(cursor)
 
     connection.close()
