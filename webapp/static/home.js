@@ -109,10 +109,7 @@ function createPlayerCompTable(player_id, table_id) {
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
-        var runScriptElement = document.getElementById('runcode');
-        if(runScriptElement) {
-            runScriptElement.innerHTML = "<script type=\"text/javascript\">colorTable();</script>"+runScriptElement.innerHTML
-        }
+        colorTable();
         return;
     })
     
@@ -123,7 +120,13 @@ function createPlayerCompTable(player_id, table_id) {
     
     
 }
-    
+
+
+function isNumber(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+
 
 function colorTable() {
     var table1 = document.getElementById('results_table1').getElementsByTagName('td');
@@ -132,8 +135,18 @@ function colorTable() {
     
     var i=0;
     while(i<table1.length && i<table2.length) {
-        table1[i].style.background = "green";
-        table2[i].style.background = "red";
+        var num1=table1[i].innerHTML;
+        var num2=table2[i].innerHTML;
+        if(isNumber(num1) && isNumber(num2)){
+            if(parseFloat(num1)>parseFloat(num2)){
+                table1[i].style.background = "#aaffaa";
+                table2[i].style.background = "#ffaaaa"
+            }
+            if(parseFloat(num2)>parseFloat(num1)){
+                table1[i].style.background = "#ffaaaa";
+                table2[i].style.background = "#aaffaa";
+            }
+        }
         i++;
     }return;
     
