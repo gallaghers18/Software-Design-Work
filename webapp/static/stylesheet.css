@@ -60,13 +60,15 @@ a:hover {
 }
 
 button[type=submit] {
-    padding: 10px;
-    background: grey;
-    color: white;
-    font-size: 17px;
-    border: 1px solid grey;
-    border-left: none;
-    cursor: pointer;
+    background-image: url(/images/buttons/add.png); 
+    background-color: transparent; 
+    background-repeat: no-repeat;  
+    background-position: 0px 0px;  
+    border: none;           
+    cursor: pointer;       
+    height: 16px;           
+    padding-left: 16px;     
+    vertical-align: middle; 
 }
 
 /* The sidebar menu */
