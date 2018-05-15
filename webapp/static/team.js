@@ -43,7 +43,7 @@ function getHostURL() {
     return hostURL;
 }
 
-function createOrderedPlayerTable(team_id,stat,order) {
+function createOrderedPlayerTable(team_id,stat='id',order='descend') {
     var url = getBaseURL() + '/team/' + team_id + "?stat="+stat+"&order="+order;
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -69,7 +69,7 @@ function createOrderedPlayerTable(team_id,stat,order) {
         tableBody += '<th><a onclick="createOrderedPlayerTable('+team_id+',\'plus_minus\')">+/-</a></th>';
         tableBody += '</tr>';
         var playersList=teamDictionary['player_list'];
-        for (var k = 0; k < playerList.length; k++) {
+        for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
 
             tableBody += '<td><a onclick="getPlayer(' + playersList[k]['id'] + ",'"

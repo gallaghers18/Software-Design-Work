@@ -58,7 +58,7 @@ def get_team(team_id):
         (I)team stats dictionary and (II)list of each player dictionary containing their stats'''
     stat_arg = flask.request.args.get('stat')
     stat = 'id'
-    if stat_arg in ['wins','losses','percent','ot_losses','points','goals_for','team_name','id','goals_against']:
+    if stat_arg in ['player_name','played','age','plus_minus','points','goals','team_code','position','id','assists']:
         stat = stat_arg
 
     order_arg = flask.request.args.get('order')
