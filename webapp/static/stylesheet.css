@@ -27,7 +27,7 @@ table#results_table2 {
     display: inline-block;
     border-collapse: collapse;
     vertical-align: top;
-    float: left;
+    float: right;
 }
 
 th, td {
@@ -49,13 +49,25 @@ a:hover {
 .table button {
     background-color: white;
     color: black;
-    border: 2px solid #e7e7e7;
+    border: 1px solid #555555;
+    text-align: center;
+    font-size: 16px
 }
 
 .table button:hover {
-    background-color: #e7e7e7;
+    background-color: #555555;
+    color: white;
 }
 
+button[type=submit] {
+    padding: 10px;
+    background: grey;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
 
 /* The sidebar menu */
 .topnav {
