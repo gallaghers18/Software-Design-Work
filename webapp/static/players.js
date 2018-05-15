@@ -72,10 +72,8 @@ function createOrderedPlayerTable(order_stat,order_direction='descend') {
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
 
-            tableBody += '<td><a onclick="getPlayer(' + playersList[k]['id'] + ",'"
-                            + playersList[k]['player_name']+"')\">"
-                            + playersList[k]['player_name'] + '</a></td>';
-         
+            tableBody += '<td><a href=\"' + getHostUrl() + '/player/' + playersList[k]['id'] + '\">'
+                            + playersList[k]['player_name'] + '</a></td>';            
             tableBody += '<td>' + playersList[k]['age'] + '</td>';
             tableBody += '<td>' + playersList[k]['position'] + '</td>';
             tableBody += '<td>' + playersList[k]['team_code'] + '</td>';
@@ -100,7 +98,7 @@ function createOrderedPlayerTable(order_stat,order_direction='descend') {
     });
 }
 
-function getPlayer(playerID,playerName) {
+function getPlayer(player_id) {
     // Very similar pattern to onAuthorsButtonClicked, so I'm not
     // repeating those comments here. Read through this code
     // and see if it makes sense to you.
