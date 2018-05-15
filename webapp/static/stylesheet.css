@@ -59,17 +59,6 @@ a:hover {
     color: white;
 }
 
-button[type=submit] {
-    background-image: url(/images/buttons/add.png); 
-    background-color: transparent; 
-    background-repeat: no-repeat;  
-    background-position: 0px 0px;  
-    border: none;           
-    cursor: pointer;       
-    height: 16px;           
-    padding-left: 16px;     
-    vertical-align: middle; 
-}
 
 /* The sidebar menu */
 .topnav {
