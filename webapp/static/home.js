@@ -44,6 +44,7 @@ function getHostURL() {
     return hostURL;
 }
 
+
 function getSearchResults(text_id) {
     var search_string = document.getElementById('search_text'+text_id).value;
     searchPlayer(search_string, text_id);
@@ -65,7 +66,6 @@ function searchPlayer(name, table_id) {
         }
 
         var tableBody = '';
-        tableBody += name;
         tableBody += '<tr><th>Player</th></tr>';
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';

@@ -21,6 +21,7 @@ table#results_table1 {
     display: inline-block;
     border-collapse: collapse;
     vertical-align: top;
+    float: left;
 }
 
 table#results_table2 {
@@ -59,6 +60,9 @@ a:hover {
     color: white;
 }
 
+button {
+    cursor: pointer;
+}
 
 /* The sidebar menu */
 .topnav {
