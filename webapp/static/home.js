@@ -48,6 +48,12 @@ function searchPlayer(name, table_id) {
         var tableBody = '';
         tableBody += '<tr><th>Player</th></tr>';
         for (var k = 0; k < playersList.length; k++) {
+            //Zebra Pattern
+            if (k%2 == 1) {
+                tableBody += '<tr class="odd">'
+            } else {
+                tableBody += '<tr>';
+            }
             tableBody += '<tr>';
             tableBody += '<td><a onclick="createPlayerCompTable('+playersList[k]['id']+','+table_id+')">' + playersList[k]['player_name'] + '</a></td>';
             tableBody += '</tr>';

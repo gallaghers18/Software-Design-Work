@@ -85,6 +85,7 @@ function createOrderedPlayerTable(team_id,stat='id',order='descend') {
         tableBody += '</tr>';
         var playersList=teamDictionary['player_list'];
         for (var k = 0; k < playersList.length; k++) {
+            //Zebra styling
             if (k%2 == 1) {
                 tableBody += '<tr class="odd">'
             } else {
