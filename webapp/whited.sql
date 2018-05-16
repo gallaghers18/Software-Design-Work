@@ -1,0 +1,2205 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: player_team; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE player_team (
+    player_id integer,
+    team_id integer,
+    team_code text
+);
+
+
+--
+-- Name: players; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE players (
+    id integer,
+    player_name text,
+    age integer,
+    "position" text,
+    team_code text,
+    played integer,
+    goals integer,
+    assists integer,
+    points integer,
+    plus_minus integer
+);
+
+
+--
+-- Name: teams; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE teams (
+    id integer,
+    team_name text,
+    wins integer,
+    losses integer,
+    ot_losses integer,
+    points integer,
+    percent double precision,
+    goals_for integer,
+    goals_against integer
+);
+
+
+--
+-- Data for Name: player_team; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY player_team (player_id, team_id, team_code) FROM stdin;
+1	27	DET
+2	0	TOT
+2	1	NSH
+2	23	EDM
+3	4	BOS
+4	4	BOS
+5	21	CAR
+6	22	NYI
+7	0	TOT
+7	12	PHI
+7	17	COL
+8	28	MTL
+9	13	LAK
+10	14	CBJ
+11	24	NYR
+12	20	CGY
+13	13	LAK
+14	17	COL
+15	25	CHI
+16	31	BUF
+17	26	VAN
+18	0	TOT
+18	29	ARI
+18	10	PIT
+19	2	WPG
+20	1	NSH
+21	10	PIT
+22	27	DET
+23	14	CBJ
+24	13	LAK
+25	23	EDM
+26	4	BOS
+27	20	CGY
+28	6	WSH
+29	26	VAN
+30	22	NYI
+31	31	BUF
+32	16	FLA
+33	31	BUF
+34	18	STL
+35	17	COL
+36	16	FLA
+37	17	COL
+38	20	CGY
+39	22	NYI
+40	6	WSH
+41	23	EDM
+42	8	ANA
+43	31	BUF
+44	22	NYI
+45	0	TOT
+45	4	BOS
+45	24	NYR
+46	5	VEG
+47	9	MIN
+48	19	DAL
+49	28	MTL
+50	18	STL
+51	20	CGY
+52	23	EDM
+53	4	BOS
+54	18	STL
+55	22	NYI
+56	9	MIN
+57	27	DET
+58	26	VAN
+59	8	ANA
+60	17	COL
+61	1	NSH
+62	4	BOS
+63	14	CBJ
+64	16	FLA
+65	18	STL
+66	8	ANA
+67	4	BOS
+68	30	OTT
+69	11	SJS
+70	26	VAN
+71	31	BUF
+72	8	ANA
+73	1	NSH
+74	27	DET
+75	7	TOR
+76	16	FLA
+77	30	OTT
+78	18	STL
+79	26	VAN
+80	25	CHI
+81	3	TBL
+82	17	COL
+83	18	STL
+84	6	WSH
+85	22	NYI
+86	6	WSH
+87	15	NJD
+88	7	TOR
+89	0	TOT
+89	30	OTT
+89	10	PIT
+90	15	NJD
+91	11	SJS
+92	16	FLA
+93	13	LAK
+94	14	CBJ
+95	20	CGY
+96	9	MIN
+97	18	STL
+98	13	LAK
+99	20	CGY
+100	7	TOR
+101	13	LAK
+102	0	TOT
+102	3	TBL
+102	8	ANA
+103	30	OTT
+104	24	NYR
+105	6	WSH
+106	30	OTT
+107	26	VAN
+108	11	SJS
+109	30	OTT
+110	15	NJD
+111	18	STL
+112	2	WPG
+113	28	MTL
+114	23	EDM
+115	3	TBL
+116	14	CBJ
+117	0	TOT
+117	23	EDM
+117	13	LAK
+118	29	ARI
+119	24	NYR
+120	4	BOS
+121	6	WSH
+122	14	CBJ
+123	0	TOT
+123	5	VEG
+123	11	SJS
+124	28	MTL
+125	7	TOR
+126	21	CAR
+127	5	VEG
+128	13	LAK
+129	24	NYR
+130	4	BOS
+131	30	OTT
+132	4	BOS
+133	30	OTT
+134	26	VAN
+135	4	BOS
+136	2	WPG
+137	6	WSH
+138	0	TOT
+138	22	NYI
+138	8	ANA
+139	30	OTT
+140	0	TOT
+140	6	WSH
+140	14	CBJ
+141	29	ARI
+142	24	NYR
+143	3	TBL
+144	22	NYI
+145	30	OTT
+146	29	ARI
+147	13	LAK
+148	22	NYI
+149	3	TBL
+150	8	ANA
+151	0	TOT
+151	10	PIT
+151	14	CBJ
+152	15	NJD
+153	17	COL
+154	17	COL
+155	3	TBL
+156	29	ARI
+157	6	WSH
+158	2	WPG
+159	2	WPG
+160	10	PIT
+161	29	ARI
+162	11	SJS
+163	12	PHI
+164	9	MIN
+165	0	TOT
+165	24	NYR
+165	19	DAL
+166	13	LAK
+167	31	BUF
+168	10	PIT
+169	29	ARI
+170	9	MIN
+171	4	BOS
+172	16	FLA
+173	21	CAR
+174	25	CHI
+175	22	NYI
+176	27	DET
+177	14	CBJ
+178	28	MTL
+179	2	WPG
+180	29	ARI
+181	0	TOT
+181	23	EDM
+181	22	NYI
+181	28	MTL
+182	22	NYI
+183	28	MTL
+184	10	PIT
+185	24	NYR
+186	25	CHI
+187	4	BOS
+188	27	DET
+189	26	VAN
+190	11	SJS
+191	29	ARI
+192	7	TOR
+193	24	NYR
+194	28	MTL
+195	21	CAR
+196	19	DAL
+197	30	OTT
+198	11	SJS
+199	6	WSH
+200	29	ARI
+201	4	BOS
+202	11	SJS
+203	26	VAN
+204	3	TBL
+205	13	LAK
+206	0	TOT
+206	26	VAN
+206	13	LAK
+207	23	EDM
+208	28	MTL
+209	14	CBJ
+210	14	CBJ
+211	0	TOT
+211	30	OTT
+211	17	COL
+212	0	TOT
+212	29	ARI
+212	25	CHI
+213	9	MIN
+214	0	TOT
+214	30	OTT
+214	3	TBL
+215	10	PIT
+216	18	STL
+217	29	ARI
+218	30	OTT
+219	5	VEG
+220	8	ANA
+221	22	NYI
+222	26	VAN
+223	18	STL
+224	2	WPG
+225	31	BUF
+226	25	CHI
+227	16	FLA
+228	1	NSH
+229	29	ARI
+230	19	DAL
+231	6	WSH
+232	1	NSH
+233	1	NSH
+234	5	VEG
+235	30	OTT
+236	9	MIN
+237	2	WPG
+238	27	DET
+239	26	VAN
+240	9	MIN
+241	3	TBL
+242	19	DAL
+243	31	BUF
+244	13	LAK
+245	31	BUF
+246	24	NYR
+247	21	CAR
+248	31	BUF
+249	0	TOT
+249	11	SJS
+249	7	TOR
+250	20	CGY
+251	9	MIN
+252	1	NSH
+253	12	PHI
+254	8	ANA
+255	29	ARI
+256	1	NSH
+257	21	CAR
+258	21	CAR
+259	24	NYR
+260	9	MIN
+261	14	CBJ
+262	13	LAK
+263	20	CGY
+264	13	LAK
+265	30	OTT
+266	1	NSH
+267	25	CHI
+268	8	ANA
+269	25	CHI
+270	22	NYI
+271	27	DET
+272	28	MTL
+273	20	CGY
+274	0	TOT
+274	13	LAK
+274	30	OTT
+275	26	VAN
+276	28	MTL
+277	28	MTL
+278	11	SJS
+279	7	TOR
+280	5	VEG
+281	26	VAN
+282	1	NSH
+283	20	CGY
+284	26	VAN
+285	7	TOR
+286	14	CBJ
+287	6	WSH
+288	8	ANA
+289	15	NJD
+290	24	NYR
+291	4	BOS
+292	20	CGY
+293	0	TOT
+293	17	COL
+293	1	NSH
+294	3	TBL
+295	31	BUF
+296	12	PHI
+297	20	CGY
+298	27	DET
+299	26	VAN
+300	29	ARI
+301	11	SJS
+302	31	BUF
+303	12	PHI
+304	12	PHI
+305	3	TBL
+306	0	TOT
+306	24	NYR
+306	15	NJD
+307	26	VAN
+308	9	MIN
+309	8	ANA
+310	6	WSH
+311	13	LAK
+312	27	DET
+313	15	NJD
+314	9	MIN
+315	17	COL
+316	31	BUF
+317	17	COL
+318	23	EDM
+319	4	BOS
+320	12	PHI
+321	26	VAN
+322	10	PIT
+323	31	BUF
+324	18	STL
+325	25	CHI
+326	16	FLA
+327	10	PIT
+328	12	PHI
+329	7	TOR
+330	16	FLA
+331	15	NJD
+332	19	DAL
+333	20	CGY
+334	0	TOT
+334	20	CGY
+334	29	ARI
+335	20	CGY
+336	21	CAR
+337	29	ARI
+338	14	CBJ
+339	11	SJS
+340	19	DAL
+341	30	OTT
+342	14	CBJ
+343	0	TOT
+343	25	CHI
+343	1	NSH
+344	1	NSH
+345	20	CGY
+346	5	VEG
+347	25	CHI
+348	15	NJD
+349	24	NYR
+350	19	DAL
+351	3	TBL
+352	11	SJS
+353	4	BOS
+354	27	DET
+355	28	MTL
+356	2	WPG
+357	0	TOT
+357	8	ANA
+357	15	NJD
+358	11	SJS
+359	27	DET
+360	22	NYI
+361	25	CHI
+362	25	CHI
+363	25	CHI
+364	15	NJD
+365	29	ARI
+366	22	NYI
+367	30	OTT
+368	0	TOT
+368	24	NYR
+368	4	BOS
+369	7	TOR
+370	24	NYR
+371	26	VAN
+372	8	ANA
+373	19	DAL
+374	10	PIT
+375	26	VAN
+376	20	CGY
+377	16	FLA
+378	28	MTL
+379	5	VEG
+380	16	FLA
+381	10	PIT
+382	26	VAN
+383	5	VEG
+384	7	TOR
+385	13	LAK
+386	1	NSH
+387	20	CGY
+388	20	CGY
+389	19	DAL
+390	1	NSH
+391	30	OTT
+392	18	STL
+393	14	CBJ
+394	27	DET
+395	0	TOT
+395	28	MTL
+395	6	WSH
+396	1	NSH
+397	15	NJD
+398	19	DAL
+399	17	COL
+400	14	CBJ
+401	3	TBL
+402	7	TOR
+403	22	NYI
+404	0	TOT
+404	13	LAK
+404	26	VAN
+404	23	EDM
+404	14	CBJ
+405	14	CBJ
+406	0	TOT
+406	21	CAR
+406	10	PIT
+407	31	BUF
+408	1	NSH
+409	17	COL
+410	25	CHI
+411	28	MTL
+412	7	TOR
+413	17	COL
+414	25	CHI
+415	24	NYR
+416	0	TOT
+416	31	BUF
+416	11	SJS
+417	25	CHI
+418	7	TOR
+419	30	OTT
+420	11	SJS
+421	5	VEG
+422	8	ANA
+423	23	EDM
+424	25	CHI
+425	29	ARI
+426	8	ANA
+427	13	LAK
+428	29	ARI
+429	0	TOT
+429	25	CHI
+429	6	WSH
+430	8	ANA
+431	17	COL
+432	25	CHI
+433	8	ANA
+434	10	PIT
+435	23	EDM
+436	3	TBL
+437	23	EDM
+438	20	CGY
+439	19	DAL
+440	9	MIN
+441	3	TBL
+442	9	MIN
+443	7	TOR
+444	12	PHI
+445	13	LAK
+446	8	ANA
+447	24	NYR
+448	4	BOS
+449	27	DET
+450	4	BOS
+451	21	CAR
+452	3	TBL
+453	10	PIT
+454	14	CBJ
+455	20	CGY
+456	22	NYI
+457	2	WPG
+458	9	MIN
+459	3	TBL
+460	21	CAR
+461	4	BOS
+462	6	WSH
+463	11	SJS
+464	22	NYI
+465	13	LAK
+466	13	LAK
+467	2	WPG
+468	17	COL
+469	15	NJD
+470	27	DET
+471	23	EDM
+472	31	BUF
+473	27	DET
+474	12	PHI
+475	20	CGY
+476	22	NYI
+477	22	NYI
+478	28	MTL
+479	12	PHI
+480	12	PHI
+481	0	TOT
+481	5	VEG
+481	26	VAN
+482	7	TOR
+483	2	WPG
+484	28	MTL
+485	10	PIT
+486	0	TOT
+486	23	EDM
+486	14	CBJ
+487	24	NYR
+488	13	LAK
+489	8	ANA
+490	5	VEG
+491	12	PHI
+492	19	DAL
+493	17	COL
+494	21	CAR
+495	8	ANA
+496	2	WPG
+497	20	CGY
+498	15	NJD
+499	23	EDM
+500	2	WPG
+501	23	EDM
+502	10	PIT
+503	13	LAK
+504	12	PHI
+505	16	FLA
+506	17	COL
+507	16	FLA
+508	10	PIT
+509	23	EDM
+510	16	FLA
+511	20	CGY
+512	12	PHI
+513	8	ANA
+514	27	DET
+515	4	BOS
+516	5	VEG
+517	7	TOR
+518	7	TOR
+519	7	TOR
+520	0	TOT
+520	23	EDM
+520	15	NJD
+521	12	PHI
+522	7	TOR
+523	11	SJS
+524	13	LAK
+525	29	ARI
+526	25	CHI
+527	16	FLA
+528	5	VEG
+529	7	TOR
+530	2	WPG
+531	22	NYI
+532	4	BOS
+533	31	BUF
+534	16	FLA
+535	28	MTL
+536	30	OTT
+537	16	FLA
+538	23	EDM
+539	0	TOT
+539	24	NYR
+539	3	TBL
+540	21	CAR
+541	16	FLA
+542	10	PIT
+543	19	DAL
+544	21	CAR
+545	0	TOT
+545	24	NYR
+545	1	NSH
+546	5	VEG
+547	4	BOS
+548	18	STL
+549	8	ANA
+550	26	VAN
+551	11	SJS
+552	29	ARI
+553	29	ARI
+554	5	VEG
+555	28	MTL
+556	19	DAL
+557	14	CBJ
+558	5	VEG
+559	0	TOT
+559	24	NYR
+559	3	TBL
+560	4	BOS
+561	17	COL
+562	0	TOT
+562	13	LAK
+562	28	MTL
+563	9	MIN
+564	31	BUF
+565	20	CGY
+566	8	ANA
+567	7	TOR
+568	15	NJD
+569	12	PHI
+570	2	WPG
+571	0	TOT
+571	28	MTL
+571	2	WPG
+572	0	TOT
+572	14	CBJ
+572	26	VAN
+573	31	BUF
+574	15	NJD
+575	25	CHI
+576	9	MIN
+577	29	ARI
+578	14	CBJ
+579	13	LAK
+580	2	WPG
+581	0	TOT
+581	3	TBL
+581	24	NYR
+582	0	TOT
+582	24	NYR
+582	4	BOS
+583	4	BOS
+584	5	VEG
+585	21	CAR
+586	22	NYI
+587	31	BUF
+588	17	COL
+589	6	WSH
+590	9	MIN
+591	27	DET
+592	17	COL
+593	24	NYR
+594	2	WPG
+595	6	WSH
+596	15	NJD
+597	31	BUF
+598	21	CAR
+599	5	VEG
+600	23	EDM
+601	23	EDM
+602	14	CBJ
+603	31	BUF
+604	7	TOR
+605	27	DET
+606	30	OTT
+607	6	WSH
+608	0	TOT
+608	24	NYR
+608	4	BOS
+609	12	PHI
+610	0	TOT
+610	11	SJS
+610	31	BUF
+611	9	MIN
+612	31	BUF
+613	0	TOT
+613	30	OTT
+613	12	PHI
+614	25	CHI
+615	31	BUF
+616	0	TOT
+616	10	PIT
+616	19	DAL
+617	9	MIN
+618	6	WSH
+619	6	WSH
+620	6	WSH
+621	27	DET
+622	6	WSH
+623	0	TOT
+623	18	STL
+623	30	OTT
+624	28	MTL
+625	30	OTT
+626	23	EDM
+627	3	TBL
+628	15	NJD
+629	14	CBJ
+630	0	TOT
+630	25	CHI
+630	29	ARI
+631	3	TBL
+632	18	STL
+633	9	MIN
+634	4	BOS
+635	19	DAL
+636	12	PHI
+637	30	OTT
+638	11	SJS
+639	13	LAK
+640	3	TBL
+641	22	NYI
+642	6	WSH
+643	29	ARI
+644	2	WPG
+645	5	VEG
+646	8	ANA
+647	21	CAR
+648	2	WPG
+649	16	FLA
+650	28	MTL
+651	8	ANA
+652	0	TOT
+652	30	OTT
+652	13	LAK
+653	15	NJD
+654	18	STL
+655	24	NYR
+656	5	VEG
+657	19	DAL
+658	0	TOT
+658	28	MTL
+658	7	TOR
+659	3	TBL
+660	7	TOR
+661	31	BUF
+662	2	WPG
+663	4	BOS
+664	31	BUF
+665	26	VAN
+666	22	NYI
+667	0	TOT
+667	9	MIN
+667	18	STL
+668	15	NJD
+669	12	PHI
+670	23	EDM
+671	22	NYI
+672	30	OTT
+673	16	FLA
+674	15	NJD
+675	9	MIN
+676	22	NYI
+677	19	DAL
+678	12	PHI
+679	8	ANA
+680	17	COL
+681	21	CAR
+682	8	ANA
+683	23	EDM
+684	9	MIN
+685	12	PHI
+686	0	TOT
+686	10	PIT
+686	5	VEG
+687	31	BUF
+688	0	TOT
+688	9	MIN
+688	28	MTL
+689	31	BUF
+690	18	STL
+691	29	ARI
+692	0	TOT
+692	29	ARI
+692	13	LAK
+693	7	TOR
+694	29	ARI
+695	31	BUF
+696	19	DAL
+697	8	ANA
+698	14	CBJ
+699	30	OTT
+700	31	BUF
+701	15	NJD
+702	7	TOR
+703	2	WPG
+704	19	DAL
+705	10	PIT
+706	8	ANA
+707	21	CAR
+708	10	PIT
+709	23	EDM
+710	10	PIT
+711	25	CHI
+712	30	OTT
+713	21	CAR
+714	11	SJS
+715	28	MTL
+716	25	CHI
+717	1	NSH
+718	12	PHI
+719	15	NJD
+720	26	VAN
+721	14	CBJ
+722	5	VEG
+723	31	BUF
+724	16	FLA
+725	4	BOS
+726	2	WPG
+727	18	STL
+728	29	ARI
+729	28	MTL
+730	28	MTL
+731	18	STL
+732	25	CHI
+733	5	VEG
+734	14	CBJ
+735	10	PIT
+736	18	STL
+737	25	CHI
+738	26	VAN
+739	26	VAN
+740	14	CBJ
+741	9	MIN
+742	19	DAL
+743	22	NYI
+744	23	EDM
+745	3	TBL
+746	15	NJD
+747	30	OTT
+748	25	CHI
+749	24	NYR
+750	28	MTL
+751	0	TOT
+751	8	ANA
+751	28	MTL
+752	0	TOT
+752	10	PIT
+752	27	DET
+753	10	PIT
+754	5	VEG
+755	19	DAL
+756	0	TOT
+756	13	LAK
+756	20	CGY
+756	30	OTT
+757	30	OTT
+758	17	COL
+759	25	CHI
+760	8	ANA
+761	12	PHI
+762	10	PIT
+763	1	NSH
+764	21	CAR
+765	24	NYR
+766	21	CAR
+767	23	EDM
+768	24	NYR
+769	1	NSH
+770	19	DAL
+771	5	VEG
+772	30	OTT
+773	6	WSH
+774	18	STL
+775	17	COL
+776	11	SJS
+777	0	TOT
+777	18	STL
+777	7	TOR
+778	9	MIN
+779	19	DAL
+780	0	TOT
+780	4	BOS
+780	24	NYR
+781	10	PIT
+782	24	NYR
+783	9	MIN
+784	9	MIN
+785	21	CAR
+786	24	NYR
+787	15	NJD
+788	20	CGY
+789	3	TBL
+790	0	TOT
+790	18	STL
+790	2	WPG
+791	26	VAN
+792	18	STL
+793	21	CAR
+794	29	ARI
+795	6	WSH
+796	0	TOT
+796	9	MIN
+796	20	CGY
+797	30	OTT
+798	20	CGY
+799	3	TBL
+800	28	MTL
+801	29	ARI
+802	23	EDM
+803	1	NSH
+804	18	STL
+805	3	TBL
+806	9	MIN
+807	26	VAN
+808	27	DET
+809	4	BOS
+810	2	WPG
+811	26	VAN
+812	18	STL
+813	0	TOT
+813	27	DET
+813	5	VEG
+814	22	NYI
+815	31	BUF
+816	21	CAR
+817	8	ANA
+818	5	VEG
+819	0	TOT
+819	30	OTT
+819	13	LAK
+820	18	STL
+821	18	STL
+822	11	SJS
+823	11	SJS
+824	16	FLA
+825	20	CGY
+826	25	CHI
+827	13	LAK
+828	1	NSH
+829	17	COL
+830	16	FLA
+831	10	PIT
+832	2	WPG
+833	5	VEG
+834	27	DET
+835	0	TOT
+835	1	NSH
+835	30	OTT
+836	18	STL
+837	28	MTL
+838	16	FLA
+839	7	TOR
+840	21	CAR
+841	0	TOT
+841	26	VAN
+841	14	CBJ
+842	0	TOT
+842	15	NJD
+842	8	ANA
+843	0	TOT
+843	4	BOS
+843	16	FLA
+844	8	ANA
+845	20	CGY
+846	24	NYR
+847	26	VAN
+848	11	SJS
+849	12	PHI
+850	6	WSH
+851	16	FLA
+852	0	TOT
+852	8	ANA
+852	22	NYI
+853	0	TOT
+853	6	WSH
+853	23	EDM
+854	21	CAR
+855	11	SJS
+856	17	COL
+857	1	NSH
+858	12	PHI
+859	28	MTL
+860	1	NSH
+861	16	FLA
+862	12	PHI
+863	8	ANA
+864	14	CBJ
+865	14	CBJ
+866	2	WPG
+867	30	OTT
+868	5	VEG
+869	30	OTT
+870	21	CAR
+871	17	COL
+872	0	TOT
+872	31	BUF
+872	27	DET
+872	10	PIT
+873	6	WSH
+874	0	TOT
+874	25	CHI
+874	4	BOS
+875	9	MIN
+876	27	DET
+877	30	OTT
+878	15	NJD
+879	17	COL
+880	23	EDM
+881	16	FLA
+882	15	NJD
+883	17	COL
+884	7	TOR
+885	15	NJD
+886	27	DET
+887	24	NYR
+888	24	NYR
+889	9	MIN
+890	21	CAR
+\.
+
+
+--
+-- Data for Name: players; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY players (id, player_name, age, "position", team_code, played, goals, assists, points, plus_minus) FROM stdin;
+1	Justin Abdelkader	30	LW	DET	75	13	22	35	-11
+2	Pontus Aberg	24	LW	TOT	53	4	12	16	9
+2	Pontus Aberg	24	LW	NSH	37	2	6	8	8
+2	Pontus Aberg	24	LW	EDM	16	2	6	8	1
+3	Noel Acciari	26	C	BOS	60	10	1	11	-6
+4	Kenny Agostino	25	LW	BOS	5	0	1	1	-1
+5	Sebastian Aho	20	RW	CAR	78	29	36	65	4
+6	Sebastian Aho	21	D	NYI	22	1	3	4	-5
+7	Mark Alt	26	D	TOT	15	0	0	0	-1
+7	Mark Alt	26	D	PHI	8	0	0	0	0
+7	Mark Alt	26	D	COL	7	0	0	0	-1
+8	Karl Alzner	29	D	MTL	82	1	11	12	-7
+9	Michael Amadio	21	C	LAK	37	4	4	8	-2
+10	Josh Anderson	23	RW	CBJ	63	19	11	30	-1
+11	Lias Andersson	19	C	NYR	7	1	1	2	1
+12	Rasmus Andersson	21	D	CGY	10	0	0	0	-1
+13	Andy Andreoff	26	LW	LAK	45	3	6	9	-6
+14	Sven Andrighetto	24	RW	COL	50	8	14	22	-15
+15	Artem Anisimov	29	C	CHI	72	20	11	31	-17
+16	Victor Antipin	25	D	BUF	47	0	10	10	-9
+17	Darren Archibald	27	RW	VAN	27	4	5	9	-1
+18	Josh Archibald	25	RW	TOT	42	5	6	11	-2
+18	Josh Archibald	25	RW	ARI	39	5	6	11	-2
+18	Josh Archibald	25	RW	PIT	3	0	0	0	0
+19	Joel Armia	24	RW	WPG	79	12	17	29	3
+20	Viktor Arvidsson	24	LW	NSH	78	29	32	61	20
+21	Zach Aston-Reese	23	C	PIT	16	4	2	6	2
+22	Andreas Athanasiou	23	LW	DET	71	16	17	33	-15
+23	Cam Atkinson	28	RW	CBJ	65	24	22	46	19
+24	Justin Auger	23	RW	LAK	2	0	0	0	-1
+25	Yohann Auvitu	28	D	EDM	33	3	6	9	4
+26	David Backes	33	RW	BOS	57	14	19	33	2
+27	Mikael Backlund	28	C	CGY	82	14	31	45	-21
+28	Nicklas Backstrom	30	C	WSH	81	21	50	71	5
+29	Sven Baertschi	25	LW	VAN	53	14	15	29	3
+30	Josh Bailey	28	RW	NYI	76	18	53	71	-20
+31	Justin Bailey	22	RW	BUF	12	3	1	4	-2
+32	Chase Balisy	25	C	FLA	8	0	0	0	-2
+33	Nicholas Baptiste	22	RW	BUF	33	4	2	6	-4
+34	Ivan Barbashev	22	C	STL	53	7	6	13	-1
+35	Mark Barberio	27	D	COL	46	3	10	13	6
+36	Aleksander Barkov	22	C	FLA	79	27	51	78	9
+37	Tyson Barrie	26	D	COL	68	14	43	57	-15
+38	Matt Bartkowski	29	D	CGY	18	0	3	3	-3
+39	Mathew Barzal	20	C	NYI	82	22	63	85	1
+40	Jay Beagle	32	RW	WSH	79	7	15	22	3
+41	Ethan Bear	20	D	EDM	18	1	3	4	-11
+42	Francois Beauchemin	37	D	ANA	67	3	14	17	12
+43	Nathan Beaulieu	25	D	BUF	59	1	8	9	-19
+44	Anthony Beauvillier	20	LW	NYI	71	21	15	36	2
+45	Matt Beleskey	29	LW	TOT	15	0	0	0	-9
+45	Matt Beleskey	29	LW	BOS	14	0	0	0	-8
+45	Matt Beleskey	29	LW	NYR	1	0	0	0	-1
+46	Pierre-Edouard Bellemare	32	LW	VEG	72	6	10	16	5
+47	Louis Belpedio	21	D	MIN	1	0	2	2	1
+48	Jamie Benn	28	LW	DAL	82	36	43	79	20
+49	Jordie Benn	30	D	MTL	77	4	11	15	-2
+50	Beau Bennett	26	RW	STL	6	0	0	0	-2
+51	Sam Bennett	21	C	CGY	82	11	15	26	-18
+52	Matt Benning	23	D	EDM	73	6	15	21	5
+53	Patrice Bergeron	32	C	BOS	64	30	33	63	21
+54	Patrik Berglund	29	C	STL	57	17	9	26	-5
+55	Steve Bernier	32	RW	NYI	4	0	0	0	-2
+56	Christoph Bertschy	23	C	MIN	1	0	0	0	1
+57	Tyler Bertuzzi	22	LW	DET	48	7	17	24	-7
+58	Alex Biega	29	D	VAN	44	1	8	9	3
+59	Kevin Bieksa	36	D	ANA	59	0	8	8	-13
+60	Chris Bigras	22	D	COL	15	0	1	1	-2
+61	Anthony Bitetto	27	D	NSH	32	1	2	3	-1
+62	Anders Bjork	21	LW	BOS	30	4	8	12	2
+63	Oliver Bjorkstrand	22	RW	CBJ	82	11	29	40	4
+64	Nick Bjugstad	25	C	FLA	82	19	30	49	5
+65	Samuel Blais	21	LW	STL	11	1	2	3	1
+66	Joseph Blandisi	23	LW	ANA	3	0	0	0	2
+67	Anton Blidh	22	LW	BOS	1	0	0	0	0
+68	Mike Blunden	31	RW	OTT	1	0	0	0	0
+69	Mikkel Boedker	28	LW	SJS	74	15	22	37	0
+70	Brock Boeser	20	RW	VAN	62	29	26	55	-5
+71	Zach Bogosian	27	D	BUF	18	0	1	1	-9
+72	Jared Boll	31	RW	ANA	10	1	0	1	0
+73	Nick Bonino	29	C	NSH	71	12	13	25	4
+74	David Booth	33	LW	DET	28	4	1	5	-5
+75	Andreas Borgman	22	D	TOR	48	3	8	11	4
+76	Henrik Borgstr̦m	20	C	FLA	4	1	0	1	-1
+77	Mark Borowiecki	28	D	OTT	52	3	8	11	-6
+78	Robert Bortuzzo	28	D	STL	72	4	9	13	11
+79	Reid Boucher	24	C	VAN	20	3	2	5	-12
+80	Lance Bouma	27	LW	CHI	53	3	6	9	1
+81	Michael Bournival	25	LW	TBL	5	0	0	0	0
+82	Gabriel Bourque	27	LW	COL	58	5	6	11	-6
+83	Jay Bouwmeester	34	D	STL	35	2	5	7	5
+84	Madison Bowey	22	D	WSH	51	0	12	12	-3
+85	Johnny Boychuk	34	D	NYI	58	6	12	18	-8
+86	Travis Boyd	24	C	WSH	8	0	1	1	2
+87	Brian Boyle	33	C	NJD	69	13	10	23	-9
+88	Tyler Bozak	31	C	TOR	81	11	32	43	6
+89	Derick Brassard	30	C	TOT	72	21	25	46	0
+89	Derick Brassard	30	C	OTT	58	18	20	38	-1
+89	Derick Brassard	30	C	PIT	14	3	5	8	1
+90	Jesper Bratt	19	LW	NJD	74	13	22	35	-16
+91	Justin Braun	30	D	SJS	81	5	28	33	7
+92	Connor Brickley	25	LW	FLA	44	4	8	12	-6
+93	Daniel Brickley	22	D	LAK	1	0	1	1	1
+94	Alex Broadhurst	24	C	CBJ	2	0	0	0	0
+95	T.J. Brodie	27	D	CGY	73	4	28	32	-16
+96	Jonas Brodin	24	D	MIN	73	6	15	21	23
+97	Kyle Brodziak	33	C	STL	81	10	23	33	13
+98	Jonny Brodzinski	24	C	LAK	35	4	2	6	4
+99	Troy Brouwer	32	RW	CGY	76	6	16	22	-7
+100	Connor Brown	24	RW	TOR	82	14	14	28	0
+101	Dustin Brown	33	RW	LAK	81	28	33	61	31
+102	J.T. Brown	27	RW	TOT	47	2	5	7	-5
+102	J.T. Brown	27	RW	TBL	24	1	3	4	-1
+102	J.T. Brown	27	RW	ANA	23	1	2	3	-4
+103	Logan Brown	19	C	OTT	4	0	1	1	0
+104	Pavel Buchnevich	22	RW	NYR	74	14	29	43	-3
+105	Andre Burakovsky	22	LW	WSH	56	12	13	25	3
+106	Erik Burgdoerfer	29	D	OTT	2	0	1	1	2
+107	Alexander Burmistrov	26	C	VAN	24	2	4	6	-5
+108	Brent Burns	32	D	SJS	82	12	55	67	-16
+109	Alexandre Burrows	36	RW	OTT	71	6	8	14	-8
+110	Will Butcher	23	D	NJD	81	5	39	44	1
+111	Chris Butler	31	D	STL	6	0	0	0	1
+112	Dustin Byfuglien	32	D	WPG	69	8	37	45	15
+113	Paul Byron	28	LW	MTL	82	20	15	35	-4
+114	Drake Caggiula	23	LW	EDM	67	13	7	20	-13
+115	Ryan Callahan	32	RW	TBL	67	5	13	18	-4
+116	Matt Calvert	28	LW	CBJ	69	9	15	24	-10
+117	Mike Cammalleri	35	LW	TOT	66	7	22	29	-3
+117	Mike Cammalleri	35	LW	EDM	51	4	18	22	-4
+117	Mike Cammalleri	35	LW	LAK	15	3	4	7	1
+118	Kyle Capobianco	20	D	ARI	1	0	0	0	-1
+119	Paul Carey	29	C	NYR	60	7	7	14	-13
+120	Brandon Carlo	21	D	BOS	76	0	6	6	10
+121	John Carlson	28	D	WSH	82	15	53	68	0
+122	Gabriel Carlsson	21	D	CBJ	14	0	2	2	0
+123	Ryan Carpenter	27	C	TOT	52	9	6	15	1
+123	Ryan Carpenter	27	C	VEG	36	9	5	14	0
+123	Ryan Carpenter	27	C	SJS	16	0	1	1	1
+124	Daniel Carr	26	LW	MTL	38	6	10	16	2
+125	Connor Carrick	23	D	TOR	47	4	8	12	5
+126	Trevor Carrick	23	D	CAR	1	0	0	0	0
+127	William Carrier	23	LW	VEG	37	1	2	3	-3
+128	Jeff Carter	33	C	LAK	27	13	9	22	4
+129	Daniel Catenacci	24	C	NYR	1	0	0	0	-1
+130	Colby Cave	23	C	BOS	3	0	0	0	0
+131	Cody Ceci	24	D	OTT	82	5	14	19	-27
+132	Peter Cehlarik	22	LW	BOS	6	1	1	2	2
+133	Thomas Chabot	21	D	OTT	63	9	16	25	-12
+134	Michael Chaput	25	C	VAN	9	0	0	0	-4
+135	Zdeno Chara	40	D	BOS	73	7	17	24	22
+136	Ben Chiarot	26	D	WPG	57	2	12	14	15
+137	Alex Chiasson	27	RW	WSH	61	9	9	18	1
+138	Jason Chimera	38	LW	TOT	74	3	10	13	-12
+138	Jason Chimera	38	LW	NYI	58	2	9	11	-11
+138	Jason Chimera	38	LW	ANA	16	1	1	2	-1
+139	Filip Chlapik	20	C	OTT	20	1	3	4	-5
+140	Taylor Chorney	30	D	TOT	25	1	3	4	10
+140	Taylor Chorney	30	D	WSH	24	1	3	4	8
+140	Taylor Chorney	30	D	CBJ	1	0	0	0	2
+141	Jakob Chychrun	19	D	ARI	50	4	10	14	2
+142	Filip Chytil	18	C	NYR	9	1	2	3	-5
+143	Anthony Cirelli	20	C	TBL	18	5	6	11	11
+144	Casey Cizikas	26	C	NYI	64	7	10	17	-12
+145	Fredrik Claesson	25	D	OTT	64	1	6	7	-7
+146	Adam Clendening	25	D	ARI	5	0	2	2	-1
+147	Kyle Clifford	27	LW	LAK	50	6	4	10	-4
+148	Cal Clutterbuck	30	RW	NYI	76	8	10	18	-7
+149	Braydon Coburn	32	D	TBL	72	1	14	15	3
+150	Andrew Cogliano	30	LW	ANA	80	12	23	35	18
+151	Ian Cole	28	D	TOT	67	5	15	20	14
+151	Ian Cole	28	D	PIT	47	3	10	13	3
+151	Ian Cole	28	D	CBJ	20	2	5	7	11
+152	Blake Coleman	26	C	NJD	79	13	12	25	7
+153	Blake Comeau	31	LW	COL	79	13	21	34	5
+154	J.T. Compher	22	LW	COL	69	13	10	23	-29
+155	Cory Conacher	28	LW	TBL	36	8	4	12	0
+156	Kevin Connauton	27	D	ARI	73	11	10	21	3
+157	Brett Connolly	25	RW	WSH	70	15	12	27	-6
+158	Kyle Connor	21	LW	WPG	76	31	26	57	8
+159	Andrew Copp	23	C	WPG	82	9	19	28	17
+160	Frank Corrado	24	D	PIT	5	0	0	0	-1
+161	Nick Cousins	24	C	ARI	71	12	7	19	-7
+162	Logan Couture	28	C	SJS	78	34	27	61	-2
+163	Sean Couturier	25	C	PHI	82	31	45	76	34
+164	Charlie Coyle	25	C	MIN	66	11	26	37	8
+165	Adam Cracknell	32	RW	TOT	5	0	0	0	-1
+165	Adam Cracknell	32	RW	NYR	4	0	0	0	-1
+165	Adam Cracknell	32	RW	DAL	1	0	0	0	0
+166	Andrew Crescenzi	25	C	LAK	2	0	0	0	0
+167	Kyle Criscuolo	25	C	BUF	9	0	0	0	-4
+168	Sidney Crosby	30	C	PIT	82	29	60	89	0
+169	Lawson Crouse	20	LW	ARI	11	1	0	1	-6
+170	Matt Cullen	41	C	MIN	79	11	11	22	-1
+171	Austin Czarnik	25	C	BOS	10	0	4	4	-1
+172	Evgeni Dadonov	28	RW	FLA	74	28	37	65	10
+173	Klas Dahlbeck	26	D	CAR	33	1	4	5	-6
+174	Carl Dahlstrom	23	D	CHI	11	0	3	3	-2
+175	Michael Dal Colle	21	LW	NYI	4	0	0	0	0
+176	Trevor Daley	34	D	DET	77	9	7	16	-5
+177	Zac Dalpe	28	C	CBJ	12	0	0	0	-3
+178	Phillip Danault	24	LW	MTL	52	8	17	25	0
+179	Marko Dano	23	C	WPG	23	2	1	3	-2
+180	Laurent Dauphin	22	C	ARI	2	0	0	0	-1
+181	Brandon Davidson	26	D	TOT	51	4	3	7	-13
+181	Brandon Davidson	26	D	EDM	23	3	1	4	-2
+181	Brandon Davidson	26	D	NYI	15	1	1	2	-8
+181	Brandon Davidson	26	D	MTL	13	0	1	1	-3
+182	Calvin de Haan	26	D	NYI	33	1	11	12	11
+183	Jacob de La Rose	22	LW	MTL	55	4	8	12	-2
+184	Jean-Sebastien Dea	23	C	PIT	5	1	0	1	1
+185	Anthony DeAngelo	22	D	NYR	32	0	8	8	-18
+186	Alex DeBrincat	20	RW	CHI	82	28	24	52	6
+187	Jake Debrusk	21	LW	BOS	70	16	27	43	13
+188	Danny DeKeyser	27	D	DET	65	6	6	12	2
+189	Michael Del Zotto	27	D	VAN	82	6	16	22	-8
+190	Dylan DeMelo	24	D	SJS	63	0	20	20	-1
+191	Jason Demers	29	D	ARI	69	6	14	20	-4
+192	Travis Dermott	21	D	TOR	37	1	12	13	16
+193	David Desharnais	31	C	NYR	71	6	22	28	-22
+194	Nicolas Deslauriers	26	LW	MTL	58	10	4	14	7
+195	Phillip Di Giuseppe	24	LW	CAR	49	5	8	13	0
+196	Jason Dickinson	22	C	DAL	27	0	2	2	-2
+197	Christopher Didomenico	28	LW	OTT	24	6	4	10	-4
+198	Brenden Dillon	27	D	SJS	81	5	17	22	-7
+199	Christian Djoos	23	D	WSH	63	3	11	14	13
+200	Max Domi	22	LW	ARI	82	9	36	45	-7
+201	Ryan Donato	21	C	BOS	12	5	4	9	2
+202	Joonas Donskoi	25	RW	SJS	66	14	18	32	10
+203	Derek Dorsett	31	RW	VAN	20	7	2	9	-1
+204	Jake Dotchin	23	D	TBL	48	3	8	11	17
+205	Drew Doughty	28	D	LAK	82	10	50	60	23
+206	Nic Dowd	27	C	TOT	56	3	1	4	-10
+206	Nic Dowd	27	C	VAN	40	3	0	3	-7
+206	Nic Dowd	27	C	LAK	16	0	1	1	-3
+207	Leon Draisaitl	22	C	EDM	78	25	45	70	-7
+208	Jonathan Drouin	22	LW	MTL	77	13	33	46	-28
+209	Brandon Dubinsky	31	C	CBJ	62	6	10	16	-2
+210	Pierre-Luc Dubois	19	LW	CBJ	82	20	28	48	8
+211	Matt Duchene	27	C	TOT	82	27	32	59	-22
+211	Matt Duchene	27	C	OTT	68	23	26	49	-23
+211	Matt Duchene	27	C	COL	14	4	6	10	1
+212	Anthony Duclair	22	LW	TOT	56	11	12	23	-5
+212	Anthony Duclair	22	LW	ARI	33	9	6	15	-5
+212	Anthony Duclair	22	LW	CHI	23	2	6	8	0
+213	Mathew Dumba	23	D	MIN	82	14	36	50	15
+214	Gabriel Dumont	27	C	TOT	30	1	1	2	1
+214	Gabriel Dumont	27	C	OTT	23	1	1	2	1
+214	Gabriel Dumont	27	C	TBL	7	0	0	0	0
+215	Brian Dumoulin	26	D	PIT	80	5	13	18	-5
+216	Vince Dunn	21	D	STL	75	5	19	24	1
+217	Christian Dvorak	21	C	ARI	78	15	22	37	-19
+218	Ryan Dzingel	25	LW	OTT	79	23	18	41	-17
+219	Cody Eakin	26	C	VEG	80	11	16	27	-6
+220	Patrick Eaves	33	RW	ANA	2	1	0	1	0
+221	Jordan Eberle	27	RW	NYI	81	25	34	59	5
+222	Alexander Edler	31	D	VAN	70	6	28	34	-18
+223	Joel Edmundson	24	D	STL	69	7	10	17	-1
+224	Nikolaj Ehlers	21	LW	WPG	82	29	31	60	14
+225	Jack Eichel	21	C	BUF	67	25	39	64	-25
+226	Victor Ejdsell	22	C	CHI	6	0	1	1	-1
+227	Aaron Ekblad	21	D	FLA	82	16	22	38	9
+228	Mattias Ekholm	27	D	NSH	81	10	24	34	25
+229	Oliver Ekman-Larsson	26	D	ARI	82	14	28	42	-28
+230	Remi Elie	22	LW	DAL	72	6	8	14	5
+231	Lars Eller	28	C	WSH	81	18	20	38	-6
+232	Ryan Ellis	27	D	NSH	44	9	23	32	26
+233	Alexei Emelin	31	D	NSH	76	1	8	9	9
+234	Deryk Engelland	35	D	VEG	79	5	18	23	6
+235	Andreas Englund	22	D	OTT	1	0	0	0	1
+236	Tyler Ennis	28	LW	MIN	73	8	14	22	-1
+237	Toby Enstrom	33	D	WPG	43	1	5	6	8
+238	Jonathan Ericsson	33	D	DET	81	3	10	13	-7
+239	Loui Eriksson	32	LW	VAN	50	10	13	23	0
+240	Joel Eriksson Ek	21	LW	MIN	75	6	10	16	2
+241	Adam Erne	22	LW	TBL	23	3	1	4	-1
+242	Radek Faksa	24	C	DAL	79	17	16	33	21
+243	Justin Falk	29	D	BUF	46	1	1	2	-16
+244	Oscar Fantenberg	26	D	LAK	27	2	7	9	2
+245	Hudson Fasching	22	RW	BUF	5	0	0	0	-1
+246	Jesper Fast	26	RW	NYR	71	13	20	33	-10
+247	Justin Faulk	25	D	CAR	76	8	23	31	-26
+248	Taylor Fedun	29	D	BUF	7	0	1	1	-1
+249	Eric Fehr	32	C	TOT	18	3	1	4	6
+249	Eric Fehr	32	C	SJS	14	3	1	4	7
+249	Eric Fehr	32	C	TOR	4	0	0	0	-1
+250	Micheal Ferland	25	LW	CGY	77	21	20	41	5
+251	Landon Ferraro	26	C	MIN	2	1	0	1	1
+252	Kevin Fiala	21	LW	NSH	80	23	25	48	20
+253	Valtteri Filppula	33	C	PHI	81	11	22	33	-7
+254	Giovanni Fiore	21	LW	ANA	1	0	0	0	-1
+255	Christian Fischer	20	RW	ARI	79	15	18	33	-17
+256	Mike Fisher	37	C	NSH	16	2	2	4	0
+257	Haydn Fleury	21	D	CAR	67	0	8	8	-2
+258	Warren Foegele	21	LW	CAR	2	2	1	3	3
+259	Steven Fogarty	24	C	NYR	1	0	0	0	0
+260	Marcus Foligno	26	LW	MIN	77	8	15	23	2
+261	Nick Foligno	30	LW	CBJ	72	15	18	33	1
+262	Christian Folin	26	D	LAK	65	3	10	13	1
+263	Spencer Foo	23	RW	CGY	4	2	0	2	1
+264	Derek Forbort	25	D	LAK	78	1	17	18	18
+265	Alex Formenton	18	LW	OTT	1	0	0	0	0
+266	Filip Forsberg	23	LW	NSH	67	26	38	64	27
+267	Gustav Forsling	21	D	CHI	41	3	10	13	-2
+268	Cam Fowler	26	D	ANA	67	8	24	32	3
+269	Cody Franson	30	D	CHI	23	1	6	7	-1
+270	Tanner Fritz	26	C	NYI	34	3	4	7	-3
+271	Martin Frk	24	RW	DET	68	11	14	25	-14
+272	Byron Froese	26	C	MTL	48	3	8	11	0
+273	Michael Frolik	29	RW	CGY	70	10	15	25	-19
+274	Marian Gaborik	35	RW	TOT	46	11	10	21	2
+274	Marian Gaborik	35	RW	LAK	30	7	7	14	9
+274	Marian Gaborik	35	RW	OTT	16	4	3	7	-7
+275	Sam Gagner	28	C	VAN	74	10	21	31	-18
+276	Alex Galchenyuk	23	LW	MTL	82	19	32	51	-31
+277	Brendan Gallagher	25	RW	MTL	82	31	23	54	-13
+278	Dylan Gambrell	21	C	SJS	3	0	0	0	-1
+279	Jake Gardiner	27	D	TOR	82	5	47	52	9
+280	Jason Garrison	33	D	VEG	8	0	1	1	-2
+281	Adam Gaudette	21	C	VAN	5	0	0	0	2
+282	Frederick Gaudreau	24	C	NSH	20	0	3	3	0
+283	Johnny Gaudreau	24	LW	CGY	80	24	60	84	2
+284	Brendan Gaunce	23	LW	VAN	37	4	2	6	0
+285	Frederik Gauthier	22	C	TOR	9	1	0	1	-4
+286	Nathan Gerbe	30	LW	CBJ	2	0	0	0	-1
+287	Shane Gersich	21	LW	WSH	3	0	1	1	-1
+288	Ryan Getzlaf	32	C	ANA	56	11	50	61	20
+289	Brian Gibbons	29	LW	NJD	59	12	14	26	10
+290	John Gilmour	24	D	NYR	28	2	3	5	-11
+291	Brian Gionta	39	RW	BOS	20	2	5	7	-1
+292	Mark Giordano	34	D	CGY	82	13	25	38	0
+293	Samuel Girard	19	D	TOT	73	4	19	23	-11
+293	Samuel Girard	19	D	COL	68	3	17	20	-8
+293	Samuel Girard	19	D	NSH	5	1	2	3	-3
+294	Dan Girardi	33	D	TBL	77	6	12	18	18
+295	Zemgus Girgensons	24	C	BUF	71	7	8	15	-12
+296	Claude Giroux	30	C	PHI	82	34	68	102	28
+297	Tanner Glass	34	LW	CGY	16	0	0	0	-4
+298	Luke Glendening	28	RW	DET	69	11	8	19	-14
+299	Nikolay Goldobin	22	RW	VAN	38	8	6	14	-14
+300	Alex Goligoski	32	D	ARI	78	12	23	35	-31
+301	Barclay Goodrow	24	RW	SJS	47	7	7	14	1
+302	Josh Gorges	33	D	BUF	34	0	2	2	-4
+303	Shayne Gostisbehere	24	D	PHI	78	13	52	65	10
+304	Tyrell Goulbourne	24	LW	PHI	9	0	0	0	-2
+305	Yanni Gourde	26	C	TBL	82	25	39	64	34
+306	Michael Grabner	30	RW	TOT	80	27	9	36	11
+306	Michael Grabner	30	RW	NYR	59	25	6	31	11
+306	Michael Grabner	30	RW	NJD	21	2	3	5	0
+307	Markus Granlund	24	C	VAN	53	8	4	12	-10
+308	Mikael Granlund	25	RW	MIN	77	21	46	67	13
+309	Derek Grant	27	C	ANA	66	12	12	24	3
+310	Tyler Graovac	24	C	WSH	5	0	0	0	-3
+311	Kevin Gravel	25	D	LAK	16	0	3	3	-3
+312	Mike Green	32	D	DET	66	8	25	33	-14
+313	Andy Greene	35	D	NJD	81	3	10	13	-9
+314	Jordan Greenway	20	LW	MIN	6	0	1	1	0
+315	A.J. Greer	21	LW	COL	17	0	3	3	2
+316	Seth Griffith	25	C	BUF	21	2	1	3	-6
+317	Rocco Grimaldi	24	C	COL	6	1	2	3	0
+318	Eric Gryba	29	D	EDM	21	0	2	2	4
+319	Matt Grzelcyk	24	D	BOS	61	3	12	15	21
+320	Radko Gudas	27	D	PHI	70	2	14	16	0
+321	Erik Gudbranson	26	D	VAN	52	2	3	5	-7
+322	Jake Guentzel	23	C	PIT	82	22	26	48	-9
+323	Brendan Guhle	20	D	BUF	18	0	5	5	-6
+324	Carl Gunnarsson	31	D	STL	63	5	4	9	15
+325	Erik Gustafsson	25	D	CHI	35	5	11	16	1
+326	Henrik Haapala	23	LW	FLA	5	0	1	1	0
+327	Carl Hagelin	29	LW	PIT	81	10	21	31	8
+328	Robert Hagg	22	D	PHI	70	3	6	9	5
+329	Ron Hainsey	36	D	TOR	80	4	19	23	12
+330	Micheal Haley	31	LW	FLA	75	3	6	9	-13
+331	Taylor Hall	26	LW	NJD	76	39	54	93	14
+332	Dan Hamhuis	35	D	DAL	80	3	21	24	-6
+333	Dougie Hamilton	24	D	CGY	82	17	27	44	1
+334	Freddie Hamilton	26	C	TOT	16	0	1	1	0
+334	Freddie Hamilton	26	C	CGY	8	0	1	1	-1
+334	Freddie Hamilton	26	C	ARI	8	0	0	0	1
+335	Travis Hamonic	27	D	CGY	74	1	10	11	-9
+336	Noah Hanifin	21	D	CAR	79	10	22	32	-20
+337	Joel Hanley	26	D	ARI	5	0	0	0	0
+338	Markus Hannikainen	24	LW	CBJ	33	3	3	6	-1
+339	Jannik Hansen	31	RW	SJS	46	2	12	14	2
+340	Martin Hanzal	30	C	DAL	38	5	5	10	-14
+341	Ben Harpur	23	D	OTT	41	0	1	1	-21
+342	Scott Harrington	24	D	CBJ	32	2	3	5	0
+343	Ryan Hartman	23	RW/LW	TOT	78	11	20	31	1
+343	Ryan Hartman	23	LW	CHI	57	8	17	25	5
+343	Ryan Hartman	23	RW	NSH	21	3	3	6	-4
+344	Scott Hartnell	35	LW	NSH	62	13	11	24	-3
+345	Garnet Hathaway	26	RW	CGY	59	4	9	13	3
+346	Erik Haula	26	LW	VEG	76	29	26	55	-16
+347	John Hayden	22	RW	CHI	47	4	9	13	-4
+348	Jimmy Hayes	28	RW	NJD	33	3	6	9	-2
+349	Kevin Hayes	25	RW	NYR	76	25	19	44	1
+350	Dillon Heatherington	22	D	DAL	6	0	1	1	3
+351	Victor Hedman	27	D	TBL	77	17	46	63	32
+352	Tim Heed	27	D	SJS	29	3	8	11	0
+353	Danton Heinen	22	C	BOS	77	16	31	47	10
+354	Darren Helm	31	LW	DET	75	13	18	31	3
+355	Ales Hemsky	34	RW	MTL	7	0	0	0	-1
+356	Matt Hendricks	36	LW	WPG	60	5	8	13	-1
+357	Adam Henrique	27	C	TOT	81	24	26	50	11
+357	Adam Henrique	27	C	ANA	57	20	16	36	17
+357	Adam Henrique	27	C	NJD	24	4	10	14	-6
+358	Tomas Hertl	24	C	SJS	79	22	24	46	-2
+359	Joe Hicketts	21	D	DET	5	0	3	3	5
+360	Thomas Hickey	28	D	NYI	69	5	20	25	20
+361	Matthew Highmore	21	LW	CHI	13	2	0	2	-4
+362	Blake Hillman	22	D	CHI	4	1	0	1	-1
+363	Vinnie Hinostroza	23	LW	CHI	50	7	18	25	5
+364	Nico Hischier	19	C	NJD	82	20	32	52	10
+365	Niklas Hjalmarsson	30	D	ARI	48	1	8	9	-3
+366	Joshua Ho-Sang	22	RW	NYI	22	2	10	12	-7
+367	Mike Hoffman	28	LW	OTT	82	22	34	56	-20
+368	Nick Holden	30	D	TOT	73	4	13	17	-5
+368	Nick Holden	30	D	NYR	55	3	9	12	-3
+368	Nick Holden	30	D	BOS	18	1	4	5	-2
+369	Justin Holl	26	D	TOR	2	2	0	2	5
+370	Peter Holland	27	C	NYR	23	1	3	4	-10
+371	Philip Holm	26	D	VAN	1	0	0	0	-2
+372	Korbinian Holzer	29	D	ANA	16	0	0	0	-3
+373	Julius Honka	22	D	DAL	42	1	3	4	-1
+374	Patric Hornqvist	31	RW	PIT	70	29	20	49	2
+375	Bo Horvat	22	C	VAN	64	22	22	44	-1
+376	Marek Hrivik	26	LW	CGY	3	0	0	0	1
+377	Jonathan Huberdeau	24	LW	FLA	82	27	42	69	-2
+378	Charles Hudon	23	LW	MTL	72	10	20	30	-12
+379	Brad Hunt	29	D	VEG	45	3	15	18	-5
+380	Dryden Hunt	22	LW	FLA	11	0	1	1	-5
+381	Matt Hunwick	32	D	PIT	42	4	6	10	-4
+382	Ben Hutton	24	D	VAN	61	0	6	6	-9
+383	Tomas Hyka	24	RW	VEG	10	1	2	3	2
+384	Zach Hyman	25	C	TOR	82	15	25	40	22
+385	Alex Iafallo	24	C	LAK	75	9	16	25	10
+386	Matt Irwin	30	D	NSH	50	2	6	8	2
+387	Jaromir Jagr	45	RW	CGY	22	1	6	7	6
+388	Mark Jankowski	23	C	CGY	72	17	8	25	-7
+389	Mattias Janmark	25	C	DAL	81	19	15	34	-13
+390	Calle Jarnkrok	26	C	NSH	68	16	19	35	20
+391	Christian Jaros	21	D	OTT	2	0	0	0	0
+392	Dmitrij Jaskin	24	RW	STL	76	6	11	17	6
+393	Boone Jenner	24	C	CBJ	75	13	19	32	1
+394	Nick Jensen	27	D	DET	81	0	15	15	-8
+395	Jakub Jerabek	26	D	TOT	36	2	6	8	-2
+395	Jakub Jerabek	26	D	MTL	25	1	3	4	-1
+395	Jakub Jerabek	26	D	WSH	11	1	3	4	-1
+396	Ryan Johansen	25	C	NSH	79	15	39	54	13
+397	Marcus Johansson	27	LW	NJD	29	5	9	14	-11
+398	Stephen Johns	25	D	DAL	75	8	7	15	10
+399	Erik Johnson	29	D	COL	62	9	16	25	3
+400	Jack Johnson	31	D	CBJ	77	3	8	11	-6
+401	Tyler Johnson	27	C	TBL	81	21	29	50	3
+402	Andreas Johnsson	23	LW	TOR	9	2	1	3	-2
+403	Ross Johnston	23	LW	NYI	24	3	3	6	0
+404	Jussi Jokinen	34	LW	TOT	60	5	12	17	2
+404	Jussi Jokinen	34	LW	LAK	18	1	4	5	0
+404	Jussi Jokinen	34	LW	VAN	14	4	6	10	7
+404	Jussi Jokinen	34	LW	EDM	14	0	1	1	-3
+404	Jussi Jokinen	34	LW	CBJ	14	0	1	1	-2
+405	Seth Jones	23	D	CBJ	78	16	41	57	10
+406	Josh Jooris	27	RW	TOT	40	3	3	6	-7
+406	Josh Jooris	27	RW	CAR	31	3	3	6	-7
+406	Josh Jooris	27	RW	PIT	9	0	0	0	0
+407	Jacob Josefson	26	C	BUF	39	2	2	4	-4
+408	Roman Josi	27	D	NSH	75	14	39	53	24
+409	Tyson Jost	19	C	COL	65	12	10	22	-10
+410	Tomas Jurco	25	LW	CHI	29	6	4	10	1
+411	Noah Juulsen	20	D	MTL	23	1	2	3	1
+412	Nazem Kadri	27	C	TOR	80	32	23	55	2
+413	Vladislav Kamenev	21	C	COL	3	0	0	0	-2
+414	David Kampf	23	C	CHI	46	4	7	11	-9
+415	Steven Kampfer	29	D	NYR	22	0	1	1	-7
+416	Evander Kane	26	LW	TOT	78	29	25	54	-9
+416	Evander Kane	26	LW	BUF	61	20	20	40	-14
+416	Evander Kane	26	LW	SJS	17	9	5	14	5
+417	Patrick Kane	29	RW	CHI	82	27	49	76	-20
+418	Kasperi Kapanen	21	RW	TOR	38	7	2	9	-1
+419	Erik Karlsson	27	D	OTT	71	9	53	62	-25
+420	Melker Karlsson	27	C	SJS	71	8	11	19	-5
+421	William Karlsson	25	C	VEG	82	43	35	78	49
+422	Ondrej Kase	22	RW	ANA	66	20	18	38	18
+423	Zack Kassian	27	RW	EDM	74	7	12	19	-8
+424	Duncan Keith	34	D	CHI	82	2	30	32	-29
+425	Clayton Keller	19	LW	ARI	82	23	42	65	-7
+426	Chris Kelly	37	C	ANA	12	0	2	2	1
+427	Adrian Kempe	21	LW	LAK	81	16	21	37	11
+428	Mario Kempe	29	RW	ARI	18	2	2	4	-1
+429	Michal Kempny	27	D	TOT	53	3	7	10	14
+429	Michal Kempny	27	D	CHI	31	1	6	7	13
+429	Michal Kempny	27	D	WSH	22	2	1	3	1
+430	Nicolas Kerdiles	24	LW	ANA	2	0	0	0	0
+431	Alexander Kerfoot	23	C	COL	79	19	24	43	-7
+432	Tanner Kero	25	RW	CHI	8	1	2	3	1
+433	Ryan Kesler	33	C	ANA	44	8	6	14	-4
+434	Phil Kessel	30	RW	PIT	82	34	58	92	-4
+435	Jujhar Khaira	23	LW	EDM	69	11	10	21	-7
+436	Alex Killorn	28	LW	TBL	82	15	32	47	22
+437	Oscar Klefbom	24	D	EDM	66	5	16	21	-12
+438	Morgan Klimchuk	22	LW	CGY	1	0	0	0	0
+439	John Klingberg	25	D	DAL	82	8	59	67	10
+440	Justin Kloos	24	C	MIN	1	0	0	0	0
+441	Slater Koekkoek	23	D	TBL	35	4	4	8	4
+442	Mikko Koivu	34	C	MIN	82	14	31	45	9
+443	Leo Komarov	31	C	TOR	74	7	12	19	0
+444	Travis Konecny	20	C	PHI	81	24	23	47	17
+445	Anze Kopitar	30	C	LAK	82	35	57	92	21
+446	Kalle Kossila	24	LW	ANA	10	1	1	2	-4
+447	Chris Kreider	26	LW	NYR	58	16	21	37	-2
+448	David Krejci	31	C	BOS	64	17	27	44	10
+449	Niklas Kronwall	37	D	DET	79	4	23	27	-14
+450	Torey Krug	26	D	BOS	76	14	45	59	0
+451	Marcus Kruger	27	C	CAR	48	1	5	6	-6
+452	Nikita Kucherov	24	RW	TBL	80	39	61	100	15
+453	Tom Kuhnhackl	26	RW	PIT	69	2	6	8	-6
+454	Dean Kukan	24	D	CBJ	11	0	4	4	2
+455	Brett Kulak	24	D	CGY	71	2	6	8	-3
+456	Nikolai Kulemin	31	LW	NYI	13	1	2	3	0
+457	Dmitry Kulikov	27	D	WPG	62	3	8	11	6
+458	Luke Kunin	20	C	MIN	19	2	2	4	-3
+459	Chris Kunitz	38	LW	TBL	82	13	16	29	8
+460	Janne Kuokkanen	19	C	CAR	4	0	0	0	-3
+461	Sean Kuraly	25	C	BOS	75	6	8	14	-5
+462	Evgeny Kuznetsov	25	C	WSH	79	27	56	83	3
+463	Kevin Labanc	22	RW	SJS	77	11	29	40	-6
+464	Andrew Ladd	32	LW	NYI	73	12	17	29	11
+465	Paul Ladue	25	D	LAK	12	3	1	4	5
+466	Brooks Laich	34	C	LAK	12	0	1	1	-5
+467	Patrik Laine	19	RW	WPG	82	44	26	70	8
+468	Gabriel Landeskog	25	LW	COL	78	25	37	62	16
+469	Nick Lappin	25	RW	NJD	6	1	0	1	2
+470	Dylan Larkin	21	C	DET	82	16	47	63	-9
+471	Adam Larsson	25	D	EDM	63	4	9	13	10
+472	Johan Larsson	25	C	BUF	80	4	13	17	-30
+473	Brian Lashoff	27	D	DET	1	0	0	0	0
+474	Scott Laughton	23	C	PHI	81	10	10	20	-10
+475	Curtis Lazar	22	RW	CGY	65	2	10	12	-8
+476	Nick Leddy	26	D	NYI	80	10	32	42	-42
+477	Anders Lee	27	LW	NYI	82	40	22	62	-25
+478	Artturi Lehkonen	22	LW	MTL	66	12	9	21	-11
+479	Jori Lehtera	30	C	PHI	62	3	5	8	-8
+480	Taylor Leier	23	LW	PHI	39	1	4	5	-7
+481	Brendan Leipsic	23	LW	TOT	58	5	17	22	-4
+481	Brendan Leipsic	23	LW	VEG	44	2	11	13	-1
+481	Brendan Leipsic	23	LW	VAN	14	3	6	9	-3
+482	Josh Leivo	24	LW	TOR	16	1	3	4	0
+483	Brendan Lemieux	21	LW	WPG	9	1	0	1	2
+484	Brett Lernout	22	D	MTL	18	0	1	1	-5
+485	Kris Letang	30	D	PIT	79	9	42	51	-9
+486	Mark Letestu	32	C	TOT	80	9	14	23	-17
+486	Mark Letestu	32	C	EDM	60	8	11	19	-17
+486	Mark Letestu	32	C	CBJ	20	1	3	4	0
+487	Vinni Lettieri	22	C	NYR	19	1	4	5	-12
+488	Trevor Lewis	31	C	LAK	68	14	12	26	-6
+489	Mike Liambas	28	LW	ANA	7	0	1	1	0
+490	Oscar Lindberg	26	C	VEG	63	9	2	11	-11
+491	Oskar Lindblom	21	LW	PHI	23	2	4	6	4
+492	Esa Lindell	23	D	DAL	80	7	20	27	19
+493	Anton Lindholm	23	D	COL	48	0	4	4	4
+494	Elias Lindholm	23	C	CAR	81	16	28	44	-8
+495	Hampus Lindholm	24	D	ANA	69	13	18	31	16
+496	Bryan Little	30	C	WPG	82	16	27	43	2
+497	Ryan Lomberg	23	LW	CGY	7	0	1	1	0
+498	Ben Lovejoy	33	D	NJD	57	2	6	8	7
+499	Keegan Lowe	24	D	EDM	2	0	0	0	-1
+500	Adam Lowry	24	C	WPG	45	8	13	21	9
+501	Milan Lucic	29	LW	EDM	82	10	24	34	-12
+502	Olli Maatta	23	D	PIT	82	7	22	29	-1
+503	Kurtis MacDermid	23	D	LAK	34	1	3	4	-4
+504	Andrew MacDonald	31	D	PHI	66	6	15	21	8
+505	Derek MacKenzie	36	C	FLA	75	3	11	14	-9
+506	Nathan MacKinnon	22	C	COL	74	39	58	97	11
+507	Denis Malgin	21	C	FLA	51	11	11	22	4
+508	Evgeni Malkin	31	C	PIT	78	42	56	98	16
+509	Brad Malone	28	C	EDM	7	0	0	0	0
+510	Maxim Mamin	23	LW	FLA	26	3	1	4	2
+511	Andrew Mangiapane	21	LW	CGY	10	0	0	0	-3
+512	Brandon Manning	27	D	PHI	65	7	12	19	0
+513	Josh Manson	26	D	ANA	80	7	30	37	34
+514	Anthony Mantha	23	RW	DET	80	24	24	48	-1
+515	Brad Marchand	29	LW	BOS	68	34	51	85	25
+516	Jon Marchessault	27	C	VEG	77	27	48	75	36
+517	Martin Marincin	25	D	TOR	2	0	0	0	-2
+518	Patrick Marleau	38	LW	TOR	82	27	20	47	1
+519	Mitch Marner	20	C	TOR	82	22	47	69	-1
+520	Patrick Maroon	29	LW	TOT	74	17	26	43	1
+520	Patrick Maroon	29	LW	EDM	57	14	16	30	5
+520	Patrick Maroon	29	LW	NJD	17	3	10	13	-4
+521	Danick Martel	23	LW	PHI	4	0	0	0	-1
+522	Matt Martin	28	LW	TOR	50	3	9	12	0
+523	Paul Martin	36	D	SJS	14	0	2	2	3
+524	Alec Martinez	30	D	LAK	77	9	16	25	3
+525	Jordan Martinook	25	LW	ARI	81	6	9	15	-24
+526	Andreas Martinsen	27	LW	CHI	9	1	0	1	-1
+527	Mike Matheson	23	D	FLA	81	10	17	27	-1
+528	Stefan Matteau	23	C	VEG	8	0	1	1	0
+529	Auston Matthews	20	C	TOR	62	34	29	63	25
+530	Shawn Matthias	29	LW	WPG	27	1	2	3	-1
+531	Scott Mayfield	25	D	NYI	47	2	10	12	-6
+532	Charlie McAvoy	20	D	BOS	63	7	25	32	20
+533	Jake McCabe	24	D	BUF	53	3	9	12	-11
+534	Jared McCann	21	C	FLA	68	9	19	28	11
+535	Michael McCarron	22	RW	MTL	18	0	1	1	-1
+536	Max McCormick	25	LW	OTT	30	3	2	5	-5
+537	Ian McCoshen	22	D	FLA	38	3	1	4	-10
+538	Connor McDavid	21	C	EDM	82	41	67	108	20
+539	Ryan McDonagh	28	D	TOT	63	4	25	29	8
+539	Ryan McDonagh	28	D	NYR	49	2	24	26	7
+539	Ryan McDonagh	28	D	TBL	14	2	1	3	1
+540	Brock McGinn	23	LW	CAR	80	16	14	30	-12
+541	Jamie McGinn	29	LW	FLA	76	13	16	29	-5
+542	Greg McKegg	25	C	PIT	26	2	2	4	-4
+543	Curtis McKenzie	26	LW	DAL	7	0	2	2	3
+544	Roland McKeown	22	D	CAR	10	0	3	3	3
+545	Cody McLeod	33	LW	TOT	48	1	3	4	-11
+545	Cody McLeod	33	LW	NYR	25	0	2	2	-11
+545	Cody McLeod	33	LW	NSH	23	1	1	2	0
+546	Brayden McNabb	27	D	VEG	76	5	10	15	26
+547	Adam McQuaid	31	D	BOS	38	1	3	4	-1
+548	Wade Megan	27	C	STL	1	0	0	0	0
+549	Jaycob Megna	25	D	ANA	14	0	1	1	-4
+550	Jayson Megna	27	C	VAN	1	0	0	0	0
+551	Timo Meier	21	RW	SJS	81	21	15	36	2
+552	Nicholas Merkley	20	RW	ARI	1	0	0	0	0
+553	Dakota Mermis	24	D	ARI	9	0	0	0	-2
+554	Jonathon Merrill	25	D	VEG	34	1	2	3	7
+555	Victor Mete	19	D	MTL	49	0	7	7	5
+556	Marc Methot	32	D	DAL	36	1	2	3	11
+557	Sonny Milano	21	LW	CBJ	55	14	8	22	-8
+558	Colin Miller	25	D	VEG	82	10	31	41	-4
+559	J.T. Miller	24	LW	TOT	82	23	35	58	-4
+559	J.T. Miller	24	LW	NYR	63	13	27	40	-1
+559	J.T. Miller	24	LW	TBL	19	10	8	18	-3
+560	Kevan Miller	30	D	BOS	68	1	15	16	16
+561	Andrei Mironov	23	D	COL	10	1	2	3	2
+562	Torrey Mitchell	33	C	TOT	60	6	5	11	-5
+562	Torrey Mitchell	33	C	LAK	49	6	5	11	-5
+562	Torrey Mitchell	33	C	MTL	11	0	0	0	0
+563	Zack Mitchell	25	RW	MIN	23	3	2	5	-2
+564	Casey Mittelstadt	19	C	BUF	6	1	4	5	1
+565	Sean Monahan	23	C	CGY	74	31	33	64	3
+566	Brandon Montour	23	D	ANA	80	9	23	32	16
+567	Dominic Moore	37	C	TOR	50	6	6	12	3
+568	John Moore	27	D	NJD	81	7	11	18	3
+569	Samuel Morin	22	D	PHI	2	0	0	0	1
+570	Josh Morrissey	22	D	WPG	81	7	19	26	15
+571	Joseph Morrow	25	D	TOT	56	6	10	16	-4
+571	Joseph Morrow	25	D	MTL	38	5	6	11	-11
+571	Joseph Morrow	25	D	WPG	18	1	4	5	7
+572	Tyler Motte	22	LW	TOT	46	5	2	7	-4
+572	Tyler Motte	22	LW	CBJ	31	3	2	5	-3
+572	Tyler Motte	22	LW	VAN	15	2	0	2	-1
+573	Matt Moulson	34	LW	BUF	14	0	0	0	-9
+574	Mirco Mueller	22	D	NJD	28	0	4	4	1
+575	Connor Murphy	24	D	CHI	76	2	12	14	-3
+576	Ryan Murphy	24	D	MIN	21	2	3	5	8
+577	Trevor Murphy	22	D	ARI	8	1	2	3	5
+578	Ryan Murray	24	D	CBJ	44	1	11	12	4
+579	Jake Muzzin	28	D	LAK	74	8	34	42	10
+580	Tyler Myers	27	D	WPG	82	6	30	36	9
+581	Vladislav Namestnikov	25	C	TOT	81	22	26	48	6
+581	Vladislav Namestnikov	25	C	TBL	62	20	24	44	11
+581	Vladislav Namestnikov	25	C	NYR	19	2	2	4	-5
+582	Rick Nash	33	LW/RW	TOT	71	21	13	34	-12
+582	Rick Nash	33	RW	NYR	60	18	10	28	-8
+582	Rick Nash	33	LW	BOS	11	3	3	6	-4
+583	Riley Nash	28	C	BOS	76	15	26	41	16
+584	James Neal	30	LW	VEG	71	25	19	44	-11
+585	Martin Necas	19	C	CAR	1	0	0	0	0
+586	Brock Nelson	26	LW	NYI	82	19	16	35	-4
+587	Casey Nelson	25	D	BUF	37	3	5	8	-14
+588	Patrik Nemeth	25	D	COL	68	3	12	15	27
+589	Aaron Ness	27	D	WSH	8	0	1	1	2
+590	Nino Niederreiter	25	RW	MIN	63	18	14	32	14
+591	Frans Nielsen	33	C	DET	79	16	17	33	1
+592	Matthew Nieto	25	LW	COL	74	15	11	26	6
+593	Boo Nieves	24	C	NYR	28	1	8	9	6
+594	Sami Niku	21	D	WPG	1	1	0	1	0
+595	Matt Niskanen	31	D	WSH	68	7	22	29	24
+596	Stefan Noesen	24	RW	NJD	72	13	14	27	12
+597	Jordan Nolan	28	LW	BUF	69	4	4	8	-13
+598	Joakim Nordstrom	25	LW	CAR	75	2	5	7	-11
+599	Tomas Nosek	25	LW	VEG	67	7	8	15	6
+600	Ryan Nugent-Hopkins	24	C	EDM	62	24	24	48	10
+601	Darnell Nurse	22	D	EDM	82	6	20	26	15
+602	Markus Nutivaara	23	D	CBJ	61	7	16	23	13
+603	Alexander Nylander	19	RW	BUF	3	1	0	1	-3
+604	William Nylander	21	C	TOR	82	20	41	61	20
+605	Gustav Nyquist	28	RW	DET	82	21	19	40	-2
+606	Jim O'Brien	29	C	OTT	10	0	1	1	-1
+607	Liam O'Brien	23	C	WSH	3	0	0	0	0
+608	Rob O'Gara	24	D	TOT	30	0	3	3	-7
+608	Rob O'Gara	24	D	NYR	22	0	3	3	-2
+608	Rob O'Gara	24	D	BOS	8	0	0	0	-5
+609	Will O'Neill	29	D	PHI	1	0	0	0	0
+610	Daniel O'Regan	24	C	TOT	21	0	4	4	-2
+610	Daniel O'Regan	24	C	SJS	19	0	4	4	-3
+610	Daniel O'Regan	24	C	BUF	2	0	0	0	1
+611	Cal O'Reilly	31	C	MIN	1	0	0	0	0
+612	Ryan O'Reilly	26	C	BUF	81	24	37	61	-23
+613	Johnny Oduya	36	D	TOT	52	4	4	8	1
+613	Johnny Oduya	36	D	OTT	51	4	4	8	2
+613	Johnny Oduya	36	D	PHI	1	0	0	0	-1
+614	Jordan Oesterle	25	D	CHI	55	5	10	15	-11
+615	Kyle Okposo	29	RW	BUF	76	15	29	44	-34
+616	Jamie Oleksiak	25	D	TOT	68	5	12	17	7
+616	Jamie Oleksiak	25	D	PIT	47	4	10	14	13
+616	Jamie Oleksiak	25	D	DAL	21	1	2	3	-6
+617	Gustav Olofsson	23	D	MIN	41	0	8	8	0
+618	Dmitry Orlov	26	D	WSH	82	10	21	31	10
+619	Brooks Orpik	37	D	WSH	81	0	10	10	-9
+620	T.J. Oshie	31	RW	WSH	74	18	29	47	2
+621	Xavier Ouellet	24	D	DET	45	0	7	7	-3
+622	Alex Ovechkin	32	LW	WSH	82	49	38	87	3
+623	Magnus Paajarvi	26	LW	TOT	79	8	4	12	-11
+623	Magnus Paajarvi	26	LW	STL	44	2	2	4	-3
+623	Magnus Paajarvi	26	LW	OTT	35	6	2	8	-8
+624	Max Pacioretty	29	LW	MTL	64	17	20	37	-16
+625	Jean-Gabriel Pageau	25	C	OTT	78	14	15	29	-14
+626	Iiro Pakarinen	26	RW	EDM	40	2	1	3	1
+627	Ondrej Palat	26	LW	TBL	56	11	24	35	16
+628	Kyle Palmieri	26	RW	NJD	62	24	20	44	-1
+629	Artemi Panarin	26	LW	CBJ	81	27	55	82	23
+630	Richard Panik	26	RW	TOT	72	14	21	35	7
+630	Richard Panik	26	RW	CHI	37	6	10	16	3
+630	Richard Panik	26	RW	ARI	35	8	11	19	4
+631	Cedric Paquette	24	C	TBL	56	5	4	9	-5
+632	Colton Parayko	24	D	STL	82	6	29	35	-7
+633	Zach Parise	33	LW	MIN	42	15	9	24	0
+634	David Pastrnak	21	RW	BOS	82	35	45	80	10
+635	Greg Pateryn	27	D	DAL	73	1	12	13	6
+636	Nolan Patrick	19	C	PHI	73	13	17	30	1
+637	Nick Paul	22	LW	OTT	11	1	0	1	-4
+638	Joe Pavelski	33	C	SJS	82	22	44	66	0
+639	Tanner Pearson	25	LW	LAK	82	15	25	40	11
+640	Matthew Peca	24	C	TBL	10	2	3	5	6
+641	Adam Pelech	23	D	NYI	78	3	16	19	7
+642	Anthony Peluso	28	RW	WSH	2	0	0	0	0
+643	Brendan Perlini	21	LW	ARI	74	17	13	30	-2
+644	Mathieu Perreault	30	C	WPG	70	17	22	39	4
+645	David Perron	29	LW	VEG	70	16	50	66	1
+646	Corey Perry	32	RW	ANA	71	17	32	49	-4
+647	Brett Pesce	23	D	CAR	65	3	16	19	-6
+648	Nic Petan	22	LW	WPG	15	2	0	2	0
+649	Alexander Petrovic	25	D	FLA	67	2	11	13	-2
+650	Jeff Petry	30	D	MTL	82	12	30	42	-30
+651	Marcus Pettersson	21	D	ANA	22	1	3	4	5
+652	Dion Phaneuf	32	D	TOT	79	6	20	26	-15
+652	Dion Phaneuf	32	D	OTT	53	3	13	16	-8
+652	Dion Phaneuf	32	D	LAK	26	3	7	10	-7
+653	Blake Pietila	24	LW	NJD	2	0	0	0	0
+654	Alex Pietrangelo	28	D	STL	78	15	39	54	8
+655	Neal Pionk	22	D	NYR	28	1	13	14	-1
+656	Brandon Pirri	26	RW	VEG	2	3	0	3	3
+657	Tyler Pitlick	26	C	DAL	80	14	13	27	9
+658	Tomas Plekanec	35	C	TOT	77	6	20	26	1
+658	Tomas Plekanec	35	C	MTL	60	6	18	24	3
+658	Tomas Plekanec	35	C	TOR	17	0	2	2	-2
+659	Brayden Point	21	C	TBL	82	32	34	66	18
+660	Roman Polak	31	D	TOR	54	2	10	12	5
+661	Jason Pominville	35	RW	BUF	82	16	18	34	-17
+662	Tucker Poolman	24	D	WPG	24	1	1	2	2
+663	Paul Postma	28	D	BOS	14	0	1	1	-2
+664	Benoit Pouliot	31	LW	BUF	74	13	6	19	-8
+665	Derrick Pouliot	24	D	VAN	71	3	19	22	-22
+666	Shane Prince	25	LW	NYI	14	1	1	2	-3
+667	Nate Prosser	31	D	TOT	57	3	6	9	8
+667	Nate Prosser	31	D	MIN	56	3	6	9	8
+667	Nate Prosser	31	D	STL	1	0	0	0	0
+668	Dalton Prout	27	D	NJD	4	0	0	0	-2
+669	Ivan Provorov	21	D	PHI	82	17	24	41	17
+670	Jesse Puljujarvi	19	RW	EDM	65	12	8	20	-1
+671	Ryan Pulock	23	D	NYI	68	10	22	32	-4
+672	Tom Pyatt	30	LW	OTT	81	7	15	22	-12
+673	Mark Pysyk	26	D	FLA	82	3	13	16	-8
+674	John Quenneville	21	C	NJD	2	0	0	0	-3
+675	Kyle Quincey	32	D	MIN	18	0	3	3	-4
+676	Alan Quine	24	C	NYI	21	0	3	3	-2
+677	Alexander Radulov	31	RW	DAL	82	27	45	72	4
+678	Michael Raffl	29	LW	PHI	76	13	9	22	9
+679	Rickard Rakell	24	C	ANA	77	34	35	69	6
+680	Mikko Rantanen	21	RW	COL	81	29	55	84	0
+681	Victor Rask	24	C	CAR	71	14	17	31	0
+682	Dennis Rasmussen	27	C	ANA	27	1	3	4	4
+683	Ty Rattie	24	RW	EDM	14	5	4	9	1
+684	Kyle Rau	25	C	MIN	3	0	1	1	0
+685	Matt Read	31	RW	PHI	19	1	0	1	-2
+686	Ryan Reaves	31	RW	TOT	79	4	6	10	-7
+686	Ryan Reaves	31	RW	PIT	58	4	4	8	-9
+686	Ryan Reaves	31	RW	VEG	21	0	2	2	2
+687	Zach Redmond	29	D	BUF	3	0	0	0	1
+688	Mike Reilly	24	D	TOT	57	2	16	18	-5
+688	Mike Reilly	24	D	MIN	38	2	8	10	-6
+688	Mike Reilly	24	D	MTL	19	0	8	8	1
+689	Sam Reinhart	22	C	BUF	82	25	25	50	-24
+690	Mitch Reinke	21	D	STL	1	0	0	0	0
+691	Brad Richardson	32	C	ARI	76	3	12	15	-24
+692	Tobias Rieder	25	RW	TOT	78	12	13	25	-12
+692	Tobias Rieder	25	RW	ARI	58	8	11	19	-11
+692	Tobias Rieder	25	RW	LAK	20	4	2	6	-1
+693	Morgan Rielly	23	D	TOR	76	6	46	52	-4
+694	Zac Rinaldo	27	LW	ARI	53	5	2	7	-7
+695	Rasmus Ristolainen	23	D	BUF	73	6	35	41	-25
+696	Brett Ritchie	24	RW	DAL	71	7	7	14	1
+697	Nick Ritchie	22	LW	ANA	76	10	17	27	3
+698	Eric Robinson	22	LW	CBJ	1	0	0	0	1
+699	Jack Rodewald	23	RW	OTT	4	0	0	0	-1
+700	Evan Rodrigues	24	LW	BUF	48	7	18	25	-10
+701	Kevin Rooney	24	C	NJD	1	0	0	0	0
+702	Calle Rosen	23	D	TOR	4	0	1	1	-3
+703	Jack Roslovic	21	C	WPG	31	5	9	14	5
+704	Antoine Roussel	28	LW	DAL	73	5	12	17	1
+705	Carter Rowney	28	RW	PIT	44	2	3	5	-13
+706	Kevin Roy	24	LW	ANA	25	6	1	7	3
+707	Nicolas Roy	20	C	CAR	1	0	0	0	-1
+708	Chad Ruhwedel	27	D	PIT	44	2	3	5	-8
+709	Kris Russell	30	D	EDM	78	4	17	21	-7
+710	Bryan Rust	25	RW	PIT	69	13	25	38	11
+711	Jan Rutta	27	D	CHI	57	6	14	20	-1
+712	Bobby Ryan	30	RW	OTT	62	11	22	33	-12
+713	Derek Ryan	31	C	CAR	80	15	23	38	-15
+714	Joakim Ryan	24	D	SJS	62	3	9	12	13
+715	Kerby Rychel	23	LW	MTL	4	1	1	2	-2
+716	Brandon Saad	25	LW	CHI	82	18	17	35	-10
+717	Miikka Salomaki	24	RW	NSH	58	2	6	8	-8
+718	Travis Sanheim	21	D	PHI	49	2	8	10	-6
+719	Steven Santini	22	D	NJD	36	2	8	10	0
+720	Ashton Sautner	23	D	VAN	5	0	2	2	4
+721	David Savard	27	D	CBJ	81	4	12	16	2
+722	Luca Sbisa	28	D	VEG	30	2	12	14	8
+723	Marco Scandella	27	D	BUF	82	5	17	22	-15
+724	Colton Sceviour	28	RW	FLA	76	11	13	24	6
+725	Tim Schaller	27	C	BOS	82	12	10	22	-5
+726	Mark Scheifele	24	C	WPG	60	23	37	60	19
+727	Brayden Schenn	26	C	STL	82	28	42	70	10
+728	Luke Schenn	28	D	ARI	64	1	6	7	-12
+729	Nikita Scherbak	22	RW	MTL	26	4	2	6	-5
+730	David Schlemko	30	D	MTL	37	1	4	5	3
+731	Jordan Schmaltz	24	D	STL	13	0	1	1	0
+732	Nick Schmaltz	21	LW	CHI	78	21	31	52	1
+733	Nate Schmidt	26	D	VEG	76	5	31	36	19
+734	Jordan Schroeder	27	LW	CBJ	21	1	1	2	-4
+735	Justin Schultz	27	D	PIT	63	4	23	27	22
+736	Jaden Schwartz	25	LW	STL	62	24	35	59	15
+737	Brent Seabrook	32	D	CHI	81	7	19	26	-3
+738	Daniel Sedin	37	LW	VAN	81	23	32	55	-21
+739	Henrik Sedin	37	C	VAN	82	3	47	50	-22
+740	Lukas Sedlak	24	LW	CBJ	53	4	4	8	-3
+741	Nick Seeler	24	D	MIN	22	0	4	4	10
+742	Tyler Seguin	26	C	DAL	82	40	38	78	12
+743	Dennis Seidenberg	36	D	NYI	28	0	5	5	-9
+744	Andrej Sekera	31	D	EDM	36	0	8	8	-15
+745	Mikhail Sergachev	19	D	TBL	79	9	31	40	11
+746	Damon Severson	23	D	NJD	76	9	15	24	-8
+747	Ben Sexton	26	C	OTT	2	0	0	0	-1
+748	Patrick Sharp	36	LW	CHI	70	10	11	21	-16
+749	Kevin Shattenkirk	29	D	NYR	46	5	18	23	-14
+750	Andrew Shaw	26	RW	MTL	51	10	10	20	-8
+751	Logan Shaw	26	RW	TOT	72	4	10	14	-6
+751	Logan Shaw	26	RW	ANA	42	2	6	8	-1
+751	Logan Shaw	26	RW	MTL	30	2	4	6	-5
+752	Riley Sheahan	26	C	TOT	81	11	21	32	4
+752	Riley Sheahan	26	C	PIT	73	11	21	32	4
+752	Riley Sheahan	26	C	DET	8	0	0	0	0
+753	Conor Sheary	25	LW	PIT	79	18	12	30	2
+754	Vadim Shipachyov	30	LW	VEG	3	1	0	1	3
+755	Devin Shore	23	C	DAL	82	11	21	32	-30
+756	Nick Shore	25	C	TOT	64	5	14	19	-3
+756	Nick Shore	25	C	LAK	49	4	11	15	-4
+756	Nick Shore	25	C	CGY	9	1	2	3	0
+756	Nick Shore	25	C	OTT	6	0	1	1	1
+757	Patrick Sieloff	23	D	OTT	1	1	0	1	-2
+758	Duncan Siemens	24	D	COL	16	1	1	2	-5
+759	Dylan Sikura	22	RW	CHI	5	0	3	3	2
+760	Jakob Silfverberg	27	RW	ANA	77	17	23	40	6
+761	Wayne Simmonds	29	RW	PHI	75	24	22	46	-16
+762	Dominik Simon	23	C	PIT	33	4	8	12	2
+763	Colton Sissons	24	C	NSH	81	9	18	27	2
+764	Jeff Skinner	25	LW	CAR	82	24	25	49	-27
+765	Brady Skjei	23	D	NYR	82	4	21	25	-27
+766	Jaccob Slavin	23	D	CAR	82	8	22	30	1
+767	Anton Slepyshev	23	LW	EDM	50	6	6	12	-4
+768	Brendan Smith	28	D	NYR	44	1	7	8	2
+769	Craig Smith	28	RW	NSH	79	25	26	51	20
+770	Gemel Smith	23	C	DAL	46	6	5	11	5
+771	Reilly Smith	26	RW	VEG	67	22	38	60	31
+772	Zack Smith	29	LW	OTT	68	5	14	19	-32
+773	Devante Smith-Pelly	25	RW	WSH	75	7	9	16	-6
+774	Vladimir Sobotka	30	LW	STL	81	11	20	31	-6
+775	Carl Soderberg	32	C	COL	77	16	21	37	0
+776	Marcus Sorensen	25	LW	SJS	32	5	2	7	-5
+777	Nikita Soshnikov	24	RW	TOT	15	1	1	2	-2
+777	Nikita Soshnikov	24	RW	STL	12	1	1	2	0
+777	Nikita Soshnikov	24	RW	TOR	3	0	0	0	-2
+778	Carson Soucy	23	D	MIN	3	0	0	0	-2
+779	Jason Spezza	34	C	DAL	78	8	18	26	-12
+780	Ryan Spooner	26	C	TOT	59	13	28	41	6
+780	Ryan Spooner	26	C	BOS	39	9	16	25	10
+780	Ryan Spooner	26	C	NYR	20	4	12	16	-4
+781	Daniel Sprong	20	RW	PIT	8	2	1	3	2
+782	Ryan Sproul	25	D	NYR	16	1	4	5	-6
+783	Jared Spurgeon	28	D	MIN	61	9	28	37	-6
+784	Eric Staal	33	C	MIN	82	42	34	76	8
+785	Jordan Staal	29	C	CAR	79	19	27	46	-4
+786	Marc Staal	31	D	NYR	72	1	7	8	11
+787	Drew Stafford	32	RW	NJD	59	8	7	15	-20
+788	Matt Stajan	34	C	CGY	68	4	8	12	4
+789	Steven Stamkos	27	C	TBL	78	27	59	86	18
+790	Paul Stastny	32	C	TOT	82	16	37	53	1
+790	Paul Stastny	32	C	STL	63	12	28	40	-5
+790	Paul Stastny	32	C	WPG	19	4	9	13	6
+791	Troy Stecher	23	D	VAN	68	1	10	11	-7
+792	Alex Steen	33	LW	STL	76	15	31	46	-11
+793	Lee Stempniak	34	RW	CAR	37	3	6	9	-8
+794	Derek Stepan	27	C	ARI	82	14	42	56	-7
+795	Chandler Stephenson	23	C	WSH	67	6	12	18	13
+796	Chris Stewart	30	RW	TOT	54	10	6	16	-5
+796	Chris Stewart	30	RW	MIN	47	9	4	13	-1
+796	Chris Stewart	30	RW	CGY	7	1	2	3	-4
+797	Mark Stone	25	RW	OTT	58	20	42	62	9
+798	Michael Stone	27	D	CGY	82	3	7	10	-11
+799	Anton Stralman	31	D	TBL	80	4	14	18	29
+800	Mark Streit	40	D	MTL	2	0	0	0	-2
+801	Dylan Strome	20	C	ARI	21	4	5	9	4
+802	Ryan Strome	24	RW	EDM	82	13	21	34	-4
+803	P.K. Subban	28	D	NSH	82	16	43	59	18
+804	Oskar Sundqvist	23	C	STL	42	1	4	5	-5
+805	Andrej Sustr	27	D	TBL	44	2	5	7	-5
+806	Ryan Suter	33	D	MIN	78	6	45	51	-1
+807	Brandon Sutter	28	C	VAN	61	11	15	26	8
+808	Evgeny Svechnikov	21	RW	DET	14	2	2	4	-2
+809	Jordan Szwarz	26	RW	BOS	12	0	3	3	-4
+810	Brandon Tanev	26	LW	WPG	61	8	10	18	13
+811	Chris Tanev	28	D	VAN	42	2	9	11	7
+812	Vladimir Tarasenko	26	RW	STL	80	33	33	66	15
+813	Tomas Tatar	27	LW	TOT	82	20	14	34	-19
+813	Tomas Tatar	27	LW	DET	62	16	12	28	-8
+813	Tomas Tatar	27	LW	VEG	20	4	2	6	-11
+814	John Tavares	27	C	NYI	82	37	47	84	-12
+815	Matt Tennyson	27	D	BUF	15	0	0	0	-8
+816	Teuvo Teravainen	23	LW	CAR	82	23	41	64	8
+817	Troy Terry	20	RW	ANA	2	0	0	0	0
+818	Shea Theodore	22	D	VEG	61	6	23	29	5
+819	Nate Thompson	33	C	TOT	69	5	12	17	-1
+819	Nate Thompson	33	C	OTT	43	4	7	11	0
+819	Nate Thompson	33	C	LAK	26	1	5	6	-1
+820	Tage Thompson	20	C	STL	41	3	6	9	-12
+821	Chris Thorburn	34	RW	STL	50	1	6	7	-4
+822	Joe Thornton	38	C	SJS	47	13	23	36	-9
+823	Chris Tierney	23	C	SJS	82	17	23	40	0
+824	Owen Tippett	18	RW	FLA	7	1	0	1	-6
+825	Matthew Tkachuk	20	LW	CGY	68	24	25	49	-1
+826	Jonathan Toews	29	C	CHI	74	20	32	52	-1
+827	Tyler Toffoli	25	C	LAK	82	24	23	47	9
+828	Eeli Tolvanen	18	RW	NSH	3	0	0	0	0
+829	Dominic Toninato	23	C	COL	37	0	2	2	0
+830	Vincent Trocheck	24	C	FLA	82	31	44	75	-9
+831	Zach Trotman	27	D	PIT	3	0	0	0	-3
+832	Jacob Trouba	23	D	WPG	55	3	21	24	9
+833	Alex Tuch	21	RW	VEG	78	15	22	37	3
+834	Dominic Turgeon	21	C	DET	5	0	0	0	-2
+835	Kyle Turris	28	C	TOT	76	16	35	51	19
+835	Kyle Turris	28	C	NSH	65	13	29	42	22
+835	Kyle Turris	28	C	OTT	11	3	6	9	-3
+836	Scottie Upshall	34	RW	STL	63	7	12	19	-1
+837	Rinat Valiev	22	D	MTL	2	0	0	0	0
+838	Curtis Valk	24	LW	FLA	1	0	0	0	0
+839	James van Riemsdyk	28	LW	TOR	81	36	18	54	1
+840	Trevor van Riemsdyk	26	D	CAR	79	3	13	16	9
+841	Thomas Vanek	34	LW	TOT	80	24	32	56	-3
+841	Thomas Vanek	34	LW	VAN	61	17	24	41	-12
+841	Thomas Vanek	34	LW	CBJ	19	7	8	15	9
+842	Sami Vatanen	26	D	TOT	72	4	28	32	-7
+842	Sami Vatanen	26	D	NJD	57	3	25	28	-1
+842	Sami Vatanen	26	D	ANA	15	1	3	4	-6
+843	Frank Vatrano	23	C	TOT	41	7	3	10	3
+843	Frank Vatrano	23	C	BOS	25	2	0	2	-3
+843	Frank Vatrano	23	C	FLA	16	5	3	8	6
+844	Antoine Vermette	35	C	ANA	64	8	8	16	-5
+845	Kris Versteeg	31	RW	CGY	24	3	5	8	-8
+846	Jimmy Vesey	24	LW	NYR	79	17	11	28	-18
+847	Jake Virtanen	21	RW	VAN	75	10	10	20	-11
+848	Marc-Edouard Vlasic	30	D	SJS	81	11	21	32	9
+849	Jakub Voracek	28	RW	PHI	82	20	65	85	10
+850	Jakub Vrana	21	LW	WSH	73	13	14	27	2
+851	Radim Vrbata	36	RW	FLA	42	5	9	14	-7
+852	Chris Wagner	26	RW/C	TOT	79	7	9	16	-10
+852	Chris Wagner	26	C	ANA	64	6	9	15	-7
+852	Chris Wagner	26	RW	NYI	15	1	0	1	-3
+853	Nathan Walker	23	LW	TOT	9	1	0	1	0
+853	Nathan Walker	23	LW	WSH	7	1	0	1	1
+853	Nathan Walker	23	LW	EDM	2	0	0	0	-1
+854	Lucas Wallmark	22	C	CAR	11	1	0	1	-4
+855	Joel Ward	37	RW	SJS	52	5	7	12	-2
+856	David Warsofsky	27	D	COL	16	0	5	5	4
+857	Austin Watson	26	LW	NSH	76	14	5	19	2
+858	Jordan Weal	25	C	PHI	69	8	13	21	-10
+859	Shea Weber	32	D	MTL	26	6	10	16	-8
+860	Yannick Weber	29	D	NSH	47	2	3	5	2
+861	MacKenzie Weegar	24	D	FLA	60	2	6	8	5
+862	Dale Weise	29	RW	PHI	46	4	4	8	-7
+863	Andy Welinski	24	D	ANA	7	0	2	2	-1
+864	Alexander Wennberg	23	C	CBJ	66	8	27	35	22
+865	Zach Werenski	20	D	CBJ	77	16	21	37	8
+866	Blake Wheeler	31	RW	WPG	81	23	68	91	13
+867	Colin White	21	C	OTT	21	2	4	6	1
+868	Zach Whitecloud	21	D	VEG	1	0	0	0	3
+869	Chris Wideman	28	D	OTT	16	3	5	8	5
+870	Justin Williams	36	RW	CAR	82	16	35	51	-9
+871	Colin Wilson	28	C	COL	56	6	12	18	-5
+872	Scott Wilson	25	C/LW	TOT	69	6	8	14	-20
+872	Scott Wilson	25	C	BUF	49	6	8	14	-17
+872	Scott Wilson	25	LW	DET	17	0	0	0	-1
+872	Scott Wilson	25	LW	PIT	3	0	0	0	-2
+873	Tom Wilson	23	RW	WSH	78	14	21	35	10
+874	Tommy Wingels	29	RW	TOT	75	9	8	17	-11
+874	Tommy Wingels	29	RW	CHI	57	7	5	12	-10
+874	Tommy Wingels	29	RW	BOS	18	2	3	5	-1
+875	Daniel Winnik	32	LW	MIN	81	6	17	23	5
+876	Luke Witkowski	27	RW	DET	31	1	3	4	-1
+877	Christian Wolanin	22	D	OTT	10	1	2	3	-4
+878	Miles Wood	22	LW	NJD	76	19	13	32	-6
+879	Nail Yakupov	24	RW	COL	58	9	7	16	2
+880	Kailer Yamamoto	19	RW	EDM	9	0	3	3	-2
+881	Keith Yandle	31	D	FLA	82	8	48	56	7
+882	Pavel Zacha	20	C	NJD	69	8	17	25	-3
+883	Nikita Zadorov	22	D	COL	77	7	13	20	4
+884	Nikita Zaitsev	26	D	TOR	60	5	8	13	8
+885	Travis Zajac	32	C	NJD	63	12	14	26	-8
+886	Henrik Zetterberg	37	LW	DET	82	11	45	56	1
+887	Mika Zibanejad	24	C	NYR	72	27	20	47	-23
+888	Mats Zuccarello	30	RW	NYR	80	16	37	53	-10
+889	Jason Zucker	26	LW	MIN	82	33	31	64	8
+890	Valentin Zykov	22	LW	CAR	10	3	4	7	4
+\.
+
+
+--
+-- Data for Name: teams; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY teams (id, team_name, wins, losses, ot_losses, points, percent, goals_for, goals_against) FROM stdin;
+1	Nashville Predators	53	18	11	117	0.712999999999999967	267	211
+2	Winnipeg Jets	52	20	10	114	0.694999999999999951	277	218
+3	Tampa Bay Lightning	54	23	5	113	0.688999999999999946	296	236
+4	Boston Bruins	50	20	12	112	0.683000000000000052	270	214
+5	Vegas Golden Knights	51	24	7	109	0.665000000000000036	272	228
+6	Washington Capitals	49	26	7	105	0.640000000000000013	259	239
+7	Toronto Maple Leafs	49	26	7	105	0.640000000000000013	277	232
+8	Anaheim Ducks	44	25	13	101	0.615999999999999992	235	216
+9	Minnesota Wild	45	26	11	101	0.615999999999999992	253	232
+10	Pittsburgh Penguins	47	29	6	100	0.609999999999999987	272	250
+11	San Jose Sharks	45	27	10	100	0.609999999999999987	252	229
+12	Philadelphia Flyers	42	26	14	98	0.597999999999999976	251	243
+13	Los Angeles Kings	45	29	8	98	0.597999999999999976	239	203
+14	Columbus Blue Jackets	45	30	7	97	0.59099999999999997	242	230
+15	New Jersey Devils	44	29	9	97	0.59099999999999997	248	244
+16	Florida Panthers	44	30	8	96	0.584999999999999964	248	246
+17	Colorado Avalanche	43	30	9	95	0.578999999999999959	257	237
+18	St. Louis Blues	44	32	6	94	0.572999999999999954	226	222
+19	Dallas Stars	42	32	8	92	0.561000000000000054	235	225
+20	Calgary Flames	37	35	10	84	0.512000000000000011	218	248
+21	Carolina Hurricanes	36	35	11	83	0.506000000000000005	228	256
+22	New York Islanders	35	37	10	80	0.487999999999999989	264	296
+23	Edmonton Oilers	36	40	6	78	0.475999999999999979	234	263
+24	New York Rangers	34	39	9	77	0.469999999999999973	231	268
+25	Chicago Blackhawks	33	39	10	76	0.463000000000000023	229	256
+26	Vancouver Canucks	31	40	11	73	0.445000000000000007	218	264
+27	Detroit Red Wings	30	39	13	73	0.445000000000000007	217	255
+28	Montreal Canadiens	29	40	13	71	0.432999999999999996	209	264
+29	Arizona Coyotes	29	41	12	70	0.426999999999999991	208	256
+30	Ottawa Senators	28	43	11	67	0.408999999999999975	221	291
+31	Buffalo Sabres	25	45	12	62	0.378000000000000003	199	280
+\.
+
+
+--
+-- PostgreSQL database dump complete
+--
+
