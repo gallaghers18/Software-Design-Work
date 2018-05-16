@@ -70,8 +70,11 @@ function createOrderedPlayerTable(order_stat,order_direction='descend') {
         tableBody += '<th><a onclick="createOrderedPlayerTable(\'plus_minus\')">+/-</a></th>';
         tableBody += '</tr>';
         for (var k = 0; k < playersList.length; k++) {
-            tableBody += '<tr>';
-
+            if (k%2 == 1) {
+                tableBody += '<tr class="odd">'
+            } else {
+                tableBody += '<tr>';
+            }
             tableBody += '<td><a href=\"' + getHostURL() + '/player/' + playersList[k]['id'] + '\">'
                             + playersList[k]['player_name'] + '</a></td>';            
             tableBody += '<td>' + playersList[k]['age'] + '</td>';

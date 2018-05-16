@@ -60,7 +60,7 @@ function createOrderedTeamTable(order_stat, order_direction='descend') {
         // Build the table body.
         var tableBody = '';
         tableBody += '<tr>';
-        tableBody += '<th><a onclick="createOrderedTeamTable(\'id\',\'ascend\')">Name</a></th>';
+        tableBody += '<th><a onclick="createOrderedTeamTable(\'team_name\',\'ascend\')">Name</a></th>';
         tableBody += '<th><a onclick="createOrderedTeamTable(\'points\')">Points</a></th>';
         tableBody += '<th><a onclick="createOrderedTeamTable(\'wins\')">Wins</a></th>';
         tableBody += '<th><a onclick="createOrderedTeamTable(\'losses\')">Losses</a></th>';
@@ -70,7 +70,11 @@ function createOrderedTeamTable(order_stat, order_direction='descend') {
         tableBody += '<th><a onclick="createOrderedTeamTable(\'goals_against\')">Goals Against</a></th>';
         tableBody += '</tr>';
         for (var k = 0; k < teamsList.length; k++) {
-            tableBody += '<tr>';
+            if (k%2 == 1) {
+                tableBody += '<tr class="odd">'
+            } else {
+                tableBody += '<tr>';
+            }
 
             tableBody += '<td><a href="'+ getHostURL() +'/team/'+ teamsList[k]['id'] + '">' + teamsList[k]['team_name'] + '</a></td>';
             tableBody += '<td>' + teamsList[k]['points'] + '</td>';
