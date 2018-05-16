@@ -32,13 +32,18 @@ table#results_table2 {
 }
 
 /* General tables*/
-th, td {
+th {
     border-bottom: 1px solid #ddd;
     padding: 15px;
 }
 
+td {
+    border-bottom: 1px none #ddd;
+    padding: 15px;
+}
+
 .odd {
-    background-color: #E8E8E8;
+    background-color: #E8E8E8 !important;
 }
 
 /* General links & buttons */
@@ -131,6 +136,6 @@ button {
 
 /* When you mouse over the navigation links, change their color */
 .sidenav button:hover {
-    color: #111;
+    color: #D8D8D8;
 }
 

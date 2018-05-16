@@ -54,7 +54,6 @@ function searchPlayer(name, table_id) {
             } else {
                 tableBody += '<tr>';
             }
-            tableBody += '<tr>';
             tableBody += '<td><a onclick="createPlayerCompTable('+playersList[k]['id']+','+table_id+')">' + playersList[k]['player_name'] + '</a></td>';
             tableBody += '</tr>';
         } 
