@@ -1,4 +1,8 @@
-
+/*
+ * player.js for use in player.html
+ * Sean Gallagher & David White
+ * CS 257
+ */
 
 
 
