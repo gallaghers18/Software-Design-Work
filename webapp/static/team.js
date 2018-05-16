@@ -108,10 +108,13 @@ function createOrderedPlayerTable(team_id,stat='id',order='descend') {
         tableBody += '</tr>';
         var playersList=teamDictionary['player_list'];
         for (var k = 0; k < playersList.length; k++) {
-            tableBody += '<tr>';
+            if (k%2 == 1) {
+                tableBody += '<tr class="odd">'
+            } else {
+                tableBody += '<tr>';
+            }
 
-            tableBody += '<td><a onclick="getPlayer(' + playersList[k]['id'] + ",'"
-                            + playersList[k]['player_name']+"')\">"
+            tableBody += '<td><a href=\"' + getHostURL() + '/player/' + playersList[k]['id'] + '\">'
                             + playersList[k]['player_name'] + '</a></td>';
          
             tableBody += '<td>' + playersList[k]['age'] + '</td>';

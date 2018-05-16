@@ -8,15 +8,15 @@
     <script>var host_port = {{ host_port }};</script>
     <script type="text/javascript" src="{{ url_for('static', filename='home.js') }}" defer></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='hockeyicon.png') }}" />
-    <title>CS 257: Software Design, Spring 2017</title>
+    <title>CS 257: Player Comparison</title>
 </head>
 
 <body>
 <script type = "text/javascript" src="{{ url_for('static',filename='team_sidebar.js') }}"></script>
 <div class="main">
 
-    <h2>Player Comparison:</h2>
-    <h3>Search for and select two players to compare their stats!</h3>
+    <h2>Player Comparison</h2>
+    <h3>Search for and select two players to compare their stats</h3>
     
     <input type="text" id="search_text1" onkeydown="if(event.keyCode==13) getSearchResults('1');" placeholder="Search..."/>
     <button type="submit" onclick="getSearchResults('1');"><i class="fa fa-search"></i></button>

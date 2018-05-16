@@ -33,7 +33,7 @@ initialize();
 function initialize() {
     addSidebar();
     addTopbar();
-    createSidebarTeamTable('id', 'ascend');
+    createSidebarTeamTable('team_name', 'ascend');
 }
 
 function getBaseURL() {
