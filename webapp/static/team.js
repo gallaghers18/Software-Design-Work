@@ -10,34 +10,34 @@ function initialize() {
     createOrderedPlayerTable(team_id,"id","ascend");
 }
 
+/*Get API URL*/
 function getBaseURL() {
     var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + api_port;
     return baseURL;
 }
 
+/*Get Website base URL*/
 function getHostURL() {
     var hostURL = window.location.protocol + '//' + window.location.hostname + ':' + host_port;
     return hostURL;
 }
 
+/*Builds a table with team stats, and a table with stats for all of the team's players*/
 function createOrderedPlayerTable(team_id,stat='id',order='descend') {
     var url = getBaseURL() + '/team/' + team_id + "?stat="+stat+"&order="+order;
-    // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
 
-    // When the results come back, transform them from JSON string into
-    // a Javascript object (in this case, a list of author dictionaries).
     .then((response) => response.json())
 
-    // Once you have your list of author dictionaries, use it to build
-    // an HTML table displaying the author names and lifespan.
     .then(function(teamDictionary) {
+        //First, extract the team name for a large header
         var teamName=teamDictionary['team_stats']['team_name'];
         var TeamNameElement = document.getElementById('team_name');
         if (TeamNameElement) {
             TeamNameElement.innerHTML = teamName;
         }
         
+        //Then, extract the team stats for table 1
         var teamsList = teamDictionary['team_stats'];
         var teamStatsBody = '';
         teamStatsBody += '<tr>';
@@ -70,7 +70,7 @@ function createOrderedPlayerTable(team_id,stat='id',order='descend') {
         
         
         
-        // Build the table body.
+        //Extract the team's players and build them into a table.
         var tableBody = '';
         tableBody += '<tr>';
         tableBody += '<th><a onclick="createOrderedPlayerTable('+team_id+',\'id\',\'ascend\')">Player</a></th>';

@@ -12,19 +12,22 @@ function initialize() {
     createPlayerTable(player_id);
 }
 
+/*Get API URL*/
 function getBaseURL() {
     var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + api_port;
     return baseURL;
 }
 
+/*Get Website base URL*/
 function getHostURL() {
     var hostURL = window.location.protocol + '//' + window.location.hostname + ':' + host_port;
     return hostURL;
 }
 
+/*Creates a table with the player and their stats*/
 function createPlayerTable(player_id) {
     var url = getBaseURL() + '/player/' + player_id;
-
+    //Query the player/id endpoint
     fetch(url, {method: 'get'})
     
     .then((response) => response.json())

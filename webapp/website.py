@@ -9,6 +9,8 @@ import flask
 
 app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 
+#Our complexity is on the js side, not the python side,
+#so endpoints are pretty darn simple.
 @app.route('/') 
 def get_main_page():
     global api_port

@@ -10,25 +10,28 @@ function initialize() {
     
 }
 
+/*Get API URL*/
 function getBaseURL() {
     var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + api_port;
     return baseURL;
 }
 
+/*Get Website base URL*/
 function getHostURL() {
     var hostURL = window.location.protocol + '//' + window.location.hostname + ':' + host_port;
     return hostURL;
 }
 
-
+/*Grabs the search string, and runs the search function on it*/
 function getSearchResults(text_id) {
     var search_string = document.getElementById('search_text'+text_id).value;
     searchPlayer(search_string, text_id);
 }
 
-
+/*Fills in the table with buttons for possible search matches*/
 function searchPlayer(name, table_id) {
     var url = getBaseURL() + '/name/' + name;
+    //Queries endpoint returning names like the searchstring
     
     fetch(url, {method: 'get'})
 
@@ -40,12 +43,13 @@ function searchPlayer(name, table_id) {
         tempArray.push(playersList);
         playersList = tempArray;
         }
-
+        
+        //Fills table body for table #id with a button for each potential search result.
         var tableBody = '';
         tableBody += '<tr><th>Player</th></tr>';
         for (var k = 0; k < playersList.length; k++) {
             tableBody += '<tr>';
-            tableBody += '<td><button onclick="createPlayerCompTable('+playersList[k]['id']+','+table_id+')">' + playersList[k]['player_name'] + '</button></td>';
+            tableBody += '<td><a onclick="createPlayerCompTable('+playersList[k]['id']+','+table_id+')">' + playersList[k]['player_name'] + '</a></td>';
             tableBody += '</tr>';
         } 
         var resultsTableElement = document.getElementById('results_table'+table_id);
@@ -61,7 +65,7 @@ function searchPlayer(name, table_id) {
     
 }
 
-
+/*Fills in table #id with the stats of the player player_id*/
 function createPlayerCompTable(player_id, table_id) {
     var url = getBaseURL() + '/player/' + player_id;
 
@@ -87,6 +91,7 @@ function createPlayerCompTable(player_id, table_id) {
         if (resultsTableElement) {
             resultsTableElement.innerHTML = tableBody;
         }
+        // Color the table (this does nothing if there aren't two players selected)
         colorTable();
         return;
     })
@@ -99,22 +104,25 @@ function createPlayerCompTable(player_id, table_id) {
     
 }
 
-
+/*Borrowed from Stack Overflow. Pretty self-explanatory. */
 function isNumber(n) {
       return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 
-
+/*Compares and colors the table if two players have been selected.*/
 function colorTable() {
     var table1 = document.getElementById('results_table1').getElementsByTagName('td');
     
     var table2 = document.getElementById('results_table2').getElementsByTagName('td');
     
     var i=0;
+    //Loop through both tables as far as possible.
     while(i<table1.length && i<table2.length) {
         var num1=table1[i].innerHTML;
         var num2=table2[i].innerHTML;
+        
+        //Color larger number green and smaller number red (if they're numbers)
         if(isNumber(num1) && isNumber(num2)){
             if(parseFloat(num1)>parseFloat(num2)){
                 table1[i].style.background = "#aaffaa";
