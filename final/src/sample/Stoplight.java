@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.ArrayList;
+
 /**
  * Created by gallaghers on 5/24/18.
  */
@@ -21,8 +23,14 @@ public class Stoplight implements Intersection{
         return "Stoplight";
     }
 
+    /**
+     * Take cars into the intersection (from road segments) based on stoplight rules.
+     */
     public void takeCar() {}
 
+    /**
+     * Sends cars out of the intersection (onto road segments) based on stoplight rules.
+     */
     public void sendCar() {}
 
 }
