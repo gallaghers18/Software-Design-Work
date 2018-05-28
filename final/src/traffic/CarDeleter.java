@@ -1,4 +1,4 @@
-package sample;
+package traffic;
 
 public class CarDeleter implements Intersection {
 

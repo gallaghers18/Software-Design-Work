@@ -1,4 +1,4 @@
-package sample;
+package traffic;
 
 /**
  * Created by gallaghers on 5/24/18.

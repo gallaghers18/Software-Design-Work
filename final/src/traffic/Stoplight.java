@@ -1,4 +1,4 @@
-package sample;
+package traffic;
 
 import java.util.ArrayList;
 
