@@ -1,13 +1,25 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import traffic.TrafficView?>
+<?import javafx.scene.layout.HBox?>
 <BorderPane fx:controller="traffic.Controller"
-          xmlns:fx="http://javafx.com/fxml">
+            xmlns:fx="http://javafx.com/fxml">
+
+
     <center>
         <TrafficView fx:id="trafficView"/>
     </center>
+
+    <left>
+        <BorderPane prefWidth="300" style="-fx-background-color: #3CCBBD; -fx-padding: 10px, 5px, 10px, 5px" >
+            <top>
+                <Label style="-fx-font-size: 140%; -fx-text-fill: White" text="Here is an area for stuff. " />
+            </top>
+        </BorderPane>
+    </left>
+
+
 
 </BorderPane>

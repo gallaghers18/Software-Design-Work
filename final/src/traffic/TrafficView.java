@@ -10,6 +10,6 @@ import javafx.scene.shape.Line;
 public class TrafficView extends Group {
     Line line;
     public TrafficView() {
-         line = new Line(100, 10,   10,   110);
+        line = new Line(100, 10,   10,   110);
     }
 }
