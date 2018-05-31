@@ -5,9 +5,11 @@ import java.util.ArrayList;
 /**
  * Created by gallaghers on 5/24/18.
  */
-public class Stoplight implements Intersection{
+public class Stoplight extends TrafficNode {
 
-    public ArrayList<RoadSegment> north_to_south; //ordered source, destination
+    private int xpos;
+    private int ypos;
+    public ArrayList<RoadSegment> north_to_south; //ordered by: source, destination
     public ArrayList<RoadSegment> south_to_north;
     public ArrayList<RoadSegment> east_to_west;
     public ArrayList<RoadSegment> west_to_east;
@@ -32,6 +34,7 @@ public class Stoplight implements Intersection{
      * Sends cars out of the intersection (onto road segments) based on stoplight rules.
      */
     public void sendCar() {}
+
 
 }
 

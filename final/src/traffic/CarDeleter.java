@@ -1,6 +1,6 @@
 package traffic;
 
-public class CarDeleter implements Intersection {
+public class CarDeleter extends TrafficNode {
 
     private RoadSegment entranceRoad;
 

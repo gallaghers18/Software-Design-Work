@@ -3,7 +3,7 @@ package traffic;
 /**
  * Created by gallaghers on 5/24/18.
  */
-public class Generator implements Intersection {
+public class Generator extends TrafficNode {
 
     private RoadSegment exitRoad;
 

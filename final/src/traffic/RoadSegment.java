@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 public class RoadSegment {
 
+    private TrafficNode in;
+    private TrafficNode out;
+
+
     private ArrayList<Integer> road_state;
 
     /**
@@ -73,7 +77,13 @@ public class RoadSegment {
         return 0;
     }
 
+    public TrafficNode getIn() {
+        return in;
+    }
 
+    public TrafficNode getOut() {
+        return out;
+    }
 }
 
 
