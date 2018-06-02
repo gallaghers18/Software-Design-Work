@@ -7,7 +7,9 @@ public class Generator extends TrafficNode {
 
     private RoadSegment exitRoad;
 
-    public void Generator() {}
+    Generator(RoadSegment exitRoad) {
+        this.exitRoad=exitRoad;
+    }
 
     public String getTypeOfIntersection() {
         return "Generator";
@@ -21,7 +23,11 @@ public class Generator extends TrafficNode {
     /**
      * Add a car to the exit road if possible.
      */
-    public void sendCar() {}
+    public void sendCar() {
+        if(exitRoad.getCarAtFront()==0) {
+            exitRoad.addCarAtFront(1);
+        }
+    }
 
 
 }

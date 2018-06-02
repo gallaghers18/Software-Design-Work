@@ -4,7 +4,9 @@ public class CarDeleter extends TrafficNode {
 
     private RoadSegment entranceRoad;
 
-    public void CarDeleter() {}
+    CarDeleter(RoadSegment entranceRoad) {
+        this.entranceRoad=entranceRoad;
+    }
 
     public String getTypeOfIntersection() {
         return "CarDeleter";
@@ -13,7 +15,9 @@ public class CarDeleter extends TrafficNode {
     /**
      * Take cars into the deleter.
      */
-    public void takeCar() {}
+    public void takeCar() {
+        entranceRoad.removeCarAtEnd();
+    }
 
     /**
      * Cars don't leave their destination. They just disappear.

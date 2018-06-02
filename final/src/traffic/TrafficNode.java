@@ -26,4 +26,8 @@ public class TrafficNode {
         ypos = y;
     }
 
+    public void takeCar() {}
+
+    public void sendCar() {}
+
 }

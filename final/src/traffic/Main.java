@@ -24,6 +24,11 @@ public class Main extends Application {
         primaryStage.setTitle("Traffic Simulator");
         primaryStage.setScene(scene);
         primaryStage.show();
+        Model test=new Model();
+        test.makeFourWayStop();
+        for(int i=0;i<100;i++){
+            test.update(i);
+        }
     }
 
     public static void main(String[] args) {
