@@ -7,7 +7,9 @@ public class Generator extends TrafficNode {
 
     private RoadSegment exitRoad;
 
-    Generator(RoadSegment exitRoad) {
+    Generator(RoadSegment exitRoad,int xpos,int ypos) {
+        super.setXpos(xpos);
+        super.setYpos(ypos);
         this.exitRoad=exitRoad;
         exitRoad.setIn(this);
     }

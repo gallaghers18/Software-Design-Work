@@ -4,8 +4,10 @@ public class CarDeleter extends TrafficNode {
 
     private RoadSegment entranceRoad;
 
-    CarDeleter(RoadSegment entranceRoad) {
+    CarDeleter(RoadSegment entranceRoad,int xpos, int ypos) {
         this.entranceRoad=entranceRoad;
+        super.setXpos(xpos);
+        super.setYpos(ypos);
         entranceRoad.setOut(this);
     }
 
