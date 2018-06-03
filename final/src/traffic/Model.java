@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Model {
     public ArrayList<RoadSegment> roads = new ArrayList<>();
     public ArrayList<TrafficNode> nodes = new ArrayList<>();
+    private int step_number=0;
 
     public void makeFourWayStop(){
         for (int i=0;i<8;i++){
@@ -72,7 +73,8 @@ public class Model {
                 if(road.getIn() instanceof Stoplight){
                     int delta=((Stoplight) road.getIn()).deltaDirection(road);
                     ypos=road.getIn().getYpos()+(delta % 10)-1;
-                    xpos=road.getIn().getXpos()+(delta-(delta % 10))/10-1;                }
+                    xpos=road.getIn().getXpos()+(delta-(delta % 10))/10-1;
+                }
                 nodes.add(new CarDeleter(road,xpos,ypos));
             }
 
@@ -87,30 +89,21 @@ public class Model {
         }
     }
 
-    public void update(int stepNumber){
+    public void update(){
         for(RoadSegment road: roads){
             road.moveCarsOneStep();
         }
         for(TrafficNode node: nodes){
-            if(stepNumber % 10 ==0 && node instanceof Stoplight) {
+            if(step_number % 10 ==0 && node instanceof Stoplight) {
                     ((Stoplight) node).changeLight();
             }
             node.sendCar();
             node.takeCar();
         }
-        printAll();
-        System.out.println();
+        step_number++;
+//        printAll();
+//        System.out.println();
     }
 }
 
-/* To step the model forward:
- * Loop through all objects implementing intersection, and run:
- *  sendCar()
- *  takeCar()
- * Loop through all road segments and run:
- *  moveCarsOneStep()
- *
- *
- *
- *
- */
+

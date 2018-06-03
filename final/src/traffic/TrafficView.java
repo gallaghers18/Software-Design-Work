@@ -1,6 +1,7 @@
 package traffic;
 
 
+import com.sun.xml.internal.fastinfoset.tools.XML_SAX_StAX_FI;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 public class TrafficView extends Group {
     public int START_X = 50;
     public int START_Y = 50;
-    public int ROAD_LENGTH = 110;
+    public int ROAD_LENGTH = 96;
     public int NUM_ROADS =4;
     private GraphicsContext gc;
     public TrafficView() {
@@ -76,6 +77,7 @@ public class TrafficView extends Group {
         for (RoadSegment road : model.roads) {
             TrafficNode in = road.getIn();
             TrafficNode out = road.getOut();
+            ArrayList<Integer> carList = road.getCurrentState();
 
             //Decide base location from upper North-West corner
             int x = in.getXpos();
@@ -89,35 +91,52 @@ public class TrafficView extends Group {
 
             //Decide orientation & side of road
             if (in.getXpos() == out.getXpos() ) {   //Vertical
-                if (in.getYpos() > out.getYpos()) {
-                    //Points up
-                } else {
-                    //Points down
-                }
+//                if (in.getYpos() > out.getYpos()) { //Points up
+//                    for (int i = 0; i < carList.size()-2; i++) {
+//                        if (carList.get(i+1) != 0) {
+//                            drawCar(START_X + ROAD_LENGTH*x+2, START_Y+ROAD_LENGTH*(y+1)-8*i-16 ,6,6);
+//                        } else {
+//                            gc.clearRect(START_X + ROAD_LENGTH*x+2, START_Y+ROAD_LENGTH*(y+1)-8*i-16 ,6,6);
+//                        }
+//                    }
+//                } else {
+//                    for (int i = 0; i < carList.size()-2; i++) { //Points down
+//                        if (carList.get(i+1) != 0) {
+//                            drawCar(START_X + ROAD_LENGTH*x-6, START_Y+ROAD_LENGTH*(y)+8*i+8,6,6);
+//                        } else {
+//                            gc.clearRect(START_X + ROAD_LENGTH*x-6, START_Y+ROAD_LENGTH*(y)+8*i+8,6,6);
+//                        }
+//                    }
+//                }
             }
             if (in.getYpos() == out.getYpos() ) {   //Horizontal
-                if (in.getXpos() > out.getXpos()) {
-                    //Points right
-                } else {
-                    //Points left
-                }
-            }
-
-
-
-
-
-
-            if (in instanceof Stoplight && out instanceof Stoplight) {
-                if (in.getXpos() > out.getXpos()) {
-
+                if (in.getXpos() > out.getXpos()) { //Points right
+                    for (int i = 0; i < carList.size()-2; i++) {
+                        if (carList.get(i+1) != 0) {
+                            drawCar(START_X+ROAD_LENGTH*(x)+8*i+8,START_Y + ROAD_LENGTH*y+2 ,6,6);
+                        } else {
+                            gc.clearRect(START_X+ROAD_LENGTH*(x)+8*i+8,START_Y + ROAD_LENGTH*y+2 ,6,6);
+                        }
+                    }
+                } else { //Points left
+                    for (int i = 0; i < carList.size()-2; i++) {
+                        if (carList.get(i+1) != 0) {
+                            drawCar(START_X+ROAD_LENGTH*(x+1)-8*i-16,START_Y + ROAD_LENGTH*y+2 ,6,6);
+                        } else {
+                            gc.clearRect(START_X+ROAD_LENGTH*(x+1)-8*i-16,START_Y + ROAD_LENGTH*y+2 ,6,6);
+                        }
+                    }
                 }
             }
 
 
         }
 
+
+
     }
+
+
 
     public void drawCar(int x, int y, int width, int height) {
         gc.setFill(Color.GREEN);
@@ -130,10 +149,12 @@ public class TrafficView extends Group {
 
     public void updateStoplights(Model model) {
             for (TrafficNode node : model.nodes){
+                System.out.println(node.getXpos() + " " + node.getYpos());
                 if (node instanceof Stoplight) {
                     drawStoplight(((Stoplight) node).open_north_south, ((Stoplight) node).getXpos(), ((Stoplight) node).getYpos());
                 }
             }
+            System.out.println();
         }
 
     public void drawStoplight(boolean open_north_south, int x, int y) {
@@ -154,6 +175,19 @@ public class TrafficView extends Group {
         }
     }
 
+
+    public void createSliders(Model model) {
+        ArrayList<Slider> sliderList = new ArrayList<>();
+        for (TrafficNode node : model.nodes) {
+            if (!(node instanceof Stoplight)) {
+                int x = node.getXpos();
+                int y = node.getYpos();
+                createSlider(START_X+ROAD_LENGTH*x, START_Y+ROAD_LENGTH*y);
+                //Some stuff here actually linking functionality somehow?
+            }
+        }
+        this.getChildren().addAll(sliderList);
+    }
 
     public Slider createSlider(int x, int y) {
         Slider slider = new Slider(0, 100,50);
