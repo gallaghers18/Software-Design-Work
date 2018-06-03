@@ -12,10 +12,10 @@ public class Model {
         }
         nodes.add(new Stoplight(roads,0,0));
         for (int i=0;i<8;i+=2){
-            nodes.add(new Generator(roads.get(i)));
+            nodes.add(new Generator(roads.get(i),0,0));
         }
         for (int i=1;i<8;i+=2){
-            nodes.add(new CarDeleter(roads.get(i)));
+            nodes.add(new CarDeleter(roads.get(i),0,0));
         }
     }
 
@@ -57,10 +57,23 @@ public class Model {
         }
         for(RoadSegment road: roads){
             if(road.getIn()==null){
-                nodes.add(new Generator(road));
+                int xpos=0;
+                int ypos=0;
+                if(road.getOut() instanceof Stoplight){
+                    int delta=((Stoplight) road.getOut()).deltaDirection(road);
+                    ypos=road.getOut().getYpos()+(delta % 10)-1;
+                    xpos=road.getOut().getXpos()+(delta-(delta % 10))/10-1;
+                }
+                nodes.add(new Generator(road, xpos,ypos));
             }
             if(road.getOut()==null){
-                nodes.add(new CarDeleter(road));
+                int xpos=0;
+                int ypos=0;
+                if(road.getIn() instanceof Stoplight){
+                    int delta=((Stoplight) road.getIn()).deltaDirection(road);
+                    ypos=road.getIn().getYpos()+(delta % 10)-1;
+                    xpos=road.getIn().getXpos()+(delta-(delta % 10))/10-1;                }
+                nodes.add(new CarDeleter(road,xpos,ypos));
             }
 
         }
