@@ -26,7 +26,7 @@ public class RoadSegment {
         for (int i=0;i<length+2;i++){
             road_state.add(0);
         }
-        printRoad();
+        //printRoad();
     }
 
     /**
