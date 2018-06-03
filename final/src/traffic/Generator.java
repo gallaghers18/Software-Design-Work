@@ -3,20 +3,24 @@ package traffic;
 /**
  * Created by gallaghers on 5/24/18.
  */
+import java.util.Random;
+
 public class Generator extends TrafficNode {
 
     private RoadSegment exitRoad;
+    private double rate;
+    Random r;
 
     Generator(RoadSegment exitRoad,int xpos,int ypos) {
         super.setXpos(xpos);
         super.setYpos(ypos);
+        this.rate=1.0;
         this.exitRoad=exitRoad;
         exitRoad.setIn(this);
+        r = new Random();
+
     }
 
-    public String getTypeOfIntersection() {
-        return "Generator";
-    }
 
     /**
      * Car spawners don't need to take any cars in.
@@ -28,8 +32,14 @@ public class Generator extends TrafficNode {
      */
     public void sendCar() {
         if(exitRoad.getCarAtFront()==0) {
-            exitRoad.addCarAtFront(1);
+            if(r.nextDouble()*100 < rate) {
+                exitRoad.addCarAtFront(1);
+            }
         }
+    }
+
+    public void setSpawnRate(double rate){
+        this.rate=rate;
     }
 
 
