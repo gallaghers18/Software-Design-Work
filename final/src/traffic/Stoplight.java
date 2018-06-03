@@ -106,40 +106,41 @@ public class Stoplight extends TrafficNode {
         }
     }
 
-    public int deltaDirection(RoadSegment road){
+    public int[] deltaDirection(RoadSegment road){
+        int[] out={0,0};
         if(north_to_south.contains(road)){
             if(north_to_south.get(0)==road){
-                return 10;
+                out[1]=-1;
             }
             else{
-                return 12;
+                out[1]=1;
             }
         }
         if(south_to_north.contains(road)){
             if(south_to_north.get(0)==road){
-                return 12;
+                out[1]=1;
             }
             else{
-                return 10;
+                out[1]=-1;
             }
         }
         if(east_to_west.contains(road)){
             if(east_to_west.get(0)==road){
-                return 21;
+                out[0]=-1;
             }
             else{
-                return 01;
+                out[0]=1;
             }
         }
         if(west_to_east.contains(road)){
             if(west_to_east.get(0)==road){
-                return 01;
+                out[0]=1;
             }
             else{
-                return 21;
+                out[0]=-1;
             }
         }
-        return 11;
+        return out;
     }
 
     public void changeLight() {

@@ -47,11 +47,11 @@ public class Model {
                 temp.add(roads.get(2*((j+1)*(2*width+1)+i)+1));
                 temp.add(roads.get(2*(j*(2*width+1)+i)+1));
 
-                temp.add(roads.get(2*(j*(2*width+1)+width+i)));
-                temp.add(roads.get(2*(j*(2*width+1)+width+i+1)));
+                temp.add(roads.get(2*(j*(2*width+1)+width)+2*i));
+                temp.add(roads.get(2*(j*(2*width+1)+width)+2*(i+1)));
 
-                temp.add(roads.get(2*(j*(2*width+1)+width+i+1)+1));
-                temp.add(roads.get(2*(j*(2*width+1)+width+i)+1));
+                temp.add(roads.get(2*(j*(2*width+1)+width)+2*(i+1)+1));
+                temp.add(roads.get(2*(j*(2*width+1)+width)+2*i+1));
                 nodes.add(new Stoplight(temp, i+1, j+1));
             }
             rowend=width+(2-(rowend-width));
@@ -61,9 +61,9 @@ public class Model {
                 int xpos=0;
                 int ypos=0;
                 if(road.getOut() instanceof Stoplight){
-                    int delta=((Stoplight) road.getOut()).deltaDirection(road);
-                    ypos=road.getOut().getYpos()+(delta % 10)-1;
-                    xpos=road.getOut().getXpos()+(delta-(delta % 10))/10-1;
+                    int[] delta=((Stoplight) road.getOut()).deltaDirection(road);
+                    ypos=road.getOut().getYpos()+delta[1];
+                    xpos=road.getOut().getXpos()+delta[0];
                 }
                 nodes.add(new Generator(road, xpos,ypos));
             }
@@ -71,9 +71,11 @@ public class Model {
                 int xpos=0;
                 int ypos=0;
                 if(road.getIn() instanceof Stoplight){
-                    int delta=((Stoplight) road.getIn()).deltaDirection(road);
-                    ypos=road.getIn().getYpos()+(delta % 10)-1;
-                    xpos=road.getIn().getXpos()+(delta-(delta % 10))/10-1;
+
+                    int delta[]=((Stoplight) road.getIn()).deltaDirection(road);
+                    ypos=road.getIn().getYpos()+delta[1];
+                    xpos=road.getIn().getXpos()+delta[0];
+
                 }
                 nodes.add(new CarDeleter(road,xpos,ypos));
             }
@@ -101,8 +103,7 @@ public class Model {
             node.takeCar();
         }
         step_number++;
-//        printAll();
-//        System.out.println();
+
     }
 }
 
