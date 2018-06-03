@@ -7,13 +7,12 @@ import java.util.ArrayList;
  */
 public class Stoplight extends TrafficNode {
 
-    private int xpos;
-    private int ypos;
+
     public ArrayList<RoadSegment> north_to_south; //ordered by: source, destination
     public ArrayList<RoadSegment> south_to_north;
     public ArrayList<RoadSegment> east_to_west;
     public ArrayList<RoadSegment> west_to_east;
-    private boolean open_north_south;
+    public boolean open_north_south;
     private int car_going_NE=0;
     private int car_going_SW=0;
 
@@ -47,8 +46,8 @@ public class Stoplight extends TrafficNode {
         if(west_to_east.get(1)!=null){
             west_to_east.get(1).setIn(this);
         }
-        xpos=0;
-        ypos=0;
+        super.setXpos(xpos);
+        super.setYpos(ypos);
         open_north_south=false;
     }
 

@@ -13,10 +13,18 @@ public class Controller {
     private Model trafficModel;
 
 
-    public void Controller () {
+    public Controller () {
     }
 
     public void initialize() {
+        this.trafficModel = new Model();
+        trafficModel.makeStoplightGrid(4,4);
+        trafficView.updateStoplights(trafficModel);
 
+        for (int i = 0; i< 20; i++) {
+            trafficModel.update(i);
+            trafficView.updateStoplights(trafficModel);
+
+        }
     }
 }

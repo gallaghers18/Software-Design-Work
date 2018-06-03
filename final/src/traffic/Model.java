@@ -3,8 +3,8 @@ package traffic;
 import java.util.ArrayList;
 
 public class Model {
-    ArrayList<RoadSegment> roads = new ArrayList<>();
-    ArrayList<TrafficNode> nodes = new ArrayList<>();
+    public ArrayList<RoadSegment> roads = new ArrayList<>();
+    public ArrayList<TrafficNode> nodes = new ArrayList<>();
 
     public void makeFourWayStop(){
         for (int i=0;i<8;i++){
@@ -51,7 +51,7 @@ public class Model {
 
                 temp.add(roads.get(2*(j*(2*width+1)+width+i+1)+1));
                 temp.add(roads.get(2*(j*(2*width+1)+width+i)+1));
-                nodes.add(new Stoplight(temp, i, j));
+                nodes.add(new Stoplight(temp, i+1, j+1));
             }
             rowend=width+(2-(rowend-width));
         }

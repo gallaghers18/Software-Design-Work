@@ -35,7 +35,6 @@ public class TrafficView extends Group {
             for (int i = -1; i < 2; i++) {
                 gc.strokeLine(START_X + (ROAD_LENGTH * x + 8 * i), START_Y, START_X + (ROAD_LENGTH * x + 8 * i), START_Y + ((NUM_ROADS + 1) * ROAD_LENGTH));
             }
-
         }
         //Horizontal lines
         for (int y = 1; y < NUM_ROADS + 1; y++) {
@@ -45,50 +44,25 @@ public class TrafficView extends Group {
         }
 
 
-        for (int x = 1; x < NUM_ROADS + 1; x++) {
-            for (int y = 1; y < NUM_ROADS + 1; y++) {
-                drawStoplight(true, x, y);
-            }
-        }
-
-        //EXAMPLE OF A CAR. REQUIRES MUCH MORE AUTOMATED LOCATION FINDING. NEED STRUCTURE OF HOW ROADS ARE SAVED.
-//        for (int i = 0; i<13; i++) {
-//            drawCar(START_X + ROAD_LENGTH * 1 - 7, START_Y + ROAD_LENGTH * 1 - 16 - 8 * i);
-//        }
-//
-//        for (int i = 0; i<13; i++) {
-//            drawCar(START_X + ROAD_LENGTH * 3- 16 - 8 * i, START_Y + ROAD_LENGTH * 2 + 1);
-//        }
-
 
         //THIS IS JUST TEMPORARY SO I CAN VISUALLY SEE WHERE THE CANVAS IS AS WINDOW RESHAPES.
-        gc.setFill(Color.rgb(0, 255, 0, 0.2));
-        gc.fillRect(0,0,700,700);
+//        gc.setFill(Color.rgb(0, 255, 0, 0.2));
+//        gc.fillRect(0,0,700,700);
 
 
 
         //SLIDERS
-        ArrayList<Slider> sliderList = new ArrayList<>();
-//        int i=0;
-//        for (int x = NUM_ROADS; x > 0; x--) {
-//            for (int y = NUM_ROADS; y > 0; y--) {
-//                sliderList.add(createSlider(START_X + ROAD_LENGTH * x - 8, START_Y + ROAD_LENGTH * y - 8));
+//        ArrayList<Slider> sliderList = new ArrayList<>();
+//        for (int x = 1; x < NUM_ROADS+1; x++) {
+//            sliderList.add(createSlider(START_X + ROAD_LENGTH * x - 8, START_Y ));
+//            sliderList.add(createSlider(START_X + ROAD_LENGTH * x - 8, START_Y+ROAD_LENGTH*4));
 //
-//            }
 //        }
-
-        for (int x = 1; x < NUM_ROADS+1; x++) {
-            sliderList.add(createSlider(START_X + ROAD_LENGTH * x - 8, START_Y ));
-            sliderList.add(createSlider(START_X + ROAD_LENGTH * x - 8, START_Y+ROAD_LENGTH*4));
-
-        }
-        for (int y = 1; y < NUM_ROADS+1; y++) {
-            sliderList.add(createSlider(START_X  , START_Y + ROAD_LENGTH * y -8));
-            sliderList.add(createSlider(START_X +ROAD_LENGTH*4, START_Y + ROAD_LENGTH * y -8));
-        }
-
-
-        this.getChildren().addAll(sliderList);
+//        for (int y = 1; y < NUM_ROADS+1; y++) {
+//            sliderList.add(createSlider(START_X  , START_Y + ROAD_LENGTH * y -8));
+//            sliderList.add(createSlider(START_X +ROAD_LENGTH*4, START_Y + ROAD_LENGTH * y -8));
+//        }
+//        this.getChildren().addAll(sliderList);
 
         //createSlider(START_X + ROAD_LENGTH * x - 8, START_Y + ROAD_LENGTH * y - 8);
 
@@ -106,12 +80,21 @@ public class TrafficView extends Group {
 
     public void drawCar(int x, int y) {
         gc.setFill(Color.GREEN);
+        gc.setStroke(Color.BLACK);
         gc.clearRect(x, y, 6, 6);
         gc.fillRect(x, y, 6, 6);
         gc.setFill(Color.BLACK);
 
     }
 
+
+    public void updateStoplights(Model model) {
+            for (TrafficNode node : model.nodes){
+                if (node instanceof Stoplight) {
+                    drawStoplight(((Stoplight) node).open_north_south, ((Stoplight) node).getXpos(), ((Stoplight) node).getYpos());
+                }
+            }
+        }
 
     public void drawStoplight(boolean open_north_south, int x, int y) {
         gc.setFill(Color.BLACK);
@@ -134,10 +117,6 @@ public class TrafficView extends Group {
     public void drawTrafficNode(TrafficNode node) {
         Rectangle r = new Rectangle(node.getXpos()-8, node.getYpos()-8, 16, 16);
         this.getChildren().add(r);
-    }
-
-    public void update(Model model) {
-        //SOME LOOPS TO DRAW NODES, DRAW CARS, ETC (I need to know how they will be stored to do this).
     }
 
 
