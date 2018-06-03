@@ -9,6 +9,7 @@ public class Generator extends TrafficNode {
 
     Generator(RoadSegment exitRoad) {
         this.exitRoad=exitRoad;
+        exitRoad.setIn(this);
     }
 
     public String getTypeOfIntersection() {

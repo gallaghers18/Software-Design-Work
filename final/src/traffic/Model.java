@@ -19,9 +19,58 @@ public class Model {
         }
     }
 
+    public void makeStoplightGrid(int width, int height){
+        /*
+            1 2 3 4
+
+            5 6 7 8
+
+         */
+        int rowend=width;
+        for(int j=0;j<2*height+1;j++){
+            int i=0;
+            while(i<rowend){
+                roads.add(new RoadSegment(10));
+                roads.add(new RoadSegment(10));
+                i++;
+            }
+            rowend=width+(1-(rowend-width));
+        }
+        for(int j=0;j<height;j++){
+            for(int i=0; i<width; i++){
+
+                ArrayList<RoadSegment> temp=new ArrayList<RoadSegment>();
+                temp.add(roads.get(2*(j*(2*width+1)+i)));
+                temp.add(roads.get(2*((j+1)*(2*width+1)+i)));
+
+                temp.add(roads.get(2*((j+1)*(2*width+1)+i)+1));
+                temp.add(roads.get(2*(j*(2*width+1)+i)+1));
+
+                temp.add(roads.get(2*(j*(2*width+1)+width+i)));
+                temp.add(roads.get(2*(j*(2*width+1)+width+i+1)));
+
+                temp.add(roads.get(2*(j*(2*width+1)+width+i+1)+1));
+                temp.add(roads.get(2*(j*(2*width+1)+width+i)+1));
+                nodes.add(new Stoplight(temp, i, j));
+            }
+            rowend=width+(2-(rowend-width));
+        }
+        for(RoadSegment road: roads){
+            if(road.getIn()==null){
+                nodes.add(new Generator(road));
+            }
+            if(road.getOut()==null){
+                nodes.add(new CarDeleter(road));
+            }
+
+        }
+    }
+
     public void printAll(){
         for(RoadSegment road: roads){
-            road.printRoad();
+            if(road.getIn()!=null && road.getOut()!=null){
+                road.printRoad();
+            }
         }
     }
 

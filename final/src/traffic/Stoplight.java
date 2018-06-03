@@ -20,9 +20,33 @@ public class Stoplight extends TrafficNode {
 
     public Stoplight(ArrayList<RoadSegment> roads, int xpos, int ypos) {
         north_to_south = new ArrayList(roads.subList(0,2));
+        if(north_to_south.get(0)!=null){
+            north_to_south.get(0).setOut(this);
+        }
+        if(north_to_south.get(1)!=null){
+            north_to_south.get(1).setIn(this);
+        }
         south_to_north = new ArrayList(roads.subList(2,4));
+        if(south_to_north.get(0)!=null){
+            south_to_north.get(0).setOut(this);
+        }
+        if(south_to_north.get(1)!=null){
+            south_to_north.get(1).setIn(this);
+        }
         east_to_west = new ArrayList(roads.subList(4,6));
+        if(east_to_west.get(0)!=null){
+            east_to_west.get(0).setOut(this);
+        }
+        if(east_to_west.get(1)!=null){
+            east_to_west.get(1).setIn(this);
+        }
         west_to_east = new ArrayList(roads.subList(6,8));
+        if(west_to_east.get(0)!=null){
+            west_to_east.get(0).setOut(this);
+        }
+        if(west_to_east.get(1)!=null){
+            west_to_east.get(1).setIn(this);
+        }
         xpos=0;
         ypos=0;
         open_north_south=false;
