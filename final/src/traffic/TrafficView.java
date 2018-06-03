@@ -2,9 +2,11 @@ package traffic;
 
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,14 +14,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
 
 
 public class TrafficView extends Group {
-    int START_X = 50;
-    int START_Y = 50;
-    int ROAD_LENGTH = 125;
-    int NUM_ROADS =4;
-    GraphicsContext gc;
+    public int START_X = 50;
+    public int START_Y = 50;
+    public int ROAD_LENGTH = 110;
+    public int NUM_ROADS =4;
+    private GraphicsContext gc;
     public TrafficView() {
 
         //Canvas is added once, then changed in real time using GraphicsContext
@@ -49,20 +52,45 @@ public class TrafficView extends Group {
         }
 
         //EXAMPLE OF A CAR. REQUIRES MUCH MORE AUTOMATED LOCATION FINDING. NEED STRUCTURE OF HOW ROADS ARE SAVED.
-        for (int i = 0; i<13; i++) {
-            drawCar(START_X + ROAD_LENGTH * 1 - 7, START_Y + ROAD_LENGTH * 1 - 16 - 8 * i);
-        }
+//        for (int i = 0; i<13; i++) {
+//            drawCar(START_X + ROAD_LENGTH * 1 - 7, START_Y + ROAD_LENGTH * 1 - 16 - 8 * i);
+//        }
+//
+//        for (int i = 0; i<13; i++) {
+//            drawCar(START_X + ROAD_LENGTH * 3- 16 - 8 * i, START_Y + ROAD_LENGTH * 2 + 1);
+//        }
 
-        for (int i = 0; i<13; i++) {
-            drawCar(START_X + ROAD_LENGTH * 3- 16 - 8 * i, START_Y + ROAD_LENGTH * 2 + 1);
-        }
-
-        createSlider();
 
         //THIS IS JUST TEMPORARY SO I CAN VISUALLY SEE WHERE THE CANVAS IS AS WINDOW RESHAPES.
-//        gc.setFill(Color.rgb(0, 255, 0, 0.2));
-//        gc.fillRect(0,0,700,700);
+        gc.setFill(Color.rgb(0, 255, 0, 0.2));
+        gc.fillRect(0,0,700,700);
 
+
+
+        //SLIDERS
+        ArrayList<Slider> sliderList = new ArrayList<>();
+//        int i=0;
+//        for (int x = NUM_ROADS; x > 0; x--) {
+//            for (int y = NUM_ROADS; y > 0; y--) {
+//                sliderList.add(createSlider(START_X + ROAD_LENGTH * x - 8, START_Y + ROAD_LENGTH * y - 8));
+//
+//            }
+//        }
+
+        for (int x = 1; x < NUM_ROADS+1; x++) {
+            sliderList.add(createSlider(START_X + ROAD_LENGTH * x - 8, START_Y ));
+            sliderList.add(createSlider(START_X + ROAD_LENGTH * x - 8, START_Y+ROAD_LENGTH*4));
+
+        }
+        for (int y = 1; y < NUM_ROADS+1; y++) {
+            sliderList.add(createSlider(START_X  , START_Y + ROAD_LENGTH * y -8));
+            sliderList.add(createSlider(START_X +ROAD_LENGTH*4, START_Y + ROAD_LENGTH * y -8));
+        }
+
+
+        this.getChildren().addAll(sliderList);
+
+        //createSlider(START_X + ROAD_LENGTH * x - 8, START_Y + ROAD_LENGTH * y - 8);
 
     }
 
@@ -85,7 +113,7 @@ public class TrafficView extends Group {
     }
 
 
-        public void drawStoplight(boolean open_north_south, int x, int y) {
+    public void drawStoplight(boolean open_north_south, int x, int y) {
         gc.setFill(Color.BLACK);
         gc.clearRect(START_X+(ROAD_LENGTH*x-7),START_Y+(ROAD_LENGTH*y-7), 14, 14);
         if (open_north_south) {
@@ -114,14 +142,17 @@ public class TrafficView extends Group {
 
 
     //THIS WILL ACTUALLY LIVE IN THE CONTROLLER SORT OF, BUT JUST HERE SO I REMEMBER THE CODE
-    public void createSlider() {
+    public Slider createSlider(int x, int y) {
         Slider slider = new Slider(0, 100,50);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
         slider.setMajorTickUnit(50);
         slider.setMinorTickCount(5);
         slider.setBlockIncrement(10);
-        this.getChildren().add(slider);
+        slider.setPrefSize(30, 8);
+        slider.setTranslateX(x);
+        slider.setTranslateY(y);
+        return slider;
     }
 
 }
