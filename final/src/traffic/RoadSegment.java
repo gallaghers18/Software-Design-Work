@@ -119,6 +119,12 @@ public class RoadSegment {
         return out;
     }
 
+    public void setIn(TrafficNode in){
+        this.in=in;
+    }
+    public void setOut(TrafficNode out){
+        this.out=out;
+    }
     public void printRoad(){
         String out="";
         for(int i=1;i<road_state.size()-1;i++){

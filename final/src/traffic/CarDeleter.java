@@ -6,6 +6,7 @@ public class CarDeleter extends TrafficNode {
 
     CarDeleter(RoadSegment entranceRoad) {
         this.entranceRoad=entranceRoad;
+        entranceRoad.setOut(this);
     }
 
     public String getTypeOfIntersection() {
