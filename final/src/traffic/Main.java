@@ -25,8 +25,9 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         Model test=new Model();
-        test.makeFourWayStop();
-        for(int i=0;i<100;i++){
+        test.makeStoplightGrid(4,4);
+        //test.makeFourWayStop();
+        for(int i=0;i<1000;i++){
             test.update(i);
         }
     }
