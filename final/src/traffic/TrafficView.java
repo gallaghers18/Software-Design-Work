@@ -11,8 +11,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import sun.plugin2.applet.StopListener;
 
 import java.util.ArrayList;
 
@@ -68,23 +70,61 @@ public class TrafficView extends Group {
 
     }
 
-    public void drawRoadSegment(RoadSegment road) {
-       //take RoadSegment object and drawCar() based on each car in it.
-//        for () {
-//            if (car != 0) {
-//                drawCar(5, 5); //PLACEHOLDER
-//            }
-//        }
+
+
+    public void updateRoads(Model model) {
+        for (RoadSegment road : model.roads) {
+            TrafficNode in = road.getIn();
+            TrafficNode out = road.getOut();
+
+            //Decide base location from upper North-West corner
+            int x = in.getXpos();
+            int y = in.getYpos();
+            if (in.getXpos() > out.getXpos()) {
+                x = out.getXpos();
+            }
+            if (in.getYpos() > out.getYpos()) {
+                y = out.getYpos();
+            }
+
+            //Decide orientation & side of road
+            if (in.getXpos() == out.getXpos() ) {   //Vertical
+                if (in.getYpos() > out.getYpos()) {
+                    //Points up
+                } else {
+                    //Points down
+                }
+            }
+            if (in.getYpos() == out.getYpos() ) {   //Horizontal
+                if (in.getXpos() > out.getXpos()) {
+                    //Points right
+                } else {
+                    //Points left
+                }
+            }
+
+
+
+
+
+
+            if (in instanceof Stoplight && out instanceof Stoplight) {
+                if (in.getXpos() > out.getXpos()) {
+
+                }
+            }
+
+
+        }
 
     }
 
-    public void drawCar(int x, int y) {
+    public void drawCar(int x, int y, int width, int height) {
         gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLACK);
-        gc.clearRect(x, y, 6, 6);
-        gc.fillRect(x, y, 6, 6);
+        gc.clearRect(x, y, width, height);
+        gc.fillRect(x, y, width, height);
         gc.setFill(Color.BLACK);
-
     }
 
 
@@ -114,13 +154,7 @@ public class TrafficView extends Group {
         }
     }
 
-    public void drawTrafficNode(TrafficNode node) {
-        Rectangle r = new Rectangle(node.getXpos()-8, node.getYpos()-8, 16, 16);
-        this.getChildren().add(r);
-    }
 
-
-    //THIS WILL ACTUALLY LIVE IN THE CONTROLLER SORT OF, BUT JUST HERE SO I REMEMBER THE CODE
     public Slider createSlider(int x, int y) {
         Slider slider = new Slider(0, 100,50);
         slider.setShowTickLabels(true);
