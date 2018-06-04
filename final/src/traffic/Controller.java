@@ -147,6 +147,9 @@ public class Controller {
         masterSlider.setValue(value);
     }
 
+    /**
+     * Subclass to link a slider with a given car spawner.
+     */
     private class SliderGenerator{
         Slider slider;
         Generator generator;

@@ -17,13 +17,14 @@ public class RoadSegment {
     private ArrayList<Integer> road_state;
 
     /**
-     * Constructor: creates an empty array list of length length
+     * Constructor: creates an empty array list
      *
      * @param length how long a road segment to make.
      * @return current road state as an arrayList
      */
     RoadSegment(int length) {
         road_state = new ArrayList();
+        //Note: length+2 gives extra padding at the end to make updating easier.
         for (int i=0;i<length+2;i++){
             road_state.add(0);
         }
@@ -39,6 +40,9 @@ public class RoadSegment {
         return road_state;
     }
 
+    /**
+     * Clears road of cars.
+     */
     public void resetRoadState() {
         for (int i=0; i<road_state.size(); i++) {
             road_state.set(i,0);
@@ -118,14 +122,23 @@ public class RoadSegment {
         return car;
     }
 
+    /**
+     * Gets entrance TrafficNode
+     */
     public TrafficNode getIn() {
         return in;
     }
 
+    /**
+     * Gets exit TrafficNode
+     */
     public TrafficNode getOut() {
         return out;
     }
 
+    /**
+     * Returns the total lifetime of all cars on this road
+     */
     public int totalLifespan(){
         int total=0;
         for(Integer i: road_state){
@@ -133,6 +146,10 @@ public class RoadSegment {
         }
         return total;
     }
+
+    /**
+     * Returns the number of cars on this road
+     */
     public int countCars() {
         int num=0;
         for(Integer i: road_state){
@@ -142,16 +159,31 @@ public class RoadSegment {
         }
         return num;
     }
+
+    /**
+     * Returns the length of the road
+     */
     public int getLength() {
         return road_state.size()-2;
     }
 
+    /**
+     * Setter for entrance TrafficNode
+     */
     public void setIn(TrafficNode in){
         this.in=in;
     }
+
+    /**
+     * Setter for exit TrafficNode
+     */
     public void setOut(TrafficNode out){
         this.out=out;
     }
+
+    /**
+     * Print the road state to console
+     */
     public void printRoad(){
         String out="";
         for(int i=1;i<road_state.size()-1;i++){

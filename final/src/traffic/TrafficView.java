@@ -20,10 +20,10 @@ import java.util.ArrayList;
 
 
 public class TrafficView extends Group {
-    public int START_X = 50;
-    public int START_Y = 50;
-    public int ROAD_LENGTH = 96;
-    public int NUM_ROADS =6;
+    private int START_X = 50;
+    private int START_Y = 50;
+    private int ROAD_LENGTH = 96;
+    private int NUM_ROADS =6;
     private Canvas canvas;
     private GraphicsContext gc;
 
