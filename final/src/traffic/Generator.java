@@ -9,6 +9,7 @@ public class Generator extends TrafficNode {
 
     private RoadSegment exitRoad;
     private double rate;
+    private int created=0;
     Random r;
 
     Generator(RoadSegment exitRoad,int xpos,int ypos) {
@@ -34,8 +35,13 @@ public class Generator extends TrafficNode {
         if(exitRoad.getCarAtFront()==0) {
             if(r.nextDouble()*100 < rate) {
                 exitRoad.addCarAtFront(1);
+                created+=1;
             }
         }
+    }
+
+    public int getTotalCreated(){
+        return created;
     }
 
     public void setSpawnRate(double rate){

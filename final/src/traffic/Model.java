@@ -7,16 +7,14 @@ public class Model {
     public ArrayList<TrafficNode> nodes = new ArrayList<>();
     private int step_number=0;
 
-    public void makeFourWayStop(){
-        for (int i=0;i<8;i++){
-            roads.add(new RoadSegment(10));
+    public void swapStopLightAndSign(TrafficNode node){
+        if(node instanceof Stoplight){
+            nodes.add(new Stopsign(((Stoplight) node).getRoads(),node.getXpos(),node.getYpos()));
+            nodes.remove(node);
         }
-        nodes.add(new Stoplight(roads,0,0));
-        for (int i=0;i<8;i+=2){
-            nodes.add(new Generator(roads.get(i),0,0));
-        }
-        for (int i=1;i<8;i+=2){
-            nodes.add(new CarDeleter(roads.get(i),0,0));
+        else if(node instanceof Stopsign){
+            nodes.add(new Stoplight(((Stopsign) node).getRoads(),node.getXpos(),node.getYpos()));
+            nodes.remove(node);
         }
     }
 
@@ -52,7 +50,8 @@ public class Model {
 
                 temp.add(roads.get(2*(j*(2*width+1)+width)+2*(i+1)+1));
                 temp.add(roads.get(2*(j*(2*width+1)+width)+2*i+1));
-                nodes.add(new Stoplight(temp, i+1, j+1));
+                Stoplight stop=new Stoplight(temp, i+1, j+1);
+                nodes.add(stop);
             }
             rowend=width+(2-(rowend-width));
         }
@@ -81,6 +80,45 @@ public class Model {
             }
 
         }
+    }
+
+    public int totalCarLifespan(){
+        int total=0;
+        for(RoadSegment road:roads){
+            total+=road.totalLifespan();
+        }
+        return total;
+    }
+    public int countAllCars(){
+        int total=0;
+        for(RoadSegment road:roads){
+            total+=road.countCars();
+        }
+        return total;
+    }
+    public int getTotalLength(){
+        int total=0;
+        for(RoadSegment road:roads){
+            total+=road.getLength();
+        }
+        return total;
+    }
+
+    public double averageLifespan(){
+        return ((double) totalCarLifespan())/((double) countAllCars());
+    }
+
+    public double averageDensity(){
+        return ((double) countAllCars())/((double) getTotalLength());
+    }
+    public double throughput(){
+        int total=0;
+        for(TrafficNode node: nodes){
+            if(node instanceof Generator){
+                total+=((Generator) node).getTotalCreated();
+            }
+        }
+        return ((double) total)/((double) step_number);
     }
 
     public void printAll(){

@@ -119,6 +119,26 @@ public class RoadSegment {
         return out;
     }
 
+    public int totalLifespan(){
+        int total=0;
+        for(Integer i: road_state){
+                total += i;
+        }
+        return total;
+    }
+    public int countCars() {
+        int num=0;
+        for(Integer i: road_state){
+            if(i!=0) {
+                num += 1;
+            }
+        }
+        return num;
+    }
+    public int getLength() {
+        return road_state.size()-2;
+    }
+
     public void setIn(TrafficNode in){
         this.in=in;
     }

@@ -33,6 +33,10 @@ public class Controller {
 
     public void updateAnimation() {
         readSliders();
+        System.out.println(trafficModel.averageLifespan());
+        System.out.println(trafficModel.averageDensity());
+        System.out.println(trafficModel.throughput());
+        System.out.println();
         trafficModel.update();
         trafficView.updateStoplights(trafficModel);
         trafficView.updateRoads(trafficModel);

@@ -15,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import sun.plugin2.applet.StopListener;
 
 import java.util.ArrayList;
 
