@@ -19,7 +19,7 @@ public class Main extends Application {
         BorderPane root = loader.load();
         Controller controller = loader.getController();
 
-        Scene scene = new Scene(root, 1150, 850);
+        Scene scene = new Scene(root, 1100, 800);
 
         primaryStage.setTitle("Traffic Simulator");
         primaryStage.setScene(scene);

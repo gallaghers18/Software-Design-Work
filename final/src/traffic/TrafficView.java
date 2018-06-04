@@ -1,7 +1,7 @@
 package traffic;
 
 
-import com.sun.xml.internal.fastinfoset.tools.XML_SAX_StAX_FI;
+//import com.sun.xml.internal.fastinfoset.tools.XML_SAX_StAX_FI;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -24,14 +24,16 @@ public class TrafficView extends Group {
     public int START_Y = 50;
     public int ROAD_LENGTH = 96;
     public int NUM_ROADS =6;
+    private Canvas canvas;
     private GraphicsContext gc;
-    public TrafficView() {
 
-        //Canvas is added once, then changed in real time using GraphicsContext
-        Canvas canvas = new Canvas(850, 850);
+    public TrafficView() {
+        canvas = new Canvas(800, 800);
         gc = canvas.getGraphicsContext2D();
         this.getChildren().add(canvas);
+    }
 
+    public void initializeRoads() {
         //Vertical lines
         for (int x = 1; x < NUM_ROADS + 1; x++) {
             for (int i = -1; i < 2; i++) {
@@ -44,16 +46,7 @@ public class TrafficView extends Group {
                 gc.strokeLine(START_X, START_Y + (ROAD_LENGTH * y + 8 * i), START_X + ((NUM_ROADS + 1) * ROAD_LENGTH), START_Y + (ROAD_LENGTH * y + 8 * i));
             }
         }
-
-
-
-//        gc.setFill(Color.rgb(0, 255, 0, 0.2));
-//        gc.fillRect(0,0,700,700);
-
-
     }
-
-
 
     public void updateRoads(Model model) {
         for (RoadSegment road : model.roads) {

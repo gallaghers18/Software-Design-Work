@@ -1,54 +1,81 @@
 package traffic;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.stage.Stage;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//Stub class. Will be expanded on.
 public class Controller {
     @FXML private TrafficView trafficView;
+    @FXML private ControlsView controlsView;
+    @FXML private Label statsLabel;
     private Model trafficModel;
     private double FRAMES_PER_SECOND = 10.0;
     private ArrayList<SliderGenerator> sliders;
+    private Slider masterSlider;
+    private Button button;
+    private DecimalFormat df;
 
     public Controller () {
+        df = new DecimalFormat("#.##");
     }
 
     public void initialize() {
+        //Model
         this.trafficModel = new Model();
         trafficModel.makeStoplightGrid(6,6);
+        this.setUpSimulationTimer();
+        //Traffic View
+        trafficView.initializeRoads();
         trafficView.updateStoplights(trafficModel);
         sliders = this.createSliders();
-        this.setUpAnimationTimer();
+        //Controls View
+        masterSlider = controlsView.createMasterSlider(50,150);
+        this.initializeControlButtons();
+
+        //THIS DOESNT DO ANYTHING RIGHT NOW. I DONT KNOW HOW TO RESTART TO PROGRAM.
+        button = controlsView.createButton(75,400,"Reset");
+        button.setOnAction(value -> {
+           System.out.println("This doesn't do anything right now");
+        });
+
+
     }
 
-    public void updateAnimation() {
+
+
+    public void updateSimulation() {
         readSliders();
-        System.out.println(trafficModel.averageLifespan());
-        System.out.println(trafficModel.averageDensity());
-        System.out.println(trafficModel.throughput());
-        System.out.println();
         trafficModel.update();
         trafficView.updateStoplights(trafficModel);
         trafficView.updateRoads(trafficModel);
+
+        this.statsLabel.setText("Lifespan: " + String.valueOf(df.format(trafficModel.averageLifespan())) + "\n"
+                + "Density: " + String.valueOf(df.format(trafficModel.averageDensity())) + "\n"
+                + "Throughput: " + String.valueOf(df.format(trafficModel.throughput())));
+
+        if (masterSlider.isValueChanging()) {
+            this.setSliders(masterSlider.getValue());
+        }
+
+
+
+
     }
 
 
-    private void setUpAnimationTimer() {
+    private void setUpSimulationTimer() {
         TimerTask timerTask = new TimerTask() {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        updateAnimation();
+                        updateSimulation();
                     }
                 });
             }
@@ -61,7 +88,20 @@ public class Controller {
         timer.schedule(timerTask, 0, frameTimeInMilliseconds);
     }
 
-
+    private void initializeControlButtons() {
+        button =  controlsView.createButton(50, 200, "1%");
+        button.setOnAction(value -> {this.presetSliderValue(1);});
+        button =  controlsView.createButton(125, 200, "5%");
+        button.setOnAction(value -> {this.presetSliderValue(5);});
+        button =  controlsView.createButton(200, 200, "10%");
+        button.setOnAction(value -> {this.presetSliderValue(10);});
+        button =  controlsView.createButton(50, 275, "25%");
+        button.setOnAction(value -> {this.presetSliderValue(25);});
+        button =  controlsView.createButton(125, 275, "50%");
+        button.setOnAction(value -> {this.presetSliderValue(50);});
+        button =  controlsView.createButton(200, 275, "100%");
+        button.setOnAction(value -> {this.presetSliderValue(100);});
+    }
 
     public ArrayList<SliderGenerator> createSliders() {
         ArrayList<SliderGenerator> sliderGeneratorList = new ArrayList<>();
@@ -84,6 +124,18 @@ public class Controller {
         }
     }
 
+    public void setSliders(double value) {
+        for (SliderGenerator pair : sliders) {
+            pair.getSlider().setValue(value);
+        }
+    }
+
+    public void presetSliderValue(double value) {
+        for (SliderGenerator pair : sliders) {
+            pair.getSlider().setValue(value);
+        }
+        masterSlider.setValue(value);
+    }
 
     private class SliderGenerator{
         Slider slider;

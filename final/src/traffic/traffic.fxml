@@ -3,12 +3,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import traffic.TrafficView?>
+<?import traffic.ControlsView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Slider?>
 
 <BorderPane fx:controller="traffic.Controller"
             xmlns:fx="http://javafx.com/fxml">
-
 
     <center>
         <TrafficView fx:id="trafficView"/>
@@ -16,14 +16,15 @@
     </center>
 
     <left>
-        <BorderPane prefWidth="300" style="-fx-background-color: #3CCBBD; -fx-padding: 10px, 5px, 10px, 5px" >
-            <top>
-                <Label style="-fx-font-size: 140%; -fx-text-fill: White" text="Here is an area for stuff. " />
-                <Slider style="-fx-padding: 0px, 0px, 0px, 0px;"  />
-            </top>
+        <BorderPane prefWidth="300" style="-fx-background-color: #3CCBCD; -fx-padding: 10px, 5px, 10px, 5px" >
+            <top><Label fx:id="presetsLabel" style="-fx-font-size: 150%; -fx-text-fill: white" wrapText="true"
+                        text="Drag the slider or click on the presets to change all spawn rates at once (or modify each individually on the map itself)"
+                        centerShape="true"/></top>
+            <ControlsView fx:id="controlsView"/>
+            <bottom>
+                <Label fx:id="statsLabel" style="-fx-font-size: 150%; -fx-text-fill: white; -fx-padding: 10px, 5px, 10px, 5px" />
+            </bottom>
         </BorderPane>
     </left>
-
-
 
 </BorderPane>
