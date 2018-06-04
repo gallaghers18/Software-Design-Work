@@ -49,7 +49,7 @@ public class TrafficView extends Group {
     }
 
     public void updateRoads(Model model) {
-        for (RoadSegment road : model.roads) {
+        for (RoadSegment road : model.getRoads()) {
             TrafficNode in = road.getIn();
             TrafficNode out = road.getOut();
             ArrayList<Integer> carList = road.getCurrentState();
@@ -124,7 +124,7 @@ public class TrafficView extends Group {
 
 
     public void updateStoplights(Model model) {
-            for (TrafficNode node : model.nodes){
+            for (TrafficNode node : model.getNodes()){
                 if (node instanceof Stoplight) {
                     drawStoplight(((Stoplight) node).open_north_south, ((Stoplight) node).getXpos(), ((Stoplight) node).getYpos());
                 }

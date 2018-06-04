@@ -3,8 +3,11 @@ package traffic;
 import java.util.ArrayList;
 
 /**
- * Created by gallaghers on 5/24/18.
+ * Sean Gallagher & David White
+ * Class used in model. Same idea as stoplight, but different switch logic.
+ * CURRENTLY NOT IN USE IN ACTUAL APPLICATION. WE DIDN'T HAVE TIME.
  */
+
 public class Stopsign extends TrafficNode {
 
 

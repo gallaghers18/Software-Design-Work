@@ -1,5 +1,10 @@
 package traffic;
 
+/**
+ * Sean Gallagher & David White
+ * Class used in model. Deleted cars that have reached end of a road segment.
+ */
+
 public class CarDeleter extends TrafficNode {
 
     private RoadSegment entranceRoad;

@@ -3,7 +3,8 @@ package traffic;
 import java.util.ArrayList;
 
 /**
- * Created by gallaghers on 5/24/18.
+ * Sean Gallagher & David White
+ * Class used in Model. Acts as a link between many roads, allowing cars to travel between.
  */
 public class Stoplight extends TrafficNode {
 

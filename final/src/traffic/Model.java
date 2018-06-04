@@ -2,9 +2,14 @@ package traffic;
 
 import java.util.ArrayList;
 
+/**
+ * Sean Gallagher & David White
+ * Model class. Builds structure and update logic of entire road system.
+ */
+
 public class Model {
-    public ArrayList<RoadSegment> roads = new ArrayList<>();
-    public ArrayList<TrafficNode> nodes = new ArrayList<>();
+    private ArrayList<RoadSegment> roads = new ArrayList<>();
+    private ArrayList<TrafficNode> nodes = new ArrayList<>();
     private int step_number=0;
 
     public void swapStopLightAndSign(TrafficNode node){
@@ -127,6 +132,19 @@ public class Model {
                 road.printRoad();
             }
         }
+    }
+
+    public ArrayList<RoadSegment> getRoads() {
+        return roads;
+    }
+
+    public ArrayList<TrafficNode> getNodes() {
+        return nodes;
+    }
+
+
+    public void setStepNumber(int i) {
+        step_number=i;
     }
 
     public void update(){

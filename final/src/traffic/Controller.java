@@ -5,12 +5,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Sean Gallagher & David White
+ * The Controller. Connects to both TrafficModel, ControlsView, and TrafficView.
+ * Initializes and updates the views in accordance with model. Sends slider
+ * and button inputs back to model.
+ */
 public class Controller {
     @FXML private TrafficView trafficView;
     @FXML private ControlsView controlsView;
@@ -39,11 +44,12 @@ public class Controller {
         masterSlider = controlsView.createMasterSlider(50,150);
         this.initializeControlButtons();
 
-        //THIS DOESNT DO ANYTHING RIGHT NOW. I DONT KNOW HOW TO RESTART TO PROGRAM.
-        button = controlsView.createButton(75,400,"Reset");
+        //Reset Button
+        button = controlsView.createButton(125,375,"Reset");
         button.setOnAction(value -> {
-           System.out.println("This doesn't do anything right now");
+           reset();
         });
+
 
 
     }
@@ -69,6 +75,12 @@ public class Controller {
 
     }
 
+    private void reset() {
+        for (RoadSegment road : trafficModel.getRoads()) {
+            road.resetRoadState();
+        }
+        trafficModel.setStepNumber(0);
+    }
 
     private void setUpSimulationTimer() {
         TimerTask timerTask = new TimerTask() {
@@ -81,8 +93,6 @@ public class Controller {
             }
         };
 
-        final long startTimeInMilliseconds = 0;
-        final long repetitionPeriodInMilliseconds = 100;
         long frameTimeInMilliseconds = (long)(1000.0 / FRAMES_PER_SECOND);
         Timer timer = new java.util.Timer();
         timer.schedule(timerTask, 0, frameTimeInMilliseconds);
@@ -105,7 +115,7 @@ public class Controller {
 
     public ArrayList<SliderGenerator> createSliders() {
         ArrayList<SliderGenerator> sliderGeneratorList = new ArrayList<>();
-        for (TrafficNode node : trafficModel.nodes) {
+        for (TrafficNode node : trafficModel.getNodes()) {
             if (node instanceof Generator) {
                 int x = node.getXpos();
                 int y = node.getYpos();

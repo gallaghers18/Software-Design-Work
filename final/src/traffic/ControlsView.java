@@ -4,11 +4,22 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 
+/**
+ * Sean Gallagher & David White
+ * Short view class for creating buttons and sliders that appear on the left side
+ * control panel. All initialization and construction happens in controller
+ * because it needs reference to pass to model.
+ */
 public class ControlsView extends Group {
 
     public ControlsView () {
     }
 
+    /**
+     * Creates, adds to view, and returns a large slider
+     *
+     * @Return the slider itself so values may be passed to model
+     */
     public Slider createMasterSlider(int x,int y) {
         Slider masterSlider = new Slider(0, 100,5);
         masterSlider.setShowTickLabels(true);
@@ -23,6 +34,11 @@ public class ControlsView extends Group {
         return masterSlider;
     }
 
+    /**
+     * Creates, adds to view, and returns a simple button
+     *
+     * @Return the button itself so values may be passed to model
+     */
     public Button createButton(int x, int y, String text) {
         Button button = new Button(text);
         button.setPrefSize(50, 35);

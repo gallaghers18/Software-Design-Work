@@ -1,7 +1,8 @@
 package traffic;
 
 /**
- * Created by gallaghers on 5/24/18.
+ * Sean Gallagher & David White
+ * Class used in Model. Spawns new cars to enter onto RoadSegments.
  */
 import java.util.Random;
 

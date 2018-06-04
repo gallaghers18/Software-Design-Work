@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by gallaghers on 5/24/18.
+ * Sean Gallagher & David White
+ * Class used in model. Houses the list of cars for a given road.
  */
 
 public class RoadSegment {
@@ -36,6 +37,12 @@ public class RoadSegment {
      */
     public ArrayList<Integer> getCurrentState() {
         return road_state;
+    }
+
+    public void resetRoadState() {
+        for (int i=0; i<road_state.size(); i++) {
+            road_state.set(i,0);
+        }
     }
 
     /**
