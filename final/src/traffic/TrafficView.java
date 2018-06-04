@@ -1,38 +1,47 @@
 package traffic;
 
-
-//import com.sun.xml.internal.fastinfoset.tools.XML_SAX_StAX_FI;
-import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-
 import java.util.ArrayList;
 
 
+/**
+ * Sean Gallagher & David White
+ *
+ * The Traffic View. This is where the actual simulation with
+ * cars and roads is displayed. Contains initialize and update
+ * methods for all of the graphics.
+ *
+ * Note: all location is being done by feeding absolute
+ * values (0, 1, 2, etc) and scaling up to the appropriate pixel location
+ * via stuff like START_X+ROAD_LENGTH*x, etc. (This is another area
+ * we would clean up better and make a little more versatile if we had time)
+ */
 public class TrafficView extends Group {
-    public int START_X = 50;
-    public int START_Y = 50;
-    public int ROAD_LENGTH = 96;
-    public int NUM_ROADS =6;
+    private int START_X = 50;
+    private int START_Y = 50;
+    private int ROAD_LENGTH = 96;
+    private int NUM_ROADS =6;
     private Canvas canvas;
     private GraphicsContext gc;
 
+    /**
+     * Constructor, initializes the TrafficView, creating
+     * canvas and graphicsContext for working with canvas.
+     * */
     public TrafficView() {
         canvas = new Canvas(800, 800);
         gc = canvas.getGraphicsContext2D();
         this.getChildren().add(canvas);
     }
 
+    /**
+     * Draws the lines for the roads, which is only run once and then
+     * stays on the canvas.
+     * */
     public void initializeRoads() {
         //Vertical lines
         for (int x = 1; x < NUM_ROADS + 1; x++) {
@@ -48,6 +57,15 @@ public class TrafficView extends Group {
         }
     }
 
+    /**
+     * Erases and redraws all of the cars
+     * based on their new location in the model
+     *
+     * (Probably the ugliest section of code, but we got it
+     * working and it is not the highest priority to clean up)
+     *
+     * @param model TrafficModel for getting road states.
+     * */
     public void updateRoads(Model model) {
         for (RoadSegment road : model.getRoads()) {
             TrafficNode in = road.getIn();
@@ -104,17 +122,20 @@ public class TrafficView extends Group {
                     }
                 }
             }
-
-
         }
-
-
-
     }
 
 
 
-    public void drawCar(int x, int y, int width, int height) {
+    /**
+     * Draws a green car at the given raw location and size.
+     *
+     * @param height height of car.
+     * @param width width of car.
+     * @param x x-position of car.
+     * @param y y-position of car.
+     * */
+    private void drawCar(int x, int y, int width, int height) {
         gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLACK);
         gc.clearRect(x, y, width, height);
@@ -122,7 +143,12 @@ public class TrafficView extends Group {
         gc.setFill(Color.BLACK);
     }
 
-
+    /**
+     * Updates the stoplights view, switching direction when
+     * appropriate
+     *
+     * @param model TrafficModel for getting stoplight states.
+     * */
     public void updateStoplights(Model model) {
             for (TrafficNode node : model.getNodes()){
                 if (node instanceof Stoplight) {
@@ -131,6 +157,14 @@ public class TrafficView extends Group {
             }
         }
 
+    /**
+     * Literal draw method used in updateStopLights, taking stoplight
+     * position and status and drawing it on the canvas
+     *
+     * @param open_north_south true if stoplight is open north_south.
+     * @param x absolute x value to position based off.
+     * @param y absolute y value to position based off.
+     * */
     public void drawStoplight(boolean open_north_south, int x, int y) {
         gc.setFill(Color.BLACK);
         gc.clearRect(START_X+(ROAD_LENGTH*x-7),START_Y+(ROAD_LENGTH*y-7), 14, 14);
@@ -149,9 +183,15 @@ public class TrafficView extends Group {
         }
     }
 
-
-
-
+    /**
+     * Creates a slider at a spot over the traffic view
+     * canvas to be then hooked up to a generator
+     *
+     * @param x x position to be drawn at
+     * @param y y position to be drawn at
+     *
+     * @return Slider the slider so that its value may be gathered.
+     * */
     public Slider createSlider(int x, int y) {
         Slider slider = new Slider(0, 100,5);
         slider.setShowTickLabels(true);
@@ -160,7 +200,7 @@ public class TrafficView extends Group {
         slider.setMinorTickCount(5);
         slider.setBlockIncrement(10);
         slider.setPrefSize(30, 8);
-        slider.setTranslateX(START_X+ROAD_LENGTH*x);
+        slider.setTranslateX(START_X+ROAD_LENGTH*x-16);
         slider.setTranslateY(START_Y+ROAD_LENGTH*y);
         return slider;
     }

@@ -1,11 +1,8 @@
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import traffic.TrafficView?>
 <?import traffic.ControlsView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.Slider?>
+
 
 <BorderPane fx:controller="traffic.Controller"
             xmlns:fx="http://javafx.com/fxml">

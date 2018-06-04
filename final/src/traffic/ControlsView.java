@@ -12,6 +12,9 @@ import javafx.scene.control.Slider;
  */
 public class ControlsView extends Group {
 
+    /**
+     * Constructor: doesn't do anything special.
+     * */
     public ControlsView () {
     }
 
