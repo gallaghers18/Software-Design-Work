@@ -18,6 +18,9 @@ public class Stopsign extends TrafficNode {
     public int car=0;
     private int direction=0;
 
+    /**
+     * Constructor, creates links between this and roadsegments passed in.
+     */
     public Stopsign(ArrayList<RoadSegment> roads, int xpos, int ypos) {
         north_to_south = new ArrayList(roads.subList(0,2));
         if(north_to_south.get(0)!=null){
@@ -51,6 +54,9 @@ public class Stopsign extends TrafficNode {
         super.setYpos(ypos);
     }
 
+    /**
+     * Returns arraylist of all roadsegments attached to this.
+     */
     public ArrayList<RoadSegment> getRoads(){
         ArrayList<RoadSegment> out=new ArrayList<>();
         out.addAll(north_to_south);
@@ -58,10 +64,6 @@ public class Stopsign extends TrafficNode {
         out.addAll(east_to_west);
         out.addAll(west_to_east);
         return out;
-    }
-
-    public String getTypeOfIntersection() {
-        return "Stoplight";
     }
 
     /**
@@ -129,6 +131,9 @@ public class Stopsign extends TrafficNode {
         }
     }
 
+    /**
+     * Returns the relative location of the TrafficNode at the other end of road from this as [deltax, deltay]
+     */
     public int[] deltaDirection(RoadSegment road){
         int[] out={0,0};
         if(north_to_south.contains(road)){

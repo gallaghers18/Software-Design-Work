@@ -17,7 +17,9 @@ public class Stoplight extends TrafficNode {
     private int car_going_NE=0;
     private int car_going_SW=0;
 
-
+    /**
+     * Constructor, creates links between this and roadsegments passed in.
+     */
     public Stoplight(ArrayList<RoadSegment> roads, int xpos, int ypos) {
         north_to_south = new ArrayList(roads.subList(0,2));
         if(north_to_south.get(0)!=null){
@@ -52,6 +54,9 @@ public class Stoplight extends TrafficNode {
         open_north_south=false;
     }
 
+    /**
+     * Returns arraylist of all roadsegments attached to this.
+     */
     public ArrayList<RoadSegment> getRoads(){
         ArrayList<RoadSegment> out=new ArrayList<>();
         out.addAll(north_to_south);
@@ -59,10 +64,6 @@ public class Stoplight extends TrafficNode {
         out.addAll(east_to_west);
         out.addAll(west_to_east);
         return out;
-    }
-
-    public String getTypeOfIntersection() {
-        return "Stoplight";
     }
 
     /**
@@ -115,6 +116,9 @@ public class Stoplight extends TrafficNode {
         }
     }
 
+    /**
+     * Returns the relative location of the TrafficNode at the other end of road from this as [deltax, deltay]
+     */
     public int[] deltaDirection(RoadSegment road){
         int[] out={0,0};
         if(north_to_south.contains(road)){
@@ -152,6 +156,9 @@ public class Stoplight extends TrafficNode {
         return out;
     }
 
+    /**
+     * Red light. Green light.
+     */
     public void changeLight() {
         open_north_south=!open_north_south;
     }

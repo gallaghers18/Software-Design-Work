@@ -41,10 +41,16 @@ public class Generator extends TrafficNode {
         }
     }
 
+    /**
+     * Get total cars created up to this point.
+     */
     public int getTotalCreated(){
         return created;
     }
 
+    /**
+     * Set probability for spawning car
+     */
     public void setSpawnRate(double rate){
         this.rate=rate;
     }

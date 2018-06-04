@@ -187,7 +187,7 @@ public class Controller {
     }
 
     /**
-     * SliderGenerator class that pairs a Slider and
+     * SliderGenerator subclass that pairs a Slider and
      * a Generator object
      *
      * Has two simple getters, one for slider and
